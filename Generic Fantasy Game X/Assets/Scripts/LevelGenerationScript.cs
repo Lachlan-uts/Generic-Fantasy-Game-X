@@ -7,22 +7,36 @@ public class LevelGenerationScript : MonoBehaviour {
 
 	// Serialized Private Variables
 	[SerializeField]
+	private GameObject[] validEntrances;
+	[SerializeField]
 	private GameObject[] validRooms;
 	[SerializeField]
+	private GameObject[] validLoot;
+	[SerializeField]
+	private GameObject[] validEnemies;
+	[SerializeField]
+	private GameObject exitStairs;
+	[SerializeField]
 	private int numRooms = 3;
+	[SerializeField]
+	private int numEnemies = 5;
 
 	// Private Variables
 	private int genStage;
 	private int curRooms;
+	private int curEnemies;
 	private List<GameObject> rooms;
 	private List<GameObject> completedRooms;
+	private List<GameObject> enemySpawnPoints;
 
 	// Use this for initialization
 	void Start () {
 		rooms = new List<GameObject> ();
 		completedRooms = new List<GameObject> ();
+		curRooms = 0;
 		generateInitialRoom ();
 		genStage = 0;
+		curEnemies = 0;
 	}
 	
 	// Update is called once per frame
@@ -35,16 +49,30 @@ public class LevelGenerationScript : MonoBehaviour {
 			if (curRooms < numRooms) {
 				generateAdditionalRoom ();
 			} else {
-				genStage = 2; // Temporarily "skip" a "generation stage" during which obstacles could be spawned
+				genStage = 1; // Temporarily "skip" a "generation stage" during which obstacles could be spawned
 			}
+		} else if (genStage == 1) {
+			// Future Support for generation of "chests", should we decide to add those in
+			genStage = 2;
 		} else if (genStage == 2) {
 			GenerateNavMesh ();
 			genStage = 3;
+		} else if (genStage == 3) {
+			enemySpawnPoints = GetEnemySpawns ();
+			genStage = 4;
+		} else if (genStage == 4) {
+			if (curEnemies < numEnemies) {
+				SpawnEnemy ();
+			}
+			genStage = 5;
+		} else if (genStage == 5) {
+			SpawnExit ();
+			genStage = 6;
 		}
 	}
 
 	void generateInitialRoom() {
-		GameObject newRoom = validRooms [Random.Range (0, validRooms.Length)];
+		GameObject newRoom = validEntrances [Random.Range (0, validEntrances.Length)];
 		GameObject instantRoom = Instantiate (newRoom, new Vector3 (0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
 		instantRoom.name = "firstRoom"; // Debug purposes
 		rooms.Add (instantRoom);
@@ -294,5 +322,58 @@ public class LevelGenerationScript : MonoBehaviour {
 		}
 	}
 
+	List<GameObject> GetEnemySpawns() {
+		List<GameObject> enemySpawnPoints = new List<GameObject> ();
+		foreach (GameObject room in completedRooms) {
+			if (room.GetComponent<RoomValueStore> ().enemyLocations.Count > 0) {
+				foreach (GameObject enemySpawn in room.GetComponent<RoomValueStore>().enemyLocations) {
+					enemySpawnPoints.Add (enemySpawn);
+				}
+			}
+		}
+
+		foreach (GameObject room in rooms) {
+			if (room.GetComponent<RoomValueStore> ().enemyLocations.Count > 0) {
+				foreach (GameObject enemySpawn in room.GetComponent<RoomValueStore>().enemyLocations) {
+					enemySpawnPoints.Add (enemySpawn);
+				}
+			}
+		}
+
+		return enemySpawnPoints;
+	}
+
+	void SpawnEnemy() {
+		// Add conditions for spawning an enemy in a valid position, possibly using Physics.OverlapBox centered on the chosen enemy configuration
+		curEnemies++;
+	}
+
+	void SpawnExit() {
+		List<GameObject> potentialExits = new List<GameObject> ();
+
+		foreach (GameObject room in completedRooms) {
+			if (room.GetComponent<RoomValueStore> ().exitLocations.Count > 0) {
+				foreach (GameObject exitSpawn in room.GetComponent<RoomValueStore>().exitLocations) {
+					potentialExits.Add (exitSpawn);
+				}
+			}
+		}
+
+		foreach (GameObject room in rooms) {
+			if (room.GetComponent<RoomValueStore> ().exitLocations.Count > 0) {
+				foreach (GameObject exitSpawn in room.GetComponent<RoomValueStore>().exitLocations) {
+					potentialExits.Add (exitSpawn);
+				}
+			}
+		}
+
+		int exitNumber = Random.Range (0, potentialExits.Count);
+		Vector3 exitPos = potentialExits [exitNumber].transform.position;
+		Vector3 exitRot = potentialExits [exitNumber].transform.rotation.eulerAngles;
+
+		// Spawn the Exit Stairs
+		//GameObject exitLocation = Instantiate(exitStairs, exitPos, Quaternion.Euler(exitRot)) as GameObject;
+		Debug.Log("Exit Spawned.");
+	}
 
 }

@@ -8,6 +8,9 @@ public class RoomValueStore : MonoBehaviour {
 	public float zSize = 1.0f;
 	public List<GameObject> roomInternodes;
 	public List<GameObject> floorPlanObjects;
+	public List<GameObject> exitLocations;
+	public List<GameObject> lootLocations;
+	public List<GameObject> enemyLocations;
 
 	// Use this for initialization
 	void Start () {

@@ -537,6 +537,9 @@ MonoBehaviour:
   - {fileID: 1677171026260494}
   floorPlanObjects:
   - {fileID: 1879372380972604}
+  exitLocations: []
+  lootLocations: []
+  enemyLocations: []
 --- !u!114 &114850774319778510
 MonoBehaviour:
   m_ObjectHideFlags: 1
