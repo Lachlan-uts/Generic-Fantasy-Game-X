@@ -15,6 +15,17 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Vector3 playerPos = GameObject.FindGameObjectWithTag("Hero").transform.position;
+            this.transform.position = new Vector3(playerPos.x, 15, playerPos.z - 15);
+            //transform.rotation.Set(40, 0, 0, 0);
+        }
+        else DragCamControl();
+    }
+
+    void DragCamControl()
+    {
         if (Input.GetMouseButtonDown(1))
         {
             dragOrigin = Input.mousePosition;
