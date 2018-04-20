@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - GameUI
+  - PauseMenu
+  - CharacterUI
+  - EnemyUI
+  - Enemy
   layers:
   - Default
   - TransparentFX
