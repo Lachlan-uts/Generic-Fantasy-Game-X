@@ -308,7 +308,7 @@ public class LevelGenerationScript : MonoBehaviour {
 
 	void GenerateNavMesh() {
 		
-
+		/*
 		foreach (GameObject room in rooms) {
 			foreach (GameObject floorPiece in room.GetComponent<RoomValueStore>().floorPlanObjects) {
 				floorPiece.GetComponent<NavMeshSurface> ().BuildNavMesh ();
@@ -319,6 +319,14 @@ public class LevelGenerationScript : MonoBehaviour {
 			foreach (GameObject floorPiece in room.GetComponent<RoomValueStore>().floorPlanObjects) {
 				floorPiece.GetComponent<NavMeshSurface> ().BuildNavMesh ();
 			}
+		}
+
+		*/
+		Debug.Log ("Room Count: " + rooms.Count);
+		if (rooms.Count > 0) {
+			rooms [0].GetComponent<RoomValueStore> ().floorPlanObjects [0].GetComponent<NavMeshSurface> ().BuildNavMesh ();
+		} else {
+			completedRooms [0].GetComponent<RoomValueStore> ().floorPlanObjects [0].GetComponent<NavMeshSurface> ().BuildNavMesh ();
 		}
 	}
 
