@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class LevelGenerationScript : MonoBehaviour {
 
+	// Public Variables
+	public int floorNumber = 0;
+
 	// Serialized Private Variables
 	[SerializeField]
 	private GameObject[] validEntrances;
@@ -13,7 +16,11 @@ public class LevelGenerationScript : MonoBehaviour {
 	[SerializeField]
 	private GameObject[] validLoot;
 	[SerializeField]
-	private GameObject[] validEnemies;
+	private GameObject[] validEnemiesLight;
+	[SerializeField]
+	private GameObject[] validEnemiesModerate;
+	[SerializeField]
+	private GameObject[] validEnemiesBrute;
 	[SerializeField]
 	private GameObject exitStairs;
 	[SerializeField]
@@ -61,10 +68,12 @@ public class LevelGenerationScript : MonoBehaviour {
 			enemySpawnPoints = GetEnemySpawns ();
 			genStage = 4;
 		} else if (genStage == 4) {
+			Debug.Log ("Spawning Enemy");
 			if (curEnemies < numEnemies) {
 				SpawnEnemy ();
+			} else {
+				genStage = 5;
 			}
-			genStage = 5;
 		} else if (genStage == 5) {
 			SpawnExit ();
 			genStage = 6;
@@ -352,8 +361,63 @@ public class LevelGenerationScript : MonoBehaviour {
 	}
 
 	void SpawnEnemy() {
+		
+
 		// Add conditions for spawning an enemy in a valid position, possibly using Physics.OverlapBox centered on the chosen enemy configuration
-		curEnemies++;
+		int enemySpawnNumber = Random.Range(0, enemySpawnPoints.Count);
+		int chanceLow, chanceMid, chanceBrt; // Determines the % chance of a particular enemy class spawning
+		// i.e. > 100 means that class cannot spawn. Useful when the lists are empty as they tend to be at this early stage
+		// Note: should later allow chances to be augmented by party count, floor, etc.
+		if (validEnemiesModerate.Length > 0 && validEnemiesBrute.Length == 0) {
+			chanceLow = 70;
+			chanceMid = 100;
+			chanceBrt = 101;
+		} else if (validEnemiesBrute.Length > 0) {
+			chanceLow = 50;
+			chanceMid = 80;
+			chanceBrt = 100;
+		} else {
+			chanceLow = 100;
+			chanceMid = 101;
+			chanceBrt = 101;
+		}
+
+		int enemyClassInt = Mathf.RoundToInt(Random.Range (0.0f, 100.0f));
+		GameObject enemyToSpawn;
+		if (enemyClassInt < chanceLow) {
+			enemyToSpawn = validEnemiesLight [Random.Range (0, validEnemiesLight.Length)];
+		} else if (enemyClassInt < chanceMid) {
+			enemyToSpawn = validEnemiesLight [Random.Range (0, validEnemiesLight.Length)];
+			//enemyToSpawn = validEnemiesModerate [Random.Range (0, validEnemiesModerate.GetLength ())];
+		} else {
+			enemyToSpawn = validEnemiesLight [Random.Range (0, validEnemiesLight.Length)];
+			//enemyToSpawn = validEnemiesBrute [Random.Range (0, validEnemiesBrute.GetLength ())];
+		}
+
+		Vector3 spawnPos = enemySpawnPoints [enemySpawnNumber].transform.position;
+		Vector3 spawnRot = enemySpawnPoints [enemySpawnNumber].transform.rotation.eulerAngles;
+
+		Vector3 spawnPosTest = new Vector3 (spawnPos.x, spawnPos.y + 0.2f, spawnPos.z);
+
+		//Debug.Log ("Spawn Position: " + spawnPosTest);
+		//Debug.Log ("Spawn Collisions Length: " + Physics.OverlapBox (spawnPosTest, 
+		//	new Vector3 (enemyToSpawn.transform.localScale.x / 2, 0.05f, enemyToSpawn.transform.localScale.z / 2), 
+		//	Quaternion.Euler (spawnRot)).Length);
+
+		if (Physics.OverlapBox (spawnPosTest, 
+			    new Vector3 (enemyToSpawn.transform.localScale.x/2, 0.05f, enemyToSpawn.transform.localScale.z/2), 
+			    Quaternion.Euler (spawnRot)).Length == 0) {
+			GameObject newEnemy = Instantiate (enemyToSpawn, spawnPos, Quaternion.Euler (spawnRot)) as GameObject;
+			// Note: Here is where code would go to properly initialize enemy resources
+
+			// Remove SpawnPoint from the list
+			enemySpawnPoints.Remove(enemySpawnPoints[enemySpawnNumber]);
+
+			curEnemies++;
+		}
+
+
+		//curEnemies++;
 	}
 
 	void SpawnExit() {
