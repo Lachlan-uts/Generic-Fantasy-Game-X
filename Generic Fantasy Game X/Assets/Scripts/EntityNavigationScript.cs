@@ -18,6 +18,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		agent.destination = goal.position;
+		if (goal != null)
+			agent.destination = goal.position;
 	}
 }
