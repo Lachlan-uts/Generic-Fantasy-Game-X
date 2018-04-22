@@ -21,4 +21,8 @@ public class EntityNavigationScript : MonoBehaviour {
 		if (goal != null)
 			agent.destination = goal.position;
 	}
+
+	public void SetDestination(Vector3 goal) {
+		agent.destination = goal;
+	}
 }
