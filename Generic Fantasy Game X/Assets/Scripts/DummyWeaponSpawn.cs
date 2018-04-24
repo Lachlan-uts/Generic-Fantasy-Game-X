@@ -39,7 +39,5 @@ public class DummyWeaponSpawn : MonoBehaviour {
     void Update()
     {
 
-    }
-
-   
+    }   
 }
