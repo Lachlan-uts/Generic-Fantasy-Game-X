@@ -80,11 +80,13 @@ public class LevelGenerationScript : MonoBehaviour {
 		} else if (genStage == 2) {
 			// Spawn Furniture
 			if (curRooms < rooms.Count) {
-				//rooms [curRooms].GetComponent<RoomValueStore> ().spawnFurniture ();
+				rooms [curRooms].GetComponent<RoomValueStore> ().spawnFurniture ();
 				curRooms++;
+				Debug.Log ("Furniture in 'incomplete' rooms.");
 			} else if (curRooms < (rooms.Count + completedRooms.Count)) {
-				
+				completedRooms [curRooms-rooms.Count].GetComponent<RoomValueStore> ().spawnFurniture ();
 				curRooms++;
+				Debug.Log ("Furniture in 'complete' rooms.");
 			} else {
 				genStage = 3;
 			}
