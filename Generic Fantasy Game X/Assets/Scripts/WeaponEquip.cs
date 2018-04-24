@@ -13,6 +13,16 @@ public class WeaponEquip : MonoBehaviour {
     // Use this for initialization
     void Start () {
         currentWeapon = weapons[0];
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            Collider detector = weapons[i].GetComponent<Collider>();
+            detector.enabled = false;
+            Rigidbody rigidbody = weapons[i].GetComponentInChildren<Rigidbody>();
+            rigidbody.useGravity = false;
+            rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX |
+                RigidbodyConstraints.FreezeRotationZ;
+            
+        }
         swordActive = true;
         axeActive = false;
         maceActive = false;
