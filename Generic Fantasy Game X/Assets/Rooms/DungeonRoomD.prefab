@@ -1255,3 +1255,5 @@ MonoBehaviour:
   - {fileID: 1151409808585616}
   - {fileID: 1271363846965918}
   - {fileID: 1376060596689448}
+  furnitureLocations: []
+  validFurniture: []

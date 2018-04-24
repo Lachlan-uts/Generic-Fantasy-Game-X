@@ -24,6 +24,10 @@ public class LevelGenerationScript : MonoBehaviour {
 	[SerializeField]
 	private GameObject exitStairs;
 	[SerializeField]
+	private GameObject roomDoor;
+	[SerializeField]
+	private GameObject roomRubble;
+	[SerializeField]
 	private int numRooms = 3;
 	[SerializeField]
 	private int numEnemies = 5;
@@ -32,17 +36,20 @@ public class LevelGenerationScript : MonoBehaviour {
 	private int genStage;
 	private int curRooms;
 	private int curEnemies;
-	private List<GameObject> rooms;
-	private List<GameObject> completedRooms;
-	private List<GameObject> enemySpawnPoints;
+	private List<GameObject> rooms; // List of rooms with still usable nodes
+	private List<GameObject> completedRooms; // List of rooms with nodes that are all used
+	private List<GameObject> doorNodes; // List of nodes at which to place doors
+	private List<GameObject> rubbleNodes; // List of nodes at which to place rubble
+	private List<GameObject> enemySpawnPoints; // List of enemy spawn points
 
 	// Use this for initialization
 	void Start () {
 		rooms = new List<GameObject> ();
 		completedRooms = new List<GameObject> ();
+		doorNodes = new List<GameObject> ();
 		curRooms = 0;
 		generateInitialRoom ();
-		genStage = 0;
+		genStage = -1;
 		curEnemies = 0;
 	}
 	
@@ -52,31 +59,64 @@ public class LevelGenerationScript : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (genStage == 0) {
+		if (genStage == -1) {
 			if (curRooms < numRooms) {
 				generateAdditionalRoom ();
 			} else {
-				genStage = 1; // Temporarily "skip" a "generation stage" during which obstacles could be spawned
+				genStage = 0; // Temporarily "skip" a "generation stage" during which obstacles could be spawned
+				curRooms = 0; // Reset the curRooms so as to iterate through each room for furniture later
 			}
+		} else if (genStage == 0) {
+			// Generate List of Rubble Nodes
+			rubbleNodes = GetRubbleLocations();
+			genStage = 1;
 		} else if (genStage == 1) {
-			// Future Support for generation of "chests", should we decide to add those in
-			genStage = 2;
+			// Spawn Rubble
+			if (rubbleNodes.Count > 0) {
+				SpawnRubble ();
+			} else {
+				genStage = 2;
+			}
 		} else if (genStage == 2) {
-			GenerateNavMesh ();
-			genStage = 3;
+			// Spawn Furniture
+			if (curRooms < rooms.Count) {
+				rooms [curRooms].GetComponent<RoomValueStore> ().spawnFurniture ();
+				curRooms++;
+				Debug.Log ("Furniture in 'incomplete' rooms.");
+			} else if (curRooms < (rooms.Count + completedRooms.Count)) {
+				completedRooms [curRooms-rooms.Count].GetComponent<RoomValueStore> ().spawnFurniture ();
+				curRooms++;
+				Debug.Log ("Furniture in 'complete' rooms.");
+			} else {
+				genStage = 3;
+			}
 		} else if (genStage == 3) {
-			enemySpawnPoints = GetEnemySpawns ();
+			// Generate NavMesh
+			GenerateNavMesh ();
 			genStage = 4;
 		} else if (genStage == 4) {
-			Debug.Log ("Spawning Enemy");
-			if (curEnemies < numEnemies) {
-				SpawnEnemy ();
+			// Spawn Doors
+			if (doorNodes.Count > 0) {
+				SpawnDoor ();
 			} else {
 				genStage = 5;
 			}
 		} else if (genStage == 5) {
-			SpawnExit ();
+			// Generate List of enemy spawn locations
+			enemySpawnPoints = GetEnemySpawns ();
 			genStage = 6;
+		} else if (genStage == 6) {
+			// Spawn Enemies
+			Debug.Log ("Spawning Enemy");
+			if (curEnemies < numEnemies) {
+				SpawnEnemy ();
+			} else {
+				genStage = 7;
+			}
+		} else if (genStage == 7) {
+			// Spawn the exit hatch
+			SpawnExit ();
+			genStage = 8;
 		}
 	}
 
@@ -253,6 +293,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			// Rename it for debug purposes
 			instantRoom.GetComponent<RoomValueStore> ().removeNodeAvailability (newRoom.GetComponent<RoomValueStore>().roomInternodes.IndexOf(selectedNodeB));
 			// Remove selectedNodeB within the new instance of the room
+			doorNodes.Add(selectedNodeA); // Add the first of the paired nodes to the list of door nodes
 			room.GetComponent<RoomValueStore> ().removeNodeAvailability (selectedNodeA);
 			// Remove selectedNodeA within the original target room
 
@@ -278,9 +319,10 @@ public class LevelGenerationScript : MonoBehaviour {
 							&& instantRoom.GetComponent<RoomValueStore> ().roomInternodes [countB].transform.position.y.ToString("F2")
 							== preActiveNodes [countA].transform.position.y.ToString("F2")
 							&& instantRoom.GetComponent<RoomValueStore> ().roomInternodes [countB].transform.position.z.ToString("F2")
-							== preActiveNodes [countA].transform.position.z.ToString("F2")) {
+							== preActiveNodes [countA].transform.position.z.ToString("F2")) { // If there is another node belonging to another room at these co-ords
 							preActiveNodes [countA].gameObject.GetComponentInParent<RoomValueStore> ().removeNodeAvailability (preActiveNodes [countA]);
 							preActiveNodes.Remove (preActiveNodes [countA]);
+							doorNodes.Add(preActiveNodes[countA]); // Add the paired nodes to the list of door nodes where doors can be spawned
 							instantRoom.GetComponent<RoomValueStore> ().removeNodeAvailability (instantRoom.GetComponent<RoomValueStore> ().roomInternodes [countB]);
 							countB--;
 							countA--;
@@ -313,6 +355,33 @@ public class LevelGenerationScript : MonoBehaviour {
 
 			Debug.Log (instantRoom.name + " Done!");
 		}
+	}
+
+	void SpawnDoor() {
+		GameObject newDoor = Instantiate (roomDoor, doorNodes [0].transform.position, Quaternion.Euler (doorNodes [0].transform.rotation.eulerAngles)) as GameObject;
+		Debug.Log("Door Spawned");
+		doorNodes.Remove (doorNodes [0]);
+	}
+
+	List<GameObject> GetRubbleLocations() { // Generate and return a list of nodes where rubble can be placed
+		List<GameObject> rubbleLocations = new List<GameObject> ();
+		foreach (GameObject room in rooms) {
+			foreach (GameObject node in room.GetComponent<RoomValueStore>().roomInternodes) {
+				rubbleLocations.Add (node);
+			}
+		}
+
+		return rubbleLocations;
+	}
+
+	void SpawnRubble() {
+		GameObject newRubble = Instantiate (roomRubble, rubbleNodes [0].transform.position, Quaternion.Euler (rubbleNodes [0].transform.rotation.eulerAngles)) as GameObject;
+		Debug.Log("Rubble Spawned");
+		rubbleNodes.Remove (rubbleNodes [0]);
+	}
+
+	void GenerateFurniture() {
+
 	}
 
 	void GenerateNavMesh() {
