@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class WeaponEquip : MonoBehaviour {
 
-    GameObject currentWeapon;
-    bool swordActive, axeActive, maceActive;
+    
+    public bool swordActive, axeActive, maceActive;
+
+    private GameObject currentWeapon;
 
     [SerializeField]
     List<GameObject> weapons;
@@ -27,8 +29,6 @@ public class WeaponEquip : MonoBehaviour {
         axeActive = false;
         maceActive = false;
         EquipSword();
-        EquipAxe();
-        EquipMace();
     }
 	
 	// Update is called once per frame
@@ -36,30 +36,31 @@ public class WeaponEquip : MonoBehaviour {
 		
     }
 
-    void EquipSword()
+    public void EquipSword()
     {
-        if (swordActive == true)
-        {
-            weapons[0].SetActive(true);
-        }
-        else weapons[0].SetActive(false);
+        weapons[0].SetActive(true);
+        weapons[1].SetActive(false);
+        weapons[2].SetActive(false);
     }
 
-    void EquipAxe()
+    public void EquipAxe()
     {
-        if (axeActive == true)
-        {
-            weapons[1].SetActive(true);
-        }
-        else weapons[1].SetActive(false);
+        weapons[0].SetActive(false);
+        weapons[1].SetActive(true);
+        weapons[2].SetActive(false);
     }
 
-    void EquipMace()
+    public void EquipMace()
     {
-        if (maceActive == true)
-        {
-            weapons[2].SetActive(true);
-        }
-        else weapons[2].SetActive(false);
+        weapons[0].SetActive(false);
+        weapons[1].SetActive(false);
+        weapons[2].SetActive(true);
+    }
+
+    public int GetActive()
+    {
+        if (!swordActive) return 0;
+        else if (!axeActive) return 1;
+        else return 2;
     }
 }

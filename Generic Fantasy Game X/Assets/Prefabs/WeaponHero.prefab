@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 4972412565090338}
   - component: {fileID: 114622355377184168}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -544,6 +544,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d12cefc01bc174684ad93994ab17b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordActive: 0
+  axeActive: 0
+  maceActive: 0
   weapons:
   - {fileID: 1280040194817586}
   - {fileID: 1571431946044242}
