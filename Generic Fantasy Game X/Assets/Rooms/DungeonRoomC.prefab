@@ -1112,6 +1112,8 @@ MonoBehaviour:
   - {fileID: 1091942866984948}
   - {fileID: 1571685706115110}
   - {fileID: 1961403973072504}
+  furnitureLocations: []
+  validFurniture: []
 --- !u!114 &114579770041764162
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -11,6 +11,8 @@ public class RoomValueStore : MonoBehaviour {
 	public List<GameObject> exitLocations;
 	public List<GameObject> lootLocations;
 	public List<GameObject> enemyLocations;
+	public List<GameObject> furnitureLocations;
+	public List<GameObject> validFurniture;
 
 	// Use this for initialization
 	void Start () {
@@ -36,4 +38,6 @@ public class RoomValueStore : MonoBehaviour {
 		//Destroy (nodeToRemove);
 		nodeToRemove.SetActive (false);
 	}
+
+
 }
