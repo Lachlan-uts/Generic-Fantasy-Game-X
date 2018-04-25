@@ -39,11 +39,11 @@ public class EntityNavigationScript : MonoBehaviour {
 		for (int i = 1; i < path.corners.Length; i++) {
 			line.SetPosition (i, path.corners [i]);
 		}
-		Debug.Log("set of corners start");
-		foreach (Vector3 corner in path.corners) {
-			Debug.Log (corner);
-		}
-		Debug.Log("set of corners end");
+//		Debug.Log("set of corners start");
+//		foreach (Vector3 corner in path.corners) {
+//			Debug.Log (corner);
+//		}
+//		Debug.Log("set of corners end");
 	}
 
 	public void SetDestination(Vector3 goal) {

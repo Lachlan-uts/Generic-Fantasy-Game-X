@@ -8,6 +8,7 @@ TagManager:
   - Hero
   - EquippedWeapon
   - WeaponDrop
+  - Enemy
   layers:
   - Default
   - TransparentFX

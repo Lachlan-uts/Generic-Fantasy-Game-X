@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour {
 
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
 			selectedObject = hit.collider.gameObject;
-			Debug.Log (selectedObject.gameObject.name);
+//			Debug.Log (selectedObject.gameObject.name);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class CameraController : MonoBehaviour {
 
 		if (Physics.Raycast (cameraRay, out hit, 200f)) {
 			selectedObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point);
-			Debug.Log ("sending a move command");
+//			Debug.Log ("sending a move command");
 		}
 	}
 }
