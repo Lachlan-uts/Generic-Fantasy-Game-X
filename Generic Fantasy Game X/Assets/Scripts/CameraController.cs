@@ -11,16 +11,12 @@ public class CameraController : MonoBehaviour {
 	[SerializeField]
 	private Camera MCamera;
 
-	//movement shenanigans
-	[SerializeField]
-	private Transform goal;
-
 	//trying to make it so you can click to select a unit.
 	public GameObject selectedObject { private set; get; }
 
     // Use this for initialization
     void Start () {
-		
+		MCamera = Camera.main;
 	}
 	
 	// Update is called once per frame
@@ -43,13 +39,13 @@ public class CameraController : MonoBehaviour {
 
     private void DragCamControl()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             dragOrigin = Input.mousePosition;
             return;
         }
 
-        if (!Input.GetMouseButton(1)) return;
+        if (!Input.GetMouseButton(0)) return;
 
         Vector3 pos = Camera.main.ScreenToViewportPoint(dragOrigin - Input.mousePosition);
         Vector3 move = new Vector3(pos.x * dragSpeed, 0, pos.y * dragSpeed);
