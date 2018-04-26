@@ -19,7 +19,7 @@ public class DamagePlayer : MonoBehaviour {
 	void OnCollisionEnter(Collision other)
 	{
 		if (other.gameObject.name == "Hero") {
-			other.gameObject.GetComponent<PlayerStatManager> ().damageHealth (damage);
+			//other.gameObject.GetComponent<PlayerStatManager> ().damageHealth (damage);
 		}
 	}
 

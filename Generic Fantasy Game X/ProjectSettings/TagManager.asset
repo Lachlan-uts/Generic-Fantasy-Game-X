@@ -10,6 +10,9 @@ TagManager:
   - CharacterUI
   - EnemyUI
   - Enemy
+  - GameManagers
+  - Hero
+  - HealthBar
   layers:
   - Default
   - TransparentFX

@@ -4,30 +4,39 @@ using UnityEngine;
 
 public class PlayerStatManager : MonoBehaviour {
 
-	public int playerMaxHealth;
-	public int playerCurrentHealth;
+    PlayerManager playerManager;
 
-	// Use this for initialization
-	void Start () {
-		playerCurrentHealth = playerMaxHealth;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (playerCurrentHealth < 0) {
-			gameObject.SetActive (false);
-		}
+    PlayerInformation slot1 = new PlayerInformation();
+    public GameObject thisPlayer;
+    
 
-	}
+    void Start()
+    {
 
-	public void damageHealth(int damage)
-	{
-		playerCurrentHealth -= damage;
-	}
 
-	public void SetMaxHealth()
-	{
-		playerCurrentHealth = playerMaxHealth;
-	}
+        //playerManager = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<PlayerManager>();
+        //slot1.ThisPlayer = GameObject.FindGameObjectWithTag("Player");
+        //slot1.Name = "Slot 1 Player";
+        //slot1.level = playerManager.currentLevel;
+        //slot1.Exp = playerManager.currentExp;
+        //slot1.CurrentHP = playerManager.currentHP;
+        //slot1.MaxHP = playerManager.HPUp[playerManager.currentLevel];
+        //slot1.Damage = playerManager.currentAttack;
+        //slot1.IsActive = true;
+
+        //Debug.Log("first character: " + slot1.Name +
+        //  " " + slot1.exp +
+        //  " " + slot1.level +
+        //  " " + slot1.currentHP +
+        //  " " + slot1.maxHP +
+        //  " " + slot1.damage +
+        //  " " + slot1.isActive);
+    }
+    void Update()
+    {
+       
+
+    }
+   
 
 }

@@ -1,10 +1,15 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
-	public int currentLevel;
+    
+    public bool isActive;
+
+
+    public int currentLevel;
 	public int currentExp;
 	public int[] toLevelUp;
 	public int[] HPUp;
@@ -12,22 +17,29 @@ public class PlayerManager : MonoBehaviour {
 	//public int[] defenceUp;
 
 	public int currentHP;
-	public int currentAttack;
+    public int maxHP;
+    public int currentAttack;
 	//public int[] currentDefence;
 
-	private  PlayerInformation playerInfo;
+	
 	public GameObject currentPlayer;
+
+	//public GameObject slot1;
+	//public GameObject slot2;
+	//public GameObject slot3;
+	//public GameObject slot4;
 
 	// Use this for initialization
 	void Start () {
-		currentHP = HPUp [1];
-		currentAttack = attackUp[1];
+       
+        currentHP = HPUp [0];
+		currentAttack = attackUp[0];
 		currentLevel = 1;
 		currentExp = 0;
-		currentPlayer = GameObject.FindGameObjectWithTag ("Player");
-		playerInfo = currentPlayer.GetComponent<PlayerInformation> ();
+		currentPlayer = GameObject.FindGameObjectWithTag ("Hero");
+        maxHP = HPUp[currentLevel-1];
 
-		Debug.Log ("Player Manager: " + currentHP + currentAttack + currentLevel + currentExp);
+        Debug.Log ("Player Manager: " + currentHP + currentAttack + currentLevel + currentExp);
 	}
 	
 	// Update is called once per frame
@@ -49,11 +61,15 @@ public class PlayerManager : MonoBehaviour {
 		//currentDefence = defenceUp[currentLevel];
 		//playerHealth.playerMaxHealth = currentHP;
 
-		playerInfo.MaxHP = currentHP;
-		playerInfo.CurrentHP += currentHP - HPUp [currentLevel - 1];
+		
+		currentHP += currentHP - HPUp [currentLevel - 1];
 		//playerInfo.
 
 	}
+
+  
+
+
 
 
 }
