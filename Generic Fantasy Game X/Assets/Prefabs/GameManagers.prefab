@@ -52,12 +52,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf8ac3c7182934448f152fbd7522208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   currentLevel: 0
   currentExp: 0
   toLevelUp: 050000000a0000000f000000
   HPUp: 050000000a0000000f000000
   attackUp: 050000000a0000000f000000
   currentHP: 0
+  maxHP: 0
   currentAttack: 0
   currentPlayer: {fileID: 0}
 --- !u!114 &114956237955502734
