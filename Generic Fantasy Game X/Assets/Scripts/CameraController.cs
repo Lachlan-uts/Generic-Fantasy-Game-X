@@ -75,7 +75,7 @@ public class CameraController : MonoBehaviour {
 		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
 
 		if (Physics.Raycast (cameraRay, out hit, 200f)) {
-			selectedObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point);
+			selectedObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point,this.gameObject);
 //			Debug.Log ("sending a move command");
 		}
 	}

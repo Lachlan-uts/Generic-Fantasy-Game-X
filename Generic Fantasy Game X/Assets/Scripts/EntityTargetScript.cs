@@ -23,15 +23,15 @@ public class EntityTargetScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (SightCheck ())
-			entityNavigationScript.SetDestination (targetEntity.transform.position);
+			entityNavigationScript.SetDestination (targetEntity.transform.position,this.gameObject);
 	}
 
 	private bool SightCheck() {
 		RaycastHit hit;
 		Ray entityRay = new Ray(transform.position, targetEntity.transform.position - transform.position);
-		Debug.DrawRay (transform.position, targetEntity.transform.position - transform.position);
+		Debug.DrawRay (transform.position, targetEntity.transform.position - transform.position, Color.black, 1.0f, true);
 		if (Physics.Raycast (entityRay, out hit, 20f)) {
-			if (hit.collider.CompareTag ("Hero")) {
+			if (hit.collider.CompareTag ("Hero") || hit.collider.CompareTag ("Enemy")) {
 				return true;
 				Debug.Log ("it can see it!");
 			}
