@@ -41,6 +41,8 @@ public class LevelGenerationScript : MonoBehaviour {
 	private List<GameObject> doorNodes; // List of nodes at which to place doors
 	private List<GameObject> rubbleNodes; // List of nodes at which to place rubble
 	private List<GameObject> enemySpawnPoints; // List of enemy spawn points
+	private GameObject[] enemyList; // Used to disable enemies prior to 'spawning' in heroes and back again
+	private GameObject[] heroSpawnList; // List of hero spawn locations, dependant on spawn locations within the starting room
 
 	// Use this for initialization
 	void Start () {
@@ -68,7 +70,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			}
 		} else if (genStage == 0) {
 			// Generate List of Rubble Nodes
-			rubbleNodes = GetRubbleLocations();
+			rubbleNodes = GetRubbleLocations ();
 			genStage = 1;
 		} else if (genStage == 1) {
 			// Spawn Rubble
@@ -84,7 +86,7 @@ public class LevelGenerationScript : MonoBehaviour {
 				curRooms++;
 				Debug.Log ("Furniture in 'incomplete' rooms.");
 			} else if (curRooms < (rooms.Count + completedRooms.Count)) {
-				completedRooms [curRooms-rooms.Count].GetComponent<RoomValueStore> ().spawnFurniture ();
+				completedRooms [curRooms - rooms.Count].GetComponent<RoomValueStore> ().spawnFurniture ();
 				curRooms++;
 				Debug.Log ("Furniture in 'complete' rooms.");
 			} else {
@@ -117,6 +119,23 @@ public class LevelGenerationScript : MonoBehaviour {
 			// Spawn the exit hatch
 			SpawnExit ();
 			genStage = 8;
+		} else if (genStage == 8) {
+			// Disable enemy units so no premature action occurs
+			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
+			foreach (GameObject enemy in enemyList) {
+				enemy.SetActive (false);
+			}
+			genStage = 9;
+		} else if (genStage == 9) {
+			// Spawn in heroes (in reality, relocate them from wherever to spawn points within the starting room)
+
+			genStage = 10;
+		} else if (genStage == 10) {
+			// Re-enable enemies within the floor. It's altercation time!
+			foreach (GameObject enemy in enemyList) {
+				enemy.SetActive (true);
+			}
+			genStage = 11;
 		}
 	}
 
@@ -380,9 +399,9 @@ public class LevelGenerationScript : MonoBehaviour {
 		rubbleNodes.Remove (rubbleNodes [0]);
 	}
 
-	void GenerateFurniture() {
-
-	}
+	//void GenerateFurniture() {
+	//
+	//}
 
 	void GenerateNavMesh() {
 		
