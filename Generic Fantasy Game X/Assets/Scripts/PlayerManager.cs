@@ -18,12 +18,21 @@ public class PlayerManager : MonoBehaviour {
 
 	public int currentHP;
     public int maxHP;
-    public int currentAttack;
+    public float currentAttack;
 	//public int[] currentDefence;
 
 	
 	public GameObject currentPlayer;
+	public GameObject target;
 
+	public float autoAttackCooldown;
+	public float autoAttackCurrentTime;
+
+	RaycastHit hit;
+    Ray ray;
+
+    //will need to fix this
+    public bool canAttack = true;
 	//public GameObject slot1;
 	//public GameObject slot2;
 	//public GameObject slot3;
@@ -39,6 +48,8 @@ public class PlayerManager : MonoBehaviour {
 		currentPlayer = GameObject.FindGameObjectWithTag ("Hero");
         maxHP = HPUp[currentLevel-1];
 
+        
+
         Debug.Log ("Player Manager: " + currentHP + currentAttack + currentLevel + currentExp);
 	}
 	
@@ -51,6 +62,33 @@ public class PlayerManager : MonoBehaviour {
 			LevelUp ();
 
 		}
+
+		if(target != null && canAttack){
+
+			if(autoAttackCurrentTime > autoAttackCooldown){
+
+				autoAttackCurrentTime += Time.deltaTime;
+			
+			}
+			else
+			{
+				BasicAttack();
+			}
+
+		}
+
+		//Right Clicking will now set an enemy as the target for the player object (will want to change the target button when the movement is cleaned up a little)
+		if(Input.GetKeyDown(KeyCode.Tab)){
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if(Physics.Raycast(ray, out hit)){
+				if(hit.collider.tag == "Enemy"){
+					Debug.Log(hit.collider.gameObject);
+					target = hit.collider.gameObject;
+				}
+			}
+		}
+		//TODO add a range check for the AA
+		//if()		
 
 	}
 
@@ -68,9 +106,12 @@ public class PlayerManager : MonoBehaviour {
 
 	}
 
-  
+	void BasicAttack(){
 
+		autoAttackCurrentTime = 0;
+		target.GetComponent<BasicEnemyStats>().RecieveDmg(currentAttack);
 
+	}
 
 
 }

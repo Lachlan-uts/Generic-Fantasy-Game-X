@@ -34,6 +34,6 @@ public class UIManager : MonoBehaviour {
 
         HPText.text = "HP " + CurrentHP + "/" + MaxHP;
 
-        Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
+        //Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
     }
 }
