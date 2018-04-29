@@ -15,6 +15,7 @@ TagManager:
   - HealthBar
   - EquippedWeapon
   - WeaponDrop
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -12,6 +12,8 @@ public class EntityNavigationScript : MonoBehaviour {
 	private LineRenderer line;
 	private NavMeshAgent agent;
 
+	public GameObject currentOrderInvoker { get; private set; }
+
 	// Use this for initialization
 	void Start () {
 		line = GetComponent<LineRenderer> ();
@@ -39,17 +41,31 @@ public class EntityNavigationScript : MonoBehaviour {
 		for (int i = 1; i < path.corners.Length; i++) {
 			line.SetPosition (i, path.corners [i]);
 		}
-		Debug.Log("set of corners start");
-		foreach (Vector3 corner in path.corners) {
-			Debug.Log (corner);
-		}
-		Debug.Log("set of corners end");
+//		Debug.Log("set of corners start");
+//		foreach (Vector3 corner in path.corners) {
+//			Debug.Log (corner);
+//		}
+//		Debug.Log("set of corners end");
 	}
+	/*
+	 * We want this to follow an tier of orders.
+	 * Where any player commands will superceed any A.I commands.
+	 * However A.I commands and player commands need to be able so overwrite previous commands of that level.
+	 */
+	public void SetDestination(Vector3 goal, GameObject invoker) {
 
-	public void SetDestination(Vector3 goal) {
+		if (invoker.CompareTag (Camera.main.tag)) {
+			line.SetPosition (0, transform.position);
+			agent.destination = goal;
+		}
+		Debug.Log (invoker.CompareTag(Camera.main.tag));
+		if (!invoker.CompareTag(Camera.main.tag) && agent.hasPath) {
+			Debug.Log ("I already have an order");
+			return;
+		}
 		line.SetPosition (0, transform.position);
 		agent.destination = goal;
+		agent.stoppingDistance = 0.5f;
 //		DrawPath (agent.path); // <- use this draw path to see a single set path
-
 	}
 }
