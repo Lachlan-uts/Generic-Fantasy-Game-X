@@ -55,6 +55,10 @@ public class EntityNavigationScript : MonoBehaviour {
 //		Debug.Log("set of corners end");
 	}
 
+	public void ProximityTrigger() {
+		agent.ResetPath ();
+		Debug.Log ("reset path");
+	}
 
 	public void StoppedMovementCheck() {
 		Debug.Log ("in the stopped movement check");

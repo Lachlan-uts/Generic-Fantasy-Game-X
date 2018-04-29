@@ -24,6 +24,7 @@ public class EntityTargetScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (SightCheck ()) {
+			ProximityCheck ();
 			entityNavigationScript.SetDestination (targetEntity.transform.position, this.gameObject);
 			entityNavigationScript.StoppedMovementCheck ();
 		}
@@ -40,6 +41,13 @@ public class EntityTargetScript : MonoBehaviour {
 			}
 		}
 		return false;
+	}
+
+	private void ProximityCheck() {
+		float targetProximity = Vector3.Distance (this.gameObject.transform.position, targetEntity.transform.position);
+		if (targetProximity <= 4.0f && targetProximity >= 1.0f) {
+			entityNavigationScript.ProximityTrigger ();
+		}
 	}
 
 
