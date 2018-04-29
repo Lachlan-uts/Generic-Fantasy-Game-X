@@ -38,11 +38,11 @@ GameObject:
   - component: {fileID: 136614206842542834}
   - component: {fileID: 23022163703467934}
   - component: {fileID: 54888571408163116}
+  - component: {fileID: 195331047829093994}
   - component: {fileID: 120898637254550818}
   - component: {fileID: 114102313328644048}
   - component: {fileID: 114928077241568248}
   - component: {fileID: 114484136716756160}
-  - component: {fileID: 195331047829093994}
   m_Layer: 8
   m_Name: Hero
   m_TagString: Hero
@@ -206,7 +206,9 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions: []
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1

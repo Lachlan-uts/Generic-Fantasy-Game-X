@@ -23,8 +23,15 @@ public class EntityNavigationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (goal != null)
+		if (goal != null) {
 			agent.destination = goal.position;
+			Debug.Log ("has goal");
+			//if (agent.remainingDistance
+		}
+		//StoppedMovementCheck ();
+//		if (agent.velocity.magnitude <= 0.1f) {
+//			Debug.Log (agent.remainingDistance);
+//		}
 		DrawPath (agent.path); // <- use this drawpath to see the path updated in realtime.
 	}
 
@@ -47,6 +54,23 @@ public class EntityNavigationScript : MonoBehaviour {
 //		}
 //		Debug.Log("set of corners end");
 	}
+
+	public void ProximityTrigger() {
+		agent.ResetPath ();
+		Debug.Log ("reset path");
+	}
+
+	public void StoppedMovementCheck() {
+		Debug.Log ("in the stopped movement check");
+		if (agent.remainingDistance == 0)
+			return;
+		if (agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
+			agent.ResetPath ();
+			//goal = null;
+			Debug.Log ("attempting to remove current pathing");
+		}
+	}
+
 	/*
 	 * We want this to follow an tier of orders.
 	 * Where any player commands will superceed any A.I commands.
@@ -58,9 +82,9 @@ public class EntityNavigationScript : MonoBehaviour {
 			line.SetPosition (0, transform.position);
 			agent.destination = goal;
 		}
-		Debug.Log (invoker.CompareTag(Camera.main.tag));
+		//Debug.Log (invoker.CompareTag(Camera.main.tag));
 		if (!invoker.CompareTag(Camera.main.tag) && agent.hasPath) {
-			Debug.Log ("I already have an order");
+			//Debug.Log ("I already have an order");
 			return;
 		}
 		line.SetPosition (0, transform.position);
