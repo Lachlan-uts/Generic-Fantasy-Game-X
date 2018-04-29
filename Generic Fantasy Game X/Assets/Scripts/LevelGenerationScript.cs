@@ -33,6 +33,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	private int numEnemies = 5;
 
 	// Private Variables
+	private GameObject entranceRoom; // Used later for comparison such that the starting room cannot contain enemies
 	private int genStage;
 	private int curRooms;
 	private int curEnemies;
@@ -41,16 +42,15 @@ public class LevelGenerationScript : MonoBehaviour {
 	private List<GameObject> doorNodes; // List of nodes at which to place doors
 	private List<GameObject> rubbleNodes; // List of nodes at which to place rubble
 	private List<GameObject> enemySpawnPoints; // List of enemy spawn points
+	private GameObject[] enemyList; // Used to disable enemies prior to 'spawning' in heroes and back again
+	private List<GameObject> heroSpawnList; // List of hero spawn locations, dependant on spawn locations within the starting room
 
 	// Use this for initialization
 	void Start () {
 		rooms = new List<GameObject> ();
 		completedRooms = new List<GameObject> ();
 		doorNodes = new List<GameObject> ();
-		curRooms = 0;
-		generateInitialRoom ();
-		genStage = -1;
-		curEnemies = 0;
+		genStage = -2;
 	}
 	
 	// Update is called once per frame
@@ -59,7 +59,13 @@ public class LevelGenerationScript : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (genStage == -1) {
+		if (genStage == -2) {
+			curRooms = 0;
+			generateInitialRoom ();
+			curEnemies = 0;
+			genStage = -1;
+			heroSpawnList = rooms [0].GetComponent<RoomValueStore> ().enemyLocations;
+		} else if (genStage == -1) {
 			if (curRooms < numRooms) {
 				generateAdditionalRoom ();
 			} else {
@@ -68,7 +74,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			}
 		} else if (genStage == 0) {
 			// Generate List of Rubble Nodes
-			rubbleNodes = GetRubbleLocations();
+			rubbleNodes = GetRubbleLocations ();
 			genStage = 1;
 		} else if (genStage == 1) {
 			// Spawn Rubble
@@ -84,7 +90,7 @@ public class LevelGenerationScript : MonoBehaviour {
 				curRooms++;
 				Debug.Log ("Furniture in 'incomplete' rooms.");
 			} else if (curRooms < (rooms.Count + completedRooms.Count)) {
-				completedRooms [curRooms-rooms.Count].GetComponent<RoomValueStore> ().spawnFurniture ();
+				completedRooms [curRooms - rooms.Count].GetComponent<RoomValueStore> ().spawnFurniture ();
 				curRooms++;
 				Debug.Log ("Furniture in 'complete' rooms.");
 			} else {
@@ -117,14 +123,36 @@ public class LevelGenerationScript : MonoBehaviour {
 			// Spawn the exit hatch
 			SpawnExit ();
 			genStage = 8;
+		} else if (genStage == 8) {
+			// Disable enemy units so no premature action occurs
+			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
+			foreach (GameObject enemy in enemyList) {
+				enemy.SetActive (false);
+			}
+			genStage = 9;
+		} else if (genStage == 9) {
+			// Spawn in heroes (in reality, relocate them from wherever to spawn points within the starting room)
+			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
+			int iCount = 0;
+			while (iCount < heroes.Length) {
+				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position;
+				iCount++;
+			}
+			genStage = 10;
+		} else if (genStage == 10) {
+			// Re-enable enemies within the floor. It's altercation time!
+			foreach (GameObject enemy in enemyList) {
+				enemy.SetActive (true);
+			}
+			genStage = 11;
 		}
 	}
 
 	void generateInitialRoom() {
 		GameObject newRoom = validEntrances [Random.Range (0, validEntrances.Length)];
-		GameObject instantRoom = Instantiate (newRoom, new Vector3 (0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
-		instantRoom.name = "firstRoom"; // Debug purposes
-		rooms.Add (instantRoom);
+		entranceRoom = Instantiate (newRoom, new Vector3 (0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+		entranceRoom.name = "firstRoom"; // Debug purposes
+		rooms.Add (entranceRoom);
 
 		curRooms++;
 	}
@@ -380,9 +408,9 @@ public class LevelGenerationScript : MonoBehaviour {
 		rubbleNodes.Remove (rubbleNodes [0]);
 	}
 
-	void GenerateFurniture() {
-
-	}
+	//void GenerateFurniture() {
+	//
+	//}
 
 	void GenerateNavMesh() {
 		
@@ -411,7 +439,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	List<GameObject> GetEnemySpawns() {
 		List<GameObject> enemySpawnPoints = new List<GameObject> ();
 		foreach (GameObject room in completedRooms) {
-			if (room.GetComponent<RoomValueStore> ().enemyLocations.Count > 0) {
+			if (room.GetComponent<RoomValueStore> ().enemyLocations.Count > 0 && !room.Equals(entranceRoom)) {
 				foreach (GameObject enemySpawn in room.GetComponent<RoomValueStore>().enemyLocations) {
 					enemySpawnPoints.Add (enemySpawn);
 				}
@@ -419,7 +447,7 @@ public class LevelGenerationScript : MonoBehaviour {
 		}
 
 		foreach (GameObject room in rooms) {
-			if (room.GetComponent<RoomValueStore> ().enemyLocations.Count > 0) {
+			if (room.GetComponent<RoomValueStore> ().enemyLocations.Count > 0 && !room.Equals(entranceRoom)) {
 				foreach (GameObject enemySpawn in room.GetComponent<RoomValueStore>().enemyLocations) {
 					enemySpawnPoints.Add (enemySpawn);
 				}
@@ -509,11 +537,12 @@ public class LevelGenerationScript : MonoBehaviour {
 		}
 
 		int exitNumber = Random.Range (0, potentialExits.Count);
+		Debug.Log ("exitNumber: " + exitNumber + ": potentialExitCount: " + potentialExits.Count);
 		Vector3 exitPos = potentialExits [exitNumber].transform.position;
 		Vector3 exitRot = potentialExits [exitNumber].transform.rotation.eulerAngles;
 
 		// Spawn the Exit Stairs
-		//GameObject exitLocation = Instantiate(exitStairs, exitPos, Quaternion.Euler(exitRot)) as GameObject;
+		GameObject exitLocation = Instantiate(exitStairs, exitPos, Quaternion.Euler(exitRot)) as GameObject;
 		Debug.Log("Exit Spawned.");
 	}
 

@@ -5,7 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - GameUI
+  - PauseMenu
+  - CharacterUI
+  - EnemyUI
+  - Enemy
+  - GameManagers
   - Hero
+  - HealthBar
   - EquippedWeapon
   - WeaponDrop
   - Enemy
@@ -13,35 +20,35 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  -
   - Water
   - UI
-  - 
-  - 
+  -
+  -
   - Units
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
+  -
   m_SortingLayers:
   - name: Ground
     uniqueID: 2096492047
