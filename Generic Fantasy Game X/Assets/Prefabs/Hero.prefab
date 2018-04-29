@@ -38,11 +38,11 @@ GameObject:
   - component: {fileID: 136614206842542834}
   - component: {fileID: 23022163703467934}
   - component: {fileID: 54888571408163116}
-  - component: {fileID: 195481990592315066}
   - component: {fileID: 120898637254550818}
   - component: {fileID: 114102313328644048}
   - component: {fileID: 114928077241568248}
   - component: {fileID: 114484136716756160}
+  - component: {fileID: 195331047829093994}
   m_Layer: 8
   m_Name: Hero
   m_TagString: Hero
@@ -56,8 +56,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509710607488016}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.3092937, y: 19.912123, z: -21.0397}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 28.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4839421638203252}
@@ -206,9 +206,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -273,7 +271,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &195481990592315066
+--- !u!195 &195331047829093994
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -282,7 +280,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 6
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
