@@ -17,6 +17,7 @@ public class EntityTargetScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		targetEntity = GameObject.FindGameObjectWithTag ("Hero");
 		entityNavigationScript = GetComponent<EntityNavigationScript> ();
 	}
 	
