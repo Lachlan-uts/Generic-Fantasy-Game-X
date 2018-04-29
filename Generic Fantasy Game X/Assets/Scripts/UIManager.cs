@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour {
 	public Text HPText;
 	public PlayerManager playerManager;
 	public GameObject slot1;
-
+    public int MaxHP;
+    public int CurrentHP;
 
 	//TO DO: Replace Slot1 with "Current Player"
 	void Start()
@@ -17,15 +18,22 @@ public class UIManager : MonoBehaviour {
         playerManager = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<PlayerManager>();
 
         //Calling the variables from Player Stats
-        int MaxHP = playerManager.maxHP;
-       int CurrentHP = playerManager.currentHP;
-       healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
-       healthBar.maxValue = MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
-       healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
-	   HPText.text = "HP " + CurrentHP + "/" + MaxHP;
-
-      Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
+      
+        healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
+       
+	  
 	}
 
+    void Update()
+    {
+        MaxHP = playerManager.maxHP;
+        CurrentHP = playerManager.currentHP;
 
+        healthBar.maxValue = MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
+        healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
+
+        HPText.text = "HP " + CurrentHP + "/" + MaxHP;
+
+        Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
+    }
 }
