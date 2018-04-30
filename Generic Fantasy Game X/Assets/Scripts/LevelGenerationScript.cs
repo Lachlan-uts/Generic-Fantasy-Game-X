@@ -31,6 +31,8 @@ public class LevelGenerationScript : MonoBehaviour {
 	private int numRooms = 3;
 	[SerializeField]
 	private int numEnemies = 5;
+	[SerializeField]
+	private List<GameObject> heroList;
 
 	// Private Variables
 	private GameObject entranceRoom; // Used later for comparison such that the starting room cannot contain enemies
@@ -123,7 +125,15 @@ public class LevelGenerationScript : MonoBehaviour {
 			// Spawn the exit hatch
 			SpawnExit ();
 			genStage = 8;
-		} else if (genStage == 8) {
+		} /*else if (genStage == 8) {
+			// Spawn in copies of the party members into the scene (note: will most likely have to re-assign the UI in the future, as well as controls)
+			int iCount = 0;
+			while (iCount < heroList.Count) {
+				GameObject heroCopy = Instantiate (heroList [0], heroSpawnList [iCount].transform.position, Quaternion.identity) as GameObject;
+				iCount++;
+			}
+			genStage++;
+		} */else if (genStage == 8) {
 			// Disable enemy units so no premature action occurs
 			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
 			foreach (GameObject enemy in enemyList) {
@@ -146,6 +156,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			}
 			genStage = 11;
 		}
+
 	}
 
 	void generateInitialRoom() {

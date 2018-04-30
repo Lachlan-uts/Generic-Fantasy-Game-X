@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -151,6 +151,10 @@ Prefab:
     - target: {fileID: 4202037743351412, guid: ad78f7458fb703741bb7665ad76aaf31, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509710607488016, guid: ad78f7458fb703741bb7665ad76aaf31, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad78f7458fb703741bb7665ad76aaf31, type: 2}
@@ -545,6 +549,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: heroList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4737384386990344, guid: 376dc87281407b645a3a74fafd0ee1a0, type: 2}
       propertyPath: m_LocalPosition.x
       value: 1.268697
@@ -582,6 +591,12 @@ Prefab:
       propertyPath: numEnemies
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: heroList.Array.data[0]
+      value: 
+      objectReference: {fileID: 1509710607488016, guid: ad78f7458fb703741bb7665ad76aaf31,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 376dc87281407b645a3a74fafd0ee1a0, type: 2}
   m_IsPrefabParent: 0
@@ -685,12 +700,12 @@ Prefab:
     - target: {fileID: 224044845078454282, guid: 1b66cd37f54ef614395aaacd61106b41,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224044845078454282, guid: 1b66cd37f54ef614395aaacd61106b41,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b66cd37f54ef614395aaacd61106b41, type: 2}
