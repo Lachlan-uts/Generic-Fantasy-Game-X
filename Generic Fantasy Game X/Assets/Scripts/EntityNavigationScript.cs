@@ -11,6 +11,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	//debug information to visual the path of the unit.
 	private LineRenderer line;
 	private NavMeshAgent agent;
+	private NavMeshObstacle obstacle;
 
 	public GameObject currentOrderInvoker { get; private set; }
 
@@ -18,6 +19,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	void Start () {
 		line = GetComponent<LineRenderer> ();
 		agent = GetComponent<NavMeshAgent> ();
+		obstacle = GetComponent<NavMeshObstacle> ();
 		//agent.destination = goal.position;
 	}
 	
@@ -67,5 +69,16 @@ public class EntityNavigationScript : MonoBehaviour {
 		agent.destination = goal;
 		agent.stoppingDistance = 0.5f;
 //		DrawPath (agent.path); // <- use this draw path to see a single set path
+	}
+
+	public void SetState(bool state) {
+		agent.enabled = state;
+		//Invoke ("SetObstacle", 1);
+		//obstacle.enabled = !state;
+	}
+
+	public void SetObstacle() {
+		Debug.Log ("turning into obstacle");
+		obstacle.enabled = true;
 	}
 }

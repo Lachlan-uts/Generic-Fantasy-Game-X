@@ -109,7 +109,7 @@ public class PlayerManager : MonoBehaviour {
 	void BasicAttack(){
 
 		autoAttackCurrentTime = 0;
-		target.GetComponent<BasicEnemyStats>().RecieveDmg(currentAttack);
+		target.GetComponent<BasicEnemyStats>().RecieveDmg(currentAttack,this.gameObject.transform);
 
 	}
 
