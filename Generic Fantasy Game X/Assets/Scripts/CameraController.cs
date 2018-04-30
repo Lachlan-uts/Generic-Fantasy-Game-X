@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
 	private Camera MCamera;
 
 	//trying to make it so you can click to select a unit.
-	public GameObject selectedObject { private set; get; }
+	public GameObject controlledObject { private set; get; }
 
     // Use this for initialization
     void Start () {
@@ -25,7 +25,8 @@ public class CameraController : MonoBehaviour {
 			GetUnit (MCamera);
 		}
 		if (Input.GetButtonDown ("Fire2")) {
-			MoveCommand (MCamera);
+			//MoveCommand (MCamera);
+			GetTarget(MCamera);
 		}
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -61,22 +62,41 @@ public class CameraController : MonoBehaviour {
 		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
 
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
-			selectedObject = hit.collider.gameObject;
+			controlledObject = hit.collider.gameObject;
 //			Debug.Log (selectedObject.gameObject.name);
 		}
 	}
 
 	//telling a unit where to go.
 	private void MoveCommand(Camera camera) {
-		if (!selectedObject)
+		if (!controlledObject)
 			return;
 		int layerMask = 1 << 9;
 		RaycastHit hit;
 		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
 
 		if (Physics.Raycast (cameraRay, out hit, 200f)) {
-			selectedObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point,this.gameObject);
+			controlledObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point,this.gameObject);
 //			Debug.Log ("sending a move command");
 		}
+	}
+
+	private void GetTarget(Camera camera) {
+		int layerMask = (1 << 8) | (1 << 9);
+		RaycastHit hit;
+		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
+		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
+			Debug.Log (hit.collider.name);
+			Debug.Log (hit.collider.gameObject.layer);
+			controlledObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
+			if (hit.collider.gameObject.layer == 8) {
+				//controlledObject.GetComponent<EntityTargetScript> ().targetEntity = hit.collider.gameObject;
+				controlledObject.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
+			} else
+				//controlledObject.GetComponent<EntityTargetScript> ().targetEntity = null;
+				controlledObject.GetComponent<EntityTargetScript> ().targetedEntity = null;
+			
+		}
+		//layerMask = 1 << 9;
 	}
 }

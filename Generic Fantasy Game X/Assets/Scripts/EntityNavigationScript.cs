@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using AssemblyCSharp;
 
 public class EntityNavigationScript : MonoBehaviour {
 
@@ -12,12 +13,16 @@ public class EntityNavigationScript : MonoBehaviour {
 	private LineRenderer line;
 	private NavMeshAgent agent;
 
-	public GameObject currentOrderInvoker { get; private set; }
+
+	//private enum OrderHierarchy {Low, Medium, High, Player};
+
+	public OrderHierarchy currentOrder { get; private set; }
 
 	// Use this for initialization
 	void Start () {
 		line = GetComponent<LineRenderer> ();
 		agent = GetComponent<NavMeshAgent> ();
+		currentOrder = OrderHierarchy.None;
 		//agent.destination = goal.position;
 	}
 	
@@ -55,7 +60,9 @@ public class EntityNavigationScript : MonoBehaviour {
 //		Debug.Log("set of corners end");
 	}
 
-	public void ProximityTrigger() {
+	public void ProximityTrigger(OrderHierarchy newOrder) {
+		if (newOrder < currentOrder)
+			return;
 		agent.ResetPath ();
 		Debug.Log ("reset path");
 	}
