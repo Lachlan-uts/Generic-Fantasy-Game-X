@@ -40,11 +40,11 @@ public class EntityTargetScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		if (SightCheck ()) {
-//			ProximityCheck ();
-//			entityNavigationScript.SetDestination (targetEntity.transform.position, this.gameObject);
-//			entityNavigationScript.StoppedMovementCheck ();
-//		}
+		if (SightCheck ()) {
+			ProximityCheck ();
+			entityNavigationScript.SetDestination (targetEntity.transform.position, this.gameObject);
+			entityNavigationScript.StoppedMovementCheck ();
+		}
 	}
 
 	private bool SightCheck() {

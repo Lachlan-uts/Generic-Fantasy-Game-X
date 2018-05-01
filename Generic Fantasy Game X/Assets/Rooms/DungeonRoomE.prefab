@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 114210798988127178}
   - component: {fileID: 114123438521291242}
   - component: {fileID: 114914701002639952}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 114026773642465546}
   - component: {fileID: 114776784444148256}
   - component: {fileID: 114202624768685782}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CorridorFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

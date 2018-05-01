@@ -62,6 +62,8 @@ public class CameraController : MonoBehaviour {
 		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
 
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
+			Debug.Log (hit.collider.name);
+			Debug.Log (hit.collider.gameObject.layer);
 			controlledObject = hit.collider.gameObject;
 //			Debug.Log (selectedObject.gameObject.name);
 		}
