@@ -19,6 +19,10 @@ public class CameraController : MonoBehaviour {
     private float movementSpeed;
     [SerializeField]
     private float denominator;
+    [SerializeField]
+    private float minHeight;
+    [SerializeField]
+    private float maxHeight;
 
     //trying to make it so you can click to select a unit.
     public GameObject selectedObject { private set; get; }
@@ -45,13 +49,16 @@ public class CameraController : MonoBehaviour {
             this.transform.position = new Vector3(playerPos.x, 15, playerPos.z - 15);
             //transform.rotation.Set(40, 0, 0, 0);
         }*/
-        //DragCamControl();
+        //DragCamControl(Camera camera);
 
-        KeyMovement();
-        EdgeMovement();
+        KeyMovement(MCamera);
+        EdgeMovement(MCamera);
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f) {
+            CameraMovement(MCamera, Input.GetAxis("Mouse ScrollWheel"));
+        }
     }
 
-    private void DragCamControl()
+    /*private void DragCamControl(Camera camera)
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -61,12 +68,12 @@ public class CameraController : MonoBehaviour {
 
         if (!Input.GetMouseButton(0)) return;
 
-        Vector3 pos = Camera.main.ScreenToViewportPoint(dragOrigin - Input.mousePosition);
+        Vector3 pos = camera.ScreenToViewportPoint(dragOrigin - Input.mousePosition);
         Vector3 move = new Vector3(pos.x * dragSpeed, 0, pos.y * dragSpeed);
 
         transform.Translate(move, Space.World);
 
-    }
+    }*/
 
 	//method to try and get a unit on the unit layer.
 	private void GetUnit(Camera camera) {
@@ -94,22 +101,38 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
-    private void KeyMovement()
+    private void XZMovement(Camera camera, float x, float z)
+    {
+        Vector3 movement = new Vector3(x, 0, z).normalized;
+        //Debug.Log(movement.x + ", " + movement.z);
+        camera.transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
+    }
+
+    private void CameraMovement(Camera camera, float y)
+    {
+        Vector3 movement = new Vector3(0, y, 0).normalized;
+        Debug.Log(movement.y);
+        //Zoom Up
+        if (y >= 0f && camera.transform.position.y <= maxHeight)
+        {
+            camera.transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
+        }
+        //Zoom Down
+        if (y <= 0f && camera.transform.position.y >= minHeight)
+        {
+            camera.transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
+        }
+    }
+
+    private void KeyMovement(Camera camera)
     {
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
 
-        XZMovement(horizontalMove, verticalMove);
+        XZMovement(camera, horizontalMove, verticalMove);
     }
 
-    private void XZMovement(float x, float z)
-    {
-        Vector3 movement = new Vector3(x, 0, z).normalized;
-        Debug.Log(movement.x + ", " + movement.z);
-        transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
-    }
-
-    private void EdgeMovement()
+    private void EdgeMovement(Camera camera)
     {
         Vector3 mousePos = Input.mousePosition;
         float z = ((2 * mousePos.y) - screenHeight) / screenHeight;
@@ -118,18 +141,18 @@ public class CameraController : MonoBehaviour {
             if (mousePos.x >= screenWidth - (screenWidth / denominator) && mousePos.x <= screenWidth)
             {
                 float x = mousePos.x / screenWidth;
-                XZMovement(x, z);
+                XZMovement(camera, x, z);
             }
             else if (mousePos.x <= (screenWidth / denominator) && mousePos.x >= 0)
             {
                 float x = ((screenWidth / denominator) - mousePos.x) / (screenWidth / denominator);
-                XZMovement(-x, z);
+                XZMovement(camera, -x, z);
             }
             else if (mousePos.y > screenHeight - screenHeight / denominator 
                 || mousePos.y < screenHeight / denominator)
             {
                 float x = (mousePos.x - screenWidth/2) / (screenWidth/2);
-                XZMovement(x, z);
+                XZMovement(camera, x, z);
             }
         }
     }
