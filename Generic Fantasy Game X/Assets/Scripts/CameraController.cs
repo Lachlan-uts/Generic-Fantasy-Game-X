@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    public float dragSpeed = 1;
     private Vector3 dragOrigin;
+    private float screenHeight;
+    private float screenWidth;
+    private float horizontalMove;
+    private float verticalMove;
 
 	//camera
 	[SerializeField]
 	private Camera MCamera;
+    [SerializeField]
+    private float dragSpeed;
+    [SerializeField]
+    private float movementSpeed;
 
-	//trying to make it so you can click to select a unit.
-	public GameObject selectedObject { private set; get; }
+    //trying to make it so you can click to select a unit.
+    public GameObject selectedObject { private set; get; }
 
     // Use this for initialization
     void Start () {
 		MCamera = Camera.main;
+        screenHeight = Screen.height;
+        screenWidth = Screen.width;
 	}
 	
 	// Update is called once per frame
@@ -28,13 +37,15 @@ public class CameraController : MonoBehaviour {
 			MoveCommand (MCamera);
 		}
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        /*if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Vector3 playerPos = GameObject.FindGameObjectWithTag("Hero").transform.position;
             this.transform.position = new Vector3(playerPos.x, 15, playerPos.z - 15);
             //transform.rotation.Set(40, 0, 0, 0);
-        }
-        else DragCamControl();
+        }*/
+        //DragCamControl();
+
+        KeyMovement();
     }
 
     private void DragCamControl()
@@ -79,4 +90,15 @@ public class CameraController : MonoBehaviour {
 //			Debug.Log ("sending a move command");
 		}
 	}
+
+    private void KeyMovement()
+    {
+        horizontalMove = Input.GetAxis("Horizontal");
+        verticalMove = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(horizontalMove, 0, verticalMove).normalized;
+        transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
+        //Debug.Log(movement);
+
+    }
 }
