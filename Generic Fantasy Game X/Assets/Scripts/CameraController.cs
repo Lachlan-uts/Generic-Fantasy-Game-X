@@ -17,6 +17,8 @@ public class CameraController : MonoBehaviour {
     private float dragSpeed;
     [SerializeField]
     private float movementSpeed;
+    [SerializeField]
+    private float denominator;
 
     //trying to make it so you can click to select a unit.
     public GameObject selectedObject { private set; get; }
@@ -46,6 +48,7 @@ public class CameraController : MonoBehaviour {
         //DragCamControl();
 
         KeyMovement();
+        EdgeMovement();
     }
 
     private void DragCamControl()
@@ -96,9 +99,38 @@ public class CameraController : MonoBehaviour {
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(horizontalMove, 0, verticalMove).normalized;
-        transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
-        //Debug.Log(movement);
+        XZMovement(horizontalMove, verticalMove);
+    }
 
+    private void XZMovement(float x, float z)
+    {
+        Vector3 movement = new Vector3(x, 0, z).normalized;
+        Debug.Log(movement.x + ", " + movement.z);
+        transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
+    }
+
+    private void EdgeMovement()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        float z = ((2 * mousePos.y) - screenHeight) / screenHeight;
+        if (mousePos.y < screenHeight && mousePos.y > 0)
+        {
+            if (mousePos.x >= screenWidth - (screenWidth / denominator) && mousePos.x <= screenWidth)
+            {
+                float x = mousePos.x / screenWidth;
+                XZMovement(x, z);
+            }
+            else if (mousePos.x <= (screenWidth / denominator) && mousePos.x >= 0)
+            {
+                float x = ((screenWidth / denominator) - mousePos.x) / (screenWidth / denominator);
+                XZMovement(-x, z);
+            }
+            else if (mousePos.y > screenHeight - screenHeight / denominator 
+                || mousePos.y < screenHeight / denominator)
+            {
+                float x = (mousePos.x - screenWidth/2) / (screenWidth/2);
+                XZMovement(x, z);
+            }
+        }
     }
 }

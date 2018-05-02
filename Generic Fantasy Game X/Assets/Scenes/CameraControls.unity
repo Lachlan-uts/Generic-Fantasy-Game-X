@@ -206,8 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f66d8c2d23df584ba5c9af024281f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 1
   MCamera: {fileID: 0}
+  dragSpeed: 1
+  movementSpeed: 20
+  denominator: 8
 --- !u!1001 &392193654
 Prefab:
   m_ObjectHideFlags: 0
