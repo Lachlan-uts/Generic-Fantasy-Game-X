@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour {
     private float screenWidth;
     private float horizontalMove;
     private float verticalMove;
+    private Vector3 moveDirection;
 
 	//camera
 	[SerializeField]
@@ -17,6 +18,10 @@ public class CameraController : MonoBehaviour {
     private float dragSpeed;
     [SerializeField]
     private float movementSpeed;
+    [SerializeField]
+    private float rotationSpeed;
+
+    //Used for EdgeHovering
     [SerializeField]
     private float denominator;
     [SerializeField]
@@ -51,14 +56,35 @@ public class CameraController : MonoBehaviour {
         }*/
         //DragCamControl(Camera camera);
 
-        KeyMovement(MCamera);
+        
+    }
+
+    void FixedUpdate()
+    {
+        horizontalMove = Input.GetAxis("Horizontal");
+        verticalMove = Input.GetAxis("Vertical");
+
+        XZMovement(MCamera, horizontalMove, verticalMove);
         EdgeMovement(MCamera);
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f) {
-            CameraMovement(MCamera, Input.GetAxis("Mouse ScrollWheel"));
+
+        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
+        {
+            int direction = 1;
+            if (Input.GetKey(KeyCode.Q))
+            {
+                direction = -1;
+                CameraRotation(MCamera, direction);
+            }
+            else CameraRotation(MCamera, direction);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        {
+            CameraZoom(MCamera, Input.GetAxis("Mouse ScrollWheel"));
         }
     }
 
-    /*private void DragCamControl(Camera camera)
+    private void DragCamControl(Camera camera)
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -73,7 +99,7 @@ public class CameraController : MonoBehaviour {
 
         transform.Translate(move, Space.World);
 
-    }*/
+    }
 
 	//method to try and get a unit on the unit layer.
 	private void GetUnit(Camera camera) {
@@ -101,35 +127,32 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
+    private void CameraZoom(Camera camera, float z)
+    {
+        Vector3 movement = new Vector3(0, 0, z).normalized;
+
+        //Limit Zoom between minHeight and maxHeight
+        if (z <= 0f && camera.transform.position.y <= maxHeight)
+        {   
+            camera.transform.Translate(movement * Time.deltaTime * rotationSpeed, Space.Self);
+        }
+        if (z >= 0f && camera.transform.position.y >= minHeight)
+        {
+            camera.transform.Translate(movement * Time.deltaTime * rotationSpeed, Space.Self);
+        }
+    }
+
+    private void CameraRotation(Camera camera, int dir)
+    {
+        float rotation = Time.deltaTime * rotationSpeed * dir;
+        this.transform.Rotate(0, rotation, 0, Space.World);
+    }
+
     private void XZMovement(Camera camera, float x, float z)
     {
-        Vector3 movement = new Vector3(x, 0, z).normalized;
-        //Debug.Log(movement.x + ", " + movement.z);
-        camera.transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
-    }
-
-    private void CameraMovement(Camera camera, float y)
-    {
-        Vector3 movement = new Vector3(0, y, 0).normalized;
-        Debug.Log(movement.y);
-        //Zoom Up
-        if (y >= 0f && camera.transform.position.y <= maxHeight)
-        {
-            camera.transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
-        }
-        //Zoom Down
-        if (y <= 0f && camera.transform.position.y >= minHeight)
-        {
-            camera.transform.Translate(movement * Time.deltaTime * movementSpeed, Space.World);
-        }
-    }
-
-    private void KeyMovement(Camera camera)
-    {
-        horizontalMove = Input.GetAxis("Horizontal");
-        verticalMove = Input.GetAxis("Vertical");
-
-        XZMovement(camera, horizontalMove, verticalMove);
+        moveDirection = (transform.forward * z) + (transform.right * x);
+        moveDirection = moveDirection.normalized;
+        this.transform.Translate(moveDirection * Time.deltaTime * movementSpeed, Space.World);
     }
 
     private void EdgeMovement(Camera camera)
@@ -141,6 +164,7 @@ public class CameraController : MonoBehaviour {
             if (mousePos.x >= screenWidth - (screenWidth / denominator) && mousePos.x <= screenWidth)
             {
                 float x = mousePos.x / screenWidth;
+                Debug.Log(x);
                 XZMovement(camera, x, z);
             }
             else if (mousePos.x <= (screenWidth / denominator) && mousePos.x >= 0)
