@@ -11,12 +11,17 @@ public class BasicEnemyStats : MonoBehaviour {
 	public int attackDamage;
 	public float attackCooldown;
 	public float attackCooldownTime;
+	public float experienceDrop = 30.0f;
+	public List<GameObject> lootList;
 	public GameObject enemy;
 
+	// private variables
+	private float timeElapsed;
 	private Rigidbody rb;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		timeElapsed = 0.0f; // Used for the 'death' animation
 	}
 	
 	// Update is called once per frame
@@ -30,6 +35,22 @@ public class BasicEnemyStats : MonoBehaviour {
 //		}
 //
 //	}
+
+	void Update() {
+
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			EnemyDeath (Vector3.zero);
+		}
+
+		if (isDead && timeElapsed < 5.0f) {
+			if (timeElapsed < 0.3f) {
+				gameObject.transform.RotateAround (gameObject.transform.position - new Vector3 (0.0f, 0.5f, 0.0f), gameObject.transform.right, 0.5f);
+			}
+
+			timeElapsed += Time.deltaTime;
+		}
+
+	}
 
 	public void RecieveDmg(float dmg, Transform attacker){
 		if (currentHP >= 0)
@@ -49,9 +70,10 @@ public class BasicEnemyStats : MonoBehaviour {
 			GetComponent<EntityNavigationScript> ().SetState (false);
 			rb.isKinematic = false;
 			rb.useGravity = true;
-			rb.AddForce (1,6,0, ForceMode.Impulse);
-			GetComponent<EntityNavigationScript> ().SetObstacle ();
-			this.enabled = false;
+			//rb.AddForce (1,6,0, ForceMode.Impulse);
+			//GetComponent<EntityNavigationScript> ().SetObstacle ();
+			//this.enabled = false;
+			gameObject.layer = 10;
 		}
 
 	}

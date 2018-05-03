@@ -69,4 +69,4 @@ MonoBehaviour:
   roomDoor: {fileID: 1963067347466498, guid: 9841c73026760084185bdf70a754aef6, type: 2}
   roomRubble: {fileID: 1595390086829828, guid: 021927b5294750341af797b8ec7e6261, type: 2}
   numRooms: 50
-  numEnemies: 45
+  numEnemies: 5
