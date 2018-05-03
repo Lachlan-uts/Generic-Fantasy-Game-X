@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour {
     //Players
     private GameObject[] heroes;
     private int heroCounter;
-    private Transform player;
+    private GameObject player;
     private bool focusOnPlayer;
 
     //Movement Speed
@@ -27,7 +27,12 @@ public class CameraController : MonoBehaviour {
     private float rotationSpeed;
 
     //Camera Positioning
+    private float headingAngle;
+    private Vector3 playerDirection;
+    private Transform cameraPos;
     private Vector3 moveDirection;
+    [SerializeField]
+    private float rotationAngle;
     [SerializeField]
     private Transform XZPlane;
     [SerializeField]
@@ -54,9 +59,7 @@ public class CameraController : MonoBehaviour {
         screenWidth = Screen.width;
         heroes = GameObject.FindGameObjectsWithTag("Hero");
         heroCounter = 0;
-        UpdateNumOfHeroes();
-        
-        
+        focusOnPlayer = false;
 	}
 	
 	// Update is called once per frame
@@ -76,14 +79,15 @@ public class CameraController : MonoBehaviour {
         }*/
         //DragCamControl(Camera camera);
 
-        
-    }
-
-    void FixedUpdate()
-    {
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
-        UpdateNumOfHeroes();
+        heroes = GameObject.FindGameObjectsWithTag("Hero");
+
+        if (focusOnPlayer)
+        {
+            this.transform.position = new Vector3(cameraPos.position.x, playerCamHeight,
+                cameraPos.position.z);
+        }
 
         //Move Camera along XZ plane
         XZMovement(MCamera, horizontalMove, verticalMove);
@@ -112,6 +116,8 @@ public class CameraController : MonoBehaviour {
         {
             PlayerCam(MCamera);
         }
+
+        //Debug.Log(focusOnPlayer);
     }
 
     private void DragCamControl(Camera camera)
@@ -174,6 +180,7 @@ public class CameraController : MonoBehaviour {
 
     private void CameraRotation(Camera camera, int dir)
     {
+        focusOnPlayer = false;
         float rotation = Time.deltaTime * rotationSpeed * dir;
         this.transform.Rotate(0, rotation, 0, Space.World);
     }
@@ -182,6 +189,10 @@ public class CameraController : MonoBehaviour {
     {
         moveDirection = (XZPlane.forward * z) + (XZPlane.right * x);
         moveDirection = moveDirection.normalized;
+        if (moveDirection != Vector3.zero)
+        {
+            focusOnPlayer = false;
+        }
         this.transform.Translate(moveDirection * Time.deltaTime * movementSpeed, Space.World);
     }
 
@@ -211,31 +222,31 @@ public class CameraController : MonoBehaviour {
         }
     }
 
+    private float PlayerHeading()
+    {
+        playerDirection = heroes[heroCounter].transform.forward;
+        float heading = Quaternion.LookRotation(playerDirection).eulerAngles.y;
+        return heading;
+    }
+
     private void PlayerCam(Camera camera)
     {
         if (heroes.Length > 0)
         {
-            Vector3 playerPos = new Vector3(heroes[heroCounter].transform.position.x, playerCamHeight,
-                heroes[heroCounter].transform.position.z - playerCamDistance);
-            this.transform.rotation = Quaternion.Euler(40, 0, 0);
+            headingAngle = PlayerHeading();
+            player = heroes[heroCounter];
+            cameraPos = player.transform.Find("CameraPosition");
+            Debug.Log(cameraPos);
+            Vector3 playerPos = new Vector3(cameraPos.position.x, playerCamHeight,
+                cameraPos.position.z);
+            this.transform.rotation = Quaternion.Euler(rotationAngle, headingAngle, 0);
             this.transform.position = playerPos;
-            Debug.Log(heroes[heroCounter]);
+            focusOnPlayer = true;
+            Debug.Log(heroCounter + ": " + heroes[heroCounter] + " " + headingAngle);
             heroCounter++;
             if (heroCounter > heroes.Length - 1)
             {
                 heroCounter = 0;
-            }
-        }
-    }
-
-    private void UpdateNumOfHeroes()
-    {
-        heroes = GameObject.FindGameObjectsWithTag("Hero");
-        if (heroes.Length > 0)
-        {
-            for(int i = 0; i < heroes.Length; i++)
-            {
-                Debug.Log(heroes[i].name);
             }
         }
     }
