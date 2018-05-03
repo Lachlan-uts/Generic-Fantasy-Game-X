@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour {
     private float horizontalMove;
     private float verticalMove;
     private Vector3 moveDirection;
+    private GameObject[] heroes;
+    private int heroCounter;
 
 	//camera
 	[SerializeField]
@@ -37,6 +39,11 @@ public class CameraController : MonoBehaviour {
 		MCamera = Camera.main;
         screenHeight = Screen.height;
         screenWidth = Screen.width;
+        heroes = GameObject.FindGameObjectsWithTag("Hero");
+        heroCounter = 0;
+        UpdateNumOfHeroes();
+        
+        
 	}
 	
 	// Update is called once per frame
@@ -63,10 +70,14 @@ public class CameraController : MonoBehaviour {
     {
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
+        UpdateNumOfHeroes();
 
+        //Move Camera along XZ plane
         XZMovement(MCamera, horizontalMove, verticalMove);
+        //Move Camera when mouse hovers on edge of game screen
         EdgeMovement(MCamera);
 
+        //Rotate Camera Left or Right when key is preesed
         if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
         {
             int direction = 1;
@@ -78,9 +89,15 @@ public class CameraController : MonoBehaviour {
             else CameraRotation(MCamera, direction);
         }
 
+        //Zoom Camera using mouse scrollwheel
         if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             CameraZoom(MCamera, Input.GetAxis("Mouse ScrollWheel"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            PlayerCam(MCamera);
         }
     }
 
@@ -177,6 +194,35 @@ public class CameraController : MonoBehaviour {
             {
                 float x = (mousePos.x - screenWidth/2) / (screenWidth/2);
                 XZMovement(camera, x, z);
+            }
+        }
+    }
+
+    private void PlayerCam(Camera camera)
+    {
+        if (heroes.Length > 0)
+        {
+            Vector3 playerPos = new Vector3 (heroes[heroCounter].transform.position.x, 15f, 
+                heroes[heroCounter].transform.position.z -15f);
+            this.transform.rotation = Quaternion.Euler(0, 0, 0);
+            this.transform.position = playerPos;
+            Debug.Log(heroes[heroCounter]);
+            heroCounter++;
+            if (heroCounter > heroes.Length - 1)
+            {
+                heroCounter = 0;
+            }
+        }
+    }
+
+    private void UpdateNumOfHeroes()
+    {
+        heroes = GameObject.FindGameObjectsWithTag("Hero");
+        if (heroes.Length > 0)
+        {
+            for(int i = 0; i < heroes.Length; i++)
+            {
+                Debug.Log(heroes[i].name);
             }
         }
     }
