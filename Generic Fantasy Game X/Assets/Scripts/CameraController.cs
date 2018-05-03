@@ -5,17 +5,20 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     private Vector3 dragOrigin;
-    private float screenHeight;
-    private float screenWidth;
-    private float horizontalMove;
-    private float verticalMove;
-    private Vector3 moveDirection;
+
+    //Cameras
+    private Camera MCamera;
+
+    //Input.GetAxis
+    private float horizontalMove, verticalMove;
+
+    //Players
     private GameObject[] heroes;
     private int heroCounter;
+    private Transform player;
+    private bool focusOnPlayer;
 
-	//camera
-	[SerializeField]
-	private Camera MCamera;
+    //Movement Speed
     [SerializeField]
     private float dragSpeed;
     [SerializeField]
@@ -23,7 +26,17 @@ public class CameraController : MonoBehaviour {
     [SerializeField]
     private float rotationSpeed;
 
+    //Camera Positioning
+    private Vector3 moveDirection;
+    [SerializeField]
+    private Transform XZPlane;
+    [SerializeField]
+    private float playerCamHeight;
+    [SerializeField]
+    private float playerCamDistance;
+
     //Used for EdgeHovering
+    private float screenHeight, screenWidth;
     [SerializeField]
     private float denominator;
     [SerializeField]
@@ -151,11 +164,11 @@ public class CameraController : MonoBehaviour {
         //Limit Zoom between minHeight and maxHeight
         if (z <= 0f && camera.transform.position.y <= maxHeight)
         {   
-            camera.transform.Translate(movement * Time.deltaTime * rotationSpeed, Space.Self);
+            this.transform.Translate(movement * Time.deltaTime * rotationSpeed, Space.Self);
         }
         if (z >= 0f && camera.transform.position.y >= minHeight)
         {
-            camera.transform.Translate(movement * Time.deltaTime * rotationSpeed, Space.Self);
+            this.transform.Translate(movement * Time.deltaTime * rotationSpeed, Space.Self);
         }
     }
 
@@ -167,7 +180,7 @@ public class CameraController : MonoBehaviour {
 
     private void XZMovement(Camera camera, float x, float z)
     {
-        moveDirection = (transform.forward * z) + (transform.right * x);
+        moveDirection = (XZPlane.forward * z) + (XZPlane.right * x);
         moveDirection = moveDirection.normalized;
         this.transform.Translate(moveDirection * Time.deltaTime * movementSpeed, Space.World);
     }
@@ -202,9 +215,9 @@ public class CameraController : MonoBehaviour {
     {
         if (heroes.Length > 0)
         {
-            Vector3 playerPos = new Vector3 (heroes[heroCounter].transform.position.x, 15f, 
-                heroes[heroCounter].transform.position.z -15f);
-            this.transform.rotation = Quaternion.Euler(0, 0, 0);
+            Vector3 playerPos = new Vector3(heroes[heroCounter].transform.position.x, playerCamHeight,
+                heroes[heroCounter].transform.position.z - playerCamDistance);
+            this.transform.rotation = Quaternion.Euler(40, 0, 0);
             this.transform.position = playerPos;
             Debug.Log(heroes[heroCounter]);
             heroCounter++;
