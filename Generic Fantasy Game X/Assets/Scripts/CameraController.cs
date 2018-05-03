@@ -107,7 +107,7 @@ public class CameraController : MonoBehaviour {
         }
 
         //Zoom Camera using mouse scrollwheel
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f && !focusOnPlayer)
         {
             CameraZoom(MCamera, Input.GetAxis("Mouse ScrollWheel"));
         }
