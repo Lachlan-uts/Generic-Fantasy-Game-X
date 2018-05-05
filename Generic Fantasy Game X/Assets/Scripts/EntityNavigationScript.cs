@@ -92,4 +92,9 @@ public class EntityNavigationScript : MonoBehaviour {
 		agent.stoppingDistance = 0.5f;
 //		DrawPath (agent.path); // <- use this draw path to see a single set path
 	}
+
+	public void CancelMovement() {
+		agent.ResetPath ();
+
+	}
 }
