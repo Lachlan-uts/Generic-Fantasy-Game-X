@@ -15,6 +15,9 @@ public class GameManager: MonoBehaviour {
 	private GameObject mainMenu;
 
     private bool pauseMenuStatus;
+    //Just for testing - wil change afterwards
+    private bool mainMenuStatus;
+
     private int level = 1;
     //public Text gameOverText;
     //public GameObject gameOverImage;
@@ -41,11 +44,19 @@ public class GameManager: MonoBehaviour {
 		//LoadCanvas
 		pauseMenu.SetActive(false);
 		mainMenu.SetActive(false);
+        pauseMenuStatus = false;
+        mainMenuStatus = false;
      }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.M) && !pauseMenuStatus)
+        {
+            Debug.Log(mainMenuStatus);
+            MainMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !mainMenuStatus)
         {
             Debug.Log(pauseMenuStatus);
             PauseMenu();
@@ -60,7 +71,7 @@ public class GameManager: MonoBehaviour {
 
     }
 
-    public void startGame(int index)
+    public void StartGame(int index)
     {
         SceneManager.LoadScene(index);
     }
@@ -78,6 +89,16 @@ public class GameManager: MonoBehaviour {
 
         SceneManager.LoadScene(0);
     }*/
+
+    void MainMenu()
+    {
+        if (!mainMenuStatus)
+        {
+            mainMenuStatus = !mainMenuStatus;
+            mainMenu.SetActive(true);
+        }
+        //else ExitMenu();
+    }
 
     void PauseMenu()
     {
