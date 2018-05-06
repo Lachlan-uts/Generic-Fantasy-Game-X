@@ -117,6 +117,13 @@ public class CameraController : MonoBehaviour {
             PlayerCam(MCamera);
         }
 
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			CancelMovement ();
+		}
+		if (Input.GetKeyDown (KeyCode.X)) {
+			CancelAllMovement ();
+		}
+
         //Debug.Log(focusOnPlayer);
     }
 
@@ -160,6 +167,21 @@ public class CameraController : MonoBehaviour {
 		if (Physics.Raycast (cameraRay, out hit, 200f)) {
 			selectedObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point,this.gameObject);
 //			Debug.Log ("sending a move command");
+		}
+	}
+
+	// cancelling movement for specific hero
+	private void CancelMovement() {
+		if (!selectedObject) {
+			return;
+		}
+		selectedObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
+	}
+
+	// cancelling movement for all heroes
+	private void CancelAllMovement() {
+		foreach (GameObject hero in GameObject.FindGameObjectsWithTag("Hero")) {
+			hero.GetComponent<EntityNavigationScript> ().CancelMovement ();
 		}
 	}
 
