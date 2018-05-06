@@ -9,9 +9,15 @@ using UnityEngine.SceneManagement;
 //	[System.Serializable]
 public class GameManager: MonoBehaviour {
 
+	[SerializeField]
+	private GameObject pauseMenu;
+	[SerializeField]
+	private GameObject mainMenu;
+
+    private bool pauseMenuStatus;
     private int level = 1;
-    public Text gameOverText;
-    public GameObject gameOverImage;
+    //public Text gameOverText;
+    //public GameObject gameOverImage;
     public static GameManager instance = null;
 
     void Awake()
@@ -32,10 +38,22 @@ public class GameManager: MonoBehaviour {
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
 
+		//LoadCanvas
+		pauseMenu.SetActive(false);
+		mainMenu.SetActive(false);
      }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log(pauseMenuStatus);
+            PauseMenu();
+        }
+    }
 
-        void OnLevelWasLoaded(int index)
+
+    void OnLevelWasLoaded(int index)
     {
         level++;
        
@@ -47,7 +65,7 @@ public class GameManager: MonoBehaviour {
         SceneManager.LoadScene(index);
     }
 
-    public void GameOver()
+    /*public void GameOver()
     {
         //set Text for game over
         gameOverText.text = "All players have died, Game Over";
@@ -59,7 +77,25 @@ public class GameManager: MonoBehaviour {
         enabled = false;
 
         SceneManager.LoadScene(0);
+    }*/
+
+    void PauseMenu()
+    {
+        if (!pauseMenuStatus)
+        {
+            pauseMenuStatus = !pauseMenuStatus;
+            pauseMenu.SetActive(true);
+        }
+        else ExitMenu();
     }
+
+	public void ExitMenu()
+	{
+        pauseMenuStatus = !pauseMenuStatus;
+        pauseMenu.SetActive(false);
+		Debug.Log("Close Menu");
+	}
+
 
     public void QuitGame()
     {
