@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/CameraControls.unity
+- path: Assets/AssetStore/RPG Character Animation Pack/Scenes/RPG-Character.unity
   isLoaded: 1
   isActive: 1
