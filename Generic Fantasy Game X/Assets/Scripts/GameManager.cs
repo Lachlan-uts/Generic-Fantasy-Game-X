@@ -23,6 +23,9 @@ public class GameManager: MonoBehaviour {
     //public GameObject gameOverImage;
     public static GameManager instance = null;
 
+    //Audio for buttons
+    public AudioSource audio;
+
     void Awake()
     {
         //Check if instance already exists
@@ -71,9 +74,16 @@ public class GameManager: MonoBehaviour {
 
     }
 
-    public void StartGame(int index)
+    public void onClickStart()
     {
-        SceneManager.LoadScene(index);
+
+        audio.Play();
+        Invoke("StartGame", 2.0f);
+
+    }
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
     }
 
     /*public void GameOver()

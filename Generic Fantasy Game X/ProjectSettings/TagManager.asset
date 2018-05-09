@@ -16,6 +16,8 @@ TagManager:
   - WeaponDrop
   - Enemy
   - ExpBar
+  - Slot1
+  - Slot2
   layers:
   - Default
   - TransparentFX
