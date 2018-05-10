@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HatchScript : MonoBehaviour {
 
-	// private variables
+    // private variables
 	private float hatchRange = 6.0f;
 
     private float missionObjective;
@@ -57,7 +57,7 @@ public class HatchScript : MonoBehaviour {
             //Debug.Log("Hero has reached Exit");
             if (CanLeave())
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Return))
                 {
                     Debug.Log("Level Complete");
                     ExitLevel();
@@ -98,9 +98,15 @@ public class HatchScript : MonoBehaviour {
         GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
         foreach (GameObject hero in heroes)
         {
-            DontDestroyOnLoad(hero);
+            //At the moment if using this will increase one hero per scene load
+            //DontDestroyOnLoad(hero);
         }
 
+        //Load Next Level
+        GameObject gameManager = GameObject.Find("GameManagers");
+        LevelManager sceneLoader = gameManager.GetComponent<LevelManager>();
+        Debug.Log(sceneLoader);
+        sceneLoader.LoadNextLevel();
         //Create End Screen
     }
 

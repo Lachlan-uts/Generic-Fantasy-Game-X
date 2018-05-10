@@ -64,21 +64,6 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown ("Fire1")) {
-			GetUnit (MCamera);
-            Debug.Log("Got Unit");
-		}
-		if (Input.GetButtonDown ("Fire2")) {
-			MoveCommand (MCamera);
-		}
-
-        /*if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Vector3 playerPos = GameObject.FindGameObjectWithTag("Hero").transform.position;
-            this.transform.position = new Vector3(playerPos.x, 15, playerPos.z - 15);
-            //transform.rotation.Set(40, 0, 0, 0);
-        }*/
-        //DragCamControl(Camera camera);
 
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
@@ -90,10 +75,12 @@ public class CameraController : MonoBehaviour {
             //Debug.Log("Game Over");
         }
 
+        //
         if (focusOnPlayer)
         {
             this.transform.position = new Vector3(cameraPos.position.x, playerCamHeight,
                 cameraPos.position.z);
+            this.transform.LookAt(player.transform);
         }
 
         //Move Camera along XZ plane
@@ -114,9 +101,22 @@ public class CameraController : MonoBehaviour {
         }
 
         //Zoom Camera using mouse scrollwheel
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f && !focusOnPlayer)
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
+            focusOnPlayer = false;
             CameraZoom(MCamera, Input.GetAxis("Mouse ScrollWheel"));
+        }
+
+        //Select Hero to Move
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GetUnit(MCamera);
+            Debug.Log("Got Unit");
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            CancelMovement();
+            MoveCommand(MCamera);
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -197,6 +197,7 @@ public class CameraController : MonoBehaviour {
 
     private void CameraZoom(Camera camera, float z)
     {
+        focusOnPlayer = false;
         Vector3 movement = new Vector3(0, 0, z).normalized;
 
         //Limit Zoom between minHeight and maxHeight
