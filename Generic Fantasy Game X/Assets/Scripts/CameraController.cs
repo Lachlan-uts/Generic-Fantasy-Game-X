@@ -158,8 +158,11 @@ public class CameraController : MonoBehaviour {
 		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
 
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
-			selectedObject = hit.collider.gameObject;
-			Debug.Log (selectedObject.gameObject.name);
+            if (hit.collider.gameObject.tag == "Hero")
+            {
+                selectedObject = hit.collider.gameObject;
+                Debug.Log(selectedObject.gameObject.name);
+            }
 		}
 	}
 
@@ -234,7 +237,7 @@ public class CameraController : MonoBehaviour {
             if (mousePos.x >= screenWidth - (screenWidth / denominator) && mousePos.x <= screenWidth)
             {
                 float x = mousePos.x / screenWidth;
-                Debug.Log(x);
+                //Debug.Log(x);
                 XZMovement(camera, x, z);
             }
             else if (mousePos.x <= (screenWidth / denominator) && mousePos.x >= 0)
