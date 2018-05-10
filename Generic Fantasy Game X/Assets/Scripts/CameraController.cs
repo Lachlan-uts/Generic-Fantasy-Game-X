@@ -66,6 +66,7 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown ("Fire1")) {
 			GetUnit (MCamera);
+            Debug.Log("Got Unit");
 		}
 		if (Input.GetButtonDown ("Fire2")) {
 			MoveCommand (MCamera);
@@ -81,7 +82,13 @@ public class CameraController : MonoBehaviour {
 
         horizontalMove = Input.GetAxis("Horizontal");
         verticalMove = Input.GetAxis("Vertical");
+        screenHeight = Screen.height;
+        screenWidth = Screen.width;
         heroes = GameObject.FindGameObjectsWithTag("Hero");
+        if (heroes.Length <= 0)
+        {
+            //Debug.Log("Game Over");
+        }
 
         if (focusOnPlayer)
         {
@@ -152,7 +159,7 @@ public class CameraController : MonoBehaviour {
 
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
 			selectedObject = hit.collider.gameObject;
-//			Debug.Log (selectedObject.gameObject.name);
+			Debug.Log (selectedObject.gameObject.name);
 		}
 	}
 
@@ -166,7 +173,7 @@ public class CameraController : MonoBehaviour {
 
 		if (Physics.Raycast (cameraRay, out hit, 200f)) {
 			selectedObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point,this.gameObject);
-//			Debug.Log ("sending a move command");
+			Debug.Log ("sending a move command");
 		}
 	}
 
@@ -202,7 +209,7 @@ public class CameraController : MonoBehaviour {
 
     private void CameraRotation(Camera camera, int dir)
     {
-        focusOnPlayer = false;
+        //focusOnPlayer = false;
         float rotation = Time.deltaTime * rotationSpeed * dir;
         this.transform.Rotate(0, rotation, 0, Space.World);
     }
