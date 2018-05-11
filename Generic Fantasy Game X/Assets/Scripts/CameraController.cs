@@ -4,281 +4,89 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    private Vector3 dragOrigin;
+	GameObject cameraTarget;
+	public float rotateSpeed;
+	float rotate;
+	public float offsetDistance;
+	public float offsetHeight;
+	public float smoothing;
+	Vector3 offset;
+	bool following = true;
+	Vector3 lastPosition;
 
-    //Cameras
-    private Camera MCamera;
+	private float horizontalMove, verticalMove;
 
-    //Input.GetAxis
-    private float horizontalMove, verticalMove;
-
-    //Players
-    private GameObject[] heroes;
-    private int heroCounter;
-    private GameObject player;
-    private bool focusOnPlayer;
-
-    //Movement Speed
-    [SerializeField]
-    private float dragSpeed;
-    [SerializeField]
-    private float movementSpeed;
-    [SerializeField]
-    private float rotationSpeed;
-
-    //Camera Positioning
-    private float headingAngle;
-    private Vector3 playerDirection;
-    private Transform cameraPos;
-    private Vector3 moveDirection;
-    [SerializeField]
-    private float rotationAngle;
-    [SerializeField]
-    private Transform XZPlane;
-    [SerializeField]
-    private float playerCamHeight;
-    [SerializeField]
-    private float playerCamDistance;
-
-    //Used for EdgeHovering
-    private float screenHeight, screenWidth;
-    [SerializeField]
-    private float denominator;
-    [SerializeField]
-    private float minHeight;
-    [SerializeField]
-    private float maxHeight;
-
-    //trying to make it so you can click to select a unit.
-    public GameObject selectedObject { private set; get; }
-
-    // Use this for initialization
-    void Start () {
-		MCamera = Camera.main;
-        screenHeight = Screen.height;
-        screenWidth = Screen.width;
-        heroes = GameObject.FindGameObjectsWithTag("Hero");
-        heroCounter = 0;
-        focusOnPlayer = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetButtonDown ("Fire1")) {
-			GetUnit (MCamera);
-		}
-		if (Input.GetButtonDown ("Fire2")) {
-			MoveCommand (MCamera);
-		}
-
-        /*if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Vector3 playerPos = GameObject.FindGameObjectWithTag("Hero").transform.position;
-            this.transform.position = new Vector3(playerPos.x, 15, playerPos.z - 15);
-            //transform.rotation.Set(40, 0, 0, 0);
-        }*/
-        //DragCamControl(Camera camera);
-
-        horizontalMove = Input.GetAxis("Horizontal");
-        verticalMove = Input.GetAxis("Vertical");
-        heroes = GameObject.FindGameObjectsWithTag("Hero");
-
-        if (focusOnPlayer)
-        {
-            this.transform.position = new Vector3(cameraPos.position.x, playerCamHeight,
-                cameraPos.position.z);
-        }
-
-        //Move Camera along XZ plane
-        XZMovement(MCamera, horizontalMove, verticalMove);
-        //Move Camera when mouse hovers on edge of game screen
-        EdgeMovement(MCamera);
-
-        //Rotate Camera Left or Right when key is preesed
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E))
-        {
-            int direction = 1;
-            if (Input.GetKey(KeyCode.Q))
-            {
-                direction = -1;
-                CameraRotation(MCamera, direction);
-            }
-            else CameraRotation(MCamera, direction);
-        }
-
-        //Zoom Camera using mouse scrollwheel
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f && !focusOnPlayer)
-        {
-            CameraZoom(MCamera, Input.GetAxis("Mouse ScrollWheel"));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            PlayerCam(MCamera);
-        }
-
-		if (Input.GetKeyDown (KeyCode.Z)) {
-			CancelMovement ();
-		}
-		if (Input.GetKeyDown (KeyCode.X)) {
-			CancelAllMovement ();
-		}
-
-        //Debug.Log(focusOnPlayer);
-    }
-
-	/*
-	 * Idea to replace the XZ plane element.
-	 * We want the camera to be a certain hight above the floor.
-	 * So what we do is make it each time the camera moves, it tests for the ground and from there sets its hight?
-	 * 
-	 */
-
-    private void DragCamControl(Camera camera)
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            dragOrigin = Input.mousePosition;
-            return;
-        }
-
-        if (!Input.GetMouseButton(0)) return;
-
-        Vector3 pos = camera.ScreenToViewportPoint(dragOrigin - Input.mousePosition);
-        Vector3 move = new Vector3(pos.x * dragSpeed, 0, pos.y * dragSpeed);
-
-        transform.Translate(move, Space.World);
-
-    }
-
-	//method to try and get a unit on the unit layer.
-	private void GetUnit(Camera camera) {
-		int layerMask = 1 << 8;
-		RaycastHit hit;
-		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
-
-		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
-			selectedObject = hit.collider.gameObject;
-//			Debug.Log (selectedObject.gameObject.name);
-		}
+	void Start()
+	{
+		cameraTarget = GameObject.FindGameObjectWithTag("Hero");
+		lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
+		offset = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 	}
 
-	//telling a unit where to go.
-	private void MoveCommand(Camera camera) {
-		if (!selectedObject)
-			return;
-		int layerMask = 1 << 9;
-		RaycastHit hit;
-		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
+	void Update()
+	{
+		horizontalMove = Input.GetAxis("Horizontal");
+		verticalMove = Input.GetAxis("Vertical");
 
-		if (Physics.Raycast (cameraRay, out hit, 200f)) {
-			selectedObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point,this.gameObject);
-//			Debug.Log ("sending a move command");
-		}
+
+		Debug.Log ("the forward of the camera" + this.transform.forward);
+		//Debug.Log ("the intended force to apply" + new Vector3 (horizontalMove, 0, verticalMove));
+
+		//test solution
+		Debug.Log ("Trying to get a local vector in global space" + new Vector3 (this.transform.forward.x, 0, 0));
+		//Debug.Log (this.transform.rotation.eulerAngles);
+
+		Vector3 adjustedVector;
+		adjustedVector = Quaternion.Euler (0, this.transform.eulerAngles.y, 0) * new Vector3 (horizontalMove, 0, verticalMove);
+		Debug.Log (adjustedVector);
+
+		//Debug.Log (Vector3.RotateTowards (new Vector3 (verticalMove, 0, horizontalMove), new Vector3 (this.transform.forward.x, 0, this.transform.forward.z), 100f, 1f));
+
+
+		this.transform.Translate (adjustedVector * Time.deltaTime * 5, Space.World);
+
+
+
+//		if(Input.GetKey(KeyCode.F))
+//		{
+//			if(following)
+//			{
+//				following = false;
+//			} 
+//			else
+//			{
+//				following = true;
+//			}
+//		} 
+//		if(Input.GetKey(KeyCode.Q))
+//		{
+//			rotate = -1;
+//		} 
+//		else if(Input.GetKey(KeyCode.E))
+//		{
+//			rotate = 1;
+//		} 
+//		else
+//		{
+//			rotate = 0;
+//		}
+//		if(following)
+//		{
+//			offset = Quaternion.AngleAxis(rotate * rotateSpeed, Vector3.up) * offset;
+//			transform.position = cameraTarget.transform.position + offset; 
+//			transform.position = new Vector3(Mathf.Lerp(lastPosition.x, cameraTarget.transform.position.x + offset.x, smoothing * Time.deltaTime), 
+//				Mathf.Lerp(lastPosition.y, cameraTarget.transform.position.y + offset.y, smoothing * Time.deltaTime), 
+//				Mathf.Lerp(lastPosition.z, cameraTarget.transform.position.z + offset.z, smoothing * Time.deltaTime));
+//		} 
+//		else
+//		{
+//			transform.position = lastPosition; 
+//		}
+//		transform.LookAt(cameraTarget.transform.position);
 	}
 
-	// cancelling movement for specific hero
-	private void CancelMovement() {
-		if (!selectedObject) {
-			return;
-		}
-		selectedObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
+	void LateUpdate()
+	{
+		lastPosition = transform.position;
 	}
-
-	// cancelling movement for all heroes
-	private void CancelAllMovement() {
-		foreach (GameObject hero in GameObject.FindGameObjectsWithTag("Hero")) {
-			hero.GetComponent<EntityNavigationScript> ().CancelMovement ();
-		}
-	}
-
-    private void CameraZoom(Camera camera, float z)
-    {
-        Vector3 movement = new Vector3(0, 0, z).normalized;
-
-        //Limit Zoom between minHeight and maxHeight
-        if (z <= 0f && camera.transform.position.y <= maxHeight)
-        {   
-            this.transform.Translate(movement * Time.deltaTime * rotationSpeed, Space.Self);
-        }
-        if (z >= 0f && camera.transform.position.y >= minHeight)
-        {
-            this.transform.Translate(movement * Time.deltaTime * rotationSpeed, Space.Self);
-        }
-    }
-
-    private void CameraRotation(Camera camera, int dir)
-    {
-        focusOnPlayer = false;
-        float rotation = Time.deltaTime * rotationSpeed * dir;
-        this.transform.Rotate(0, rotation, 0, Space.World);
-    }
-
-    private void XZMovement(Camera camera, float x, float z)
-    {
-		Debug.Log (XZPlane.forward);
-		Debug.Log (camera.gameObject.transform.forward);
-        moveDirection = (XZPlane.forward * z) + (XZPlane.right * x);
-        moveDirection = moveDirection.normalized;
-        if (moveDirection != Vector3.zero)
-        {
-            focusOnPlayer = false;
-        }
-        this.transform.Translate(moveDirection * Time.deltaTime * movementSpeed, Space.World);
-    }
-
-    private void EdgeMovement(Camera camera)
-    {
-        Vector3 mousePos = Input.mousePosition;
-        float z = ((2 * mousePos.y) - screenHeight) / screenHeight;
-        if (mousePos.y < screenHeight && mousePos.y > 0)
-        {
-            if (mousePos.x >= screenWidth - (screenWidth / denominator) && mousePos.x <= screenWidth)
-            {
-                float x = mousePos.x / screenWidth;
-                Debug.Log(x);
-                XZMovement(camera, x, z);
-            }
-            else if (mousePos.x <= (screenWidth / denominator) && mousePos.x >= 0)
-            {
-                float x = ((screenWidth / denominator) - mousePos.x) / (screenWidth / denominator);
-                XZMovement(camera, -x, z);
-            }
-            else if (mousePos.y > screenHeight - screenHeight / denominator 
-                || mousePos.y < screenHeight / denominator)
-            {
-                float x = (mousePos.x - screenWidth/2) / (screenWidth/2);
-                XZMovement(camera, x, z);
-            }
-        }
-    }
-
-    private float PlayerHeading()
-    {
-        playerDirection = heroes[heroCounter].transform.forward;
-        float heading = Quaternion.LookRotation(playerDirection).eulerAngles.y;
-        return heading;
-    }
-
-    private void PlayerCam(Camera camera)
-    {
-        if (heroes.Length > 0)
-        {
-            headingAngle = PlayerHeading();
-            player = heroes[heroCounter];
-            cameraPos = player.transform.Find("CameraPosition");
-            Debug.Log(cameraPos);
-            Vector3 playerPos = new Vector3(cameraPos.position.x, playerCamHeight,
-                cameraPos.position.z);
-            this.transform.rotation = Quaternion.Euler(rotationAngle, headingAngle, 0);
-            this.transform.position = playerPos;
-            focusOnPlayer = true;
-            Debug.Log(heroCounter + ": " + heroes[heroCounter] + " " + headingAngle);
-            heroCounter++;
-            if (heroCounter > heroes.Length - 1)
-            {
-                heroCounter = 0;
-            }
-        }
-    }
 }

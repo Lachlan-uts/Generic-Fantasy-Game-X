@@ -333,13 +333,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 200067685}
-  m_LocalRotation: {x: 0.2960448, y: -0, z: -0, w: 0.955174}
-  m_LocalPosition: {x: 0, y: 13.5, z: -20}
+  m_LocalRotation: {x: 0.20933296, y: 0.6754108, z: -0.20933296, w: 0.6754108}
+  m_LocalPosition: {x: -18.4, y: 13.5, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 34.440002, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 34.440002, y: 90, z: 0}
 --- !u!114 &200067690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,18 +348,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 200067685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f66d8c2d23df584ba5c9af024281f68, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d2f8c718081f4c4e8b7db280fcc011d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 1
-  movementSpeed: 20
-  rotationSpeed: 90
-  rotationAngle: 0
-  playerCamHeight: 0
-  playerCamDistance: 0
-  denominator: 0
-  minHeight: 0
-  maxHeight: 0
+  rotateSpeed: 1
+  offsetDistance: 5
+  offsetHeight: 10
+  smoothing: 1
 --- !u!1 &214324031
 GameObject:
   m_ObjectHideFlags: 0
