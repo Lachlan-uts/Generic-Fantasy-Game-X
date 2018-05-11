@@ -12,10 +12,13 @@ public class EntityNavigationScript : MonoBehaviour {
 	private LineRenderer line;
 	private NavMeshAgent agent;
 
+	private Animator anim;
+
 	public GameObject currentOrderInvoker { get; private set; }
 
 	// Use this for initialization
 	void Start () {
+		anim = GetComponent<Animator>();
 		line = GetComponent<LineRenderer> ();
 		agent = GetComponent<NavMeshAgent> ();
 		//agent.destination = goal.position;
@@ -62,11 +65,14 @@ public class EntityNavigationScript : MonoBehaviour {
 
 	public void StoppedMovementCheck() {
 		Debug.Log ("in the stopped movement check");
+		
 		if (agent.remainingDistance == 0)
 			return;
 		if (agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
 			agent.ResetPath ();
 			//goal = null;
+			//my changes
+		anim.SetBool("IsMoving", false);
 			Debug.Log ("attempting to remove current pathing");
 		}
 	}
@@ -77,6 +83,9 @@ public class EntityNavigationScript : MonoBehaviour {
 	 * However A.I commands and player commands need to be able so overwrite previous commands of that level.
 	 */
 	public void SetDestination(Vector3 goal, GameObject invoker) {
+
+		//my changes
+		anim.SetBool("IsMoving", true);
 
 		if (invoker.CompareTag (Camera.main.tag)) {
 			line.SetPosition (0, transform.position);

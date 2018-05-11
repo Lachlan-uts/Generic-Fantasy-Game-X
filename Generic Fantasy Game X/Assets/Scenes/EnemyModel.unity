@@ -571,7 +571,7 @@ Prefab:
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
       propertyPath: numEnemies
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
@@ -579,6 +579,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1945564476957240, guid: 2d50057818813ee45bd8e414b7e5e26c,
         type: 2}
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: numRooms
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 376dc87281407b645a3a74fafd0ee1a0, type: 2}
   m_IsPrefabParent: 0
