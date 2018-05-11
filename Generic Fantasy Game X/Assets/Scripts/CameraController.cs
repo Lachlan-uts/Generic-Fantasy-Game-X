@@ -11,10 +11,14 @@ public class CameraController : MonoBehaviour {
 	public float offsetHeight;
 	public float smoothing;
 	Vector3 offset;
-	bool following = true;
+	bool following = false;
 	Vector3 lastPosition;
 
 	private float horizontalMove, verticalMove;
+
+	private Vector3 playerMoveInput, rotationTarget;
+	//camera raycast
+	private int layerMask = 1 << 9;
 
 	void Start()
 	{
@@ -28,23 +32,41 @@ public class CameraController : MonoBehaviour {
 		horizontalMove = Input.GetAxis("Horizontal");
 		verticalMove = Input.GetAxis("Vertical");
 
+		playerMoveInput = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 
-		Debug.Log ("the forward of the camera" + this.transform.forward);
-		//Debug.Log ("the intended force to apply" + new Vector3 (horizontalMove, 0, verticalMove));
+		Debug.DrawRay (this.transform.position, this.transform.forward*100, Color.green, 5f);
+		if (!following && playerMoveInput.magnitude > 0f) {
+			RaycastHit hitInfo;
+			Ray cameraRay = new Ray (this.transform.position, this.transform.forward);
+			if (Physics.Raycast (cameraRay, out hitInfo, 200f, layerMask)) {
+				rotationTarget = hitInfo.point;
+				Debug.Log (hitInfo.point);
+			}
+		}
 
-		//test solution
-		Debug.Log ("Trying to get a local vector in global space" + new Vector3 (this.transform.forward.x, 0, 0));
-		//Debug.Log (this.transform.rotation.eulerAngles);
-
+		//Rotation adjusted local movement
 		Vector3 adjustedVector;
 		adjustedVector = Quaternion.Euler (0, this.transform.eulerAngles.y, 0) * new Vector3 (horizontalMove, 0, verticalMove);
-		Debug.Log (adjustedVector);
-
-		//Debug.Log (Vector3.RotateTowards (new Vector3 (verticalMove, 0, horizontalMove), new Vector3 (this.transform.forward.x, 0, this.transform.forward.z), 100f, 1f));
-
-
 		this.transform.Translate (adjustedVector * Time.deltaTime * 5, Space.World);
 
+
+		if (Input.GetKey(KeyCode.Q)) {
+			rotate = -1;
+			this.transform.RotateAround (rotationTarget, Vector3.up, 20 * Time.deltaTime);
+		} 
+		else if (Input.GetKey(KeyCode.E)) {
+			rotate = 1;
+			this.transform.RotateAround (rotationTarget, Vector3.down, 20 * Time.deltaTime);
+		} 
+		else {
+			rotate = 0;
+		}
+
+		if (Input.GetAxis("Mouse ScrollWheel") != 0f) {
+			Debug.Log (Input.GetAxis ("Mouse ScrollWheel"));
+			this.transform.Translate (Vector3.forward * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime * 200, Space.Self);
+			//this.transform.forward * Input.GetAxis("Mouse ScrollWheel");
+		}
 
 
 //		if(Input.GetKey(KeyCode.F))
@@ -58,18 +80,7 @@ public class CameraController : MonoBehaviour {
 //				following = true;
 //			}
 //		} 
-//		if(Input.GetKey(KeyCode.Q))
-//		{
-//			rotate = -1;
-//		} 
-//		else if(Input.GetKey(KeyCode.E))
-//		{
-//			rotate = 1;
-//		} 
-//		else
-//		{
-//			rotate = 0;
-//		}
+
 //		if(following)
 //		{
 //			offset = Quaternion.AngleAxis(rotate * rotateSpeed, Vector3.up) * offset;
