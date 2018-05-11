@@ -769,6 +769,10 @@ Prefab:
       propertyPath: m_Speed
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1509710607488016, guid: ad78f7458fb703741bb7665ad76aaf31, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad78f7458fb703741bb7665ad76aaf31, type: 2}
   m_IsPrefabParent: 0
@@ -2083,6 +2087,10 @@ Prefab:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1976247666902914, guid: ba530ec3360012546a268c6cf7fb7b5c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba530ec3360012546a268c6cf7fb7b5c, type: 2}
   m_IsPrefabParent: 0
@@ -2816,7 +2824,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1894443028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.084, y: 1.4452248e-17, z: -8.75}
+  m_LocalPosition: {x: -3.99, y: 1.4452248e-17, z: -12.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1485555678}

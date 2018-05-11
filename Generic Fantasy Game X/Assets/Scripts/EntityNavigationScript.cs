@@ -14,20 +14,38 @@ public class EntityNavigationScript : MonoBehaviour {
 
 	public GameObject currentOrderInvoker { get; private set; }
 
+	//animation stuffs
+	Animator anim;
+
+	//workaround for the currently broken camera, remove later
+	RaycastHit hitInfo = new RaycastHit();
+
 	// Use this for initialization
 	void Start () {
 		line = GetComponent<LineRenderer> ();
 		agent = GetComponent<NavMeshAgent> ();
+		anim = GetComponent<Animator> ();
+//		agent.updatePosition = false;
 		//agent.destination = goal.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetMouseButtonDown(0)) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast (ray.origin, ray.direction, out hitInfo))
+				SetDestination (hitInfo.point, Camera.main.gameObject);
+		}
 		if (goal != null) {
 			agent.destination = goal.position;
 			Debug.Log ("has goal");
 			//if (agent.remainingDistance
 		}
+			
+
+		bool shouldMove = agent.remainingDistance > agent.radius;
+		anim.SetBool ("Moving", shouldMove);
+
 		//StoppedMovementCheck ();
 //		if (agent.velocity.magnitude <= 0.1f) {
 //			Debug.Log (agent.remainingDistance);
@@ -91,10 +109,12 @@ public class EntityNavigationScript : MonoBehaviour {
 		agent.destination = goal;
 		agent.stoppingDistance = 0.5f;
 //		DrawPath (agent.path); // <- use this draw path to see a single set path
+		anim.SetBool ("Moving", true);
+
 	}
 
 	public void CancelMovement() {
 		agent.ResetPath ();
-
+		anim.SetBool ("Moving", false);
 	}
 }
