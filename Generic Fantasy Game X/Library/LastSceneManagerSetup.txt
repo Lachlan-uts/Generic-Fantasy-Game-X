@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/CameraControls.unity
+- path: Assets/Scenes/EnemyModel.unity
   isLoaded: 1
   isActive: 1

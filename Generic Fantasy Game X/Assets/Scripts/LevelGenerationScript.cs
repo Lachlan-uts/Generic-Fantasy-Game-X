@@ -135,7 +135,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
 			int iCount = 0;
 			while (iCount < heroes.Length) {
-				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position;
+				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position + new Vector3 (0.0f, 1.0f, 0.0f);
 				iCount++;
 			}
 			genStage = 10;
