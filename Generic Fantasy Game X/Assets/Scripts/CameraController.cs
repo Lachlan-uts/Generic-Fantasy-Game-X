@@ -127,6 +127,13 @@ public class CameraController : MonoBehaviour {
         //Debug.Log(focusOnPlayer);
     }
 
+	/*
+	 * Idea to replace the XZ plane element.
+	 * We want the camera to be a certain hight above the floor.
+	 * So what we do is make it each time the camera moves, it tests for the ground and from there sets its hight?
+	 * 
+	 */
+
     private void DragCamControl(Camera camera)
     {
         if (Input.GetMouseButtonDown(0))
@@ -209,6 +216,8 @@ public class CameraController : MonoBehaviour {
 
     private void XZMovement(Camera camera, float x, float z)
     {
+		Debug.Log (XZPlane.forward);
+		Debug.Log (camera.gameObject.transform.forward);
         moveDirection = (XZPlane.forward * z) + (XZPlane.right * x);
         moveDirection = moveDirection.normalized;
         if (moveDirection != Vector3.zero)

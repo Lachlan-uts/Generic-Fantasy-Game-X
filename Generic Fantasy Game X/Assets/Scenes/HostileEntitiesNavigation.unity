@@ -346,16 +346,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 200067685}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f66d8c2d23df584ba5c9af024281f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dragSpeed: 1
-  movementSpeed: 0
-  rotationSpeed: 0
+  movementSpeed: 20
+  rotationSpeed: 90
   rotationAngle: 0
-  XZPlane: {fileID: 0}
   playerCamHeight: 0
   playerCamDistance: 0
   denominator: 0
