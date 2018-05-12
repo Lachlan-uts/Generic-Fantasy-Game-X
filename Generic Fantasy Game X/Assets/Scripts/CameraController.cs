@@ -136,7 +136,9 @@ public class CameraController : MonoBehaviour {
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
 			Debug.Log (hit.collider.name);
 			Debug.Log (hit.collider.gameObject.layer);
-			cameraTarget = hit.collider.gameObject;
+			if (hit.collider.CompareTag("Hero") {
+				cameraTarget = hit.collider.gameObject;
+			}
 		}
 	}
 
