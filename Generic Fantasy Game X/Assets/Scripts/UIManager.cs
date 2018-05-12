@@ -6,27 +6,67 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
     //Health UI
-	public Slider healthBar;
-	public Text HPText;
-	public PlayerManager playerManager;
-	public GameObject slot1;
-    public int MaxHP;
-    public int CurrentHP;
+	private Slider healthBar;
+	private Text HPText;
+	private PlayerManager playerManager;
+	private GameObject slot1;
+    private int MaxHP;
+    private int CurrentHP;
 
     //PauseMenu
-    public Transform canvas;
-    public Transform Player;
+    private Canvas canvas;
+    private GameObject[] heroes;
+    private GameObject[] enemies;
 
-	//TO DO: Replace Slot1 with "Current Player"
-	void Start()
+    [SerializeField]
+    private GameObject pauseMenu;
+
+    private bool pauseMenuStatus;
+
+    private int level = 1;
+    //public Text gameOverText;
+    //public GameObject gameOverImage;
+    public static UIManager instance = null;
+
+    //Audio for buttons
+    public AudioSource audio;
+
+    void Awake()
+    {
+        //Check if instance already exists
+        if (instance == null)
+
+            //if not, set instance to this
+            instance = this;
+
+
+        //If instance already exists and it's not this:
+        else if (instance != this)
+
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+
+        //Sets this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
+
+        //LoadCanvas
+        pauseMenu.SetActive(false);
+        pauseMenuStatus = false;
+    }
+
+    //TO DO: Replace Slot1 with "Current Player"
+    void Start()
 	{
         playerManager = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<PlayerManager>();
+        canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
 
         //Calling the variables from Player Stats
         slot1 = GameObject.FindGameObjectWithTag("Slot1");
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
-       
-	  
+        HPText = healthBar.GetComponentInChildren<Text>();
+
+        heroes = GameObject.FindGameObjectsWithTag("Hero");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
 	}
 
     void Update()
@@ -41,35 +81,38 @@ public class UIManager : MonoBehaviour {
 
         Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
-            openMenu();
+            PauseMenu();
         }
 
     }
-    public void openMenu()
+
+
+    public void PauseMenu()
     {
-        
-            if(canvas.gameObject.activeInHierarchy == false)
-            {
-                canvas.gameObject.SetActive(true);
-                Time.timeScale = 0;
-                Player.GetComponent<EntityNavigationScript>().enabled = false;
-
-            }
-         
-        
-
-    }
-
-    public void closeMenu()
-    {
-        if (canvas.gameObject.activeInHierarchy == true)
+        if (!pauseMenuStatus)
         {
-            canvas.gameObject.SetActive(false);
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
             Time.timeScale = 1;
-            Player.GetComponent<EntityNavigationScript>().enabled = true;
+        }
 
+        pauseMenuStatus = !pauseMenuStatus;
+        
+        foreach (GameObject hero in heroes)
+        {
+            hero.GetComponent<EntityNavigationScript>().enabled = 
+                !hero.GetComponent<EntityNavigationScript>().enabled;
+        }
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EntityNavigationScript>().enabled =
+                !enemy.GetComponent<EntityNavigationScript>().enabled;
         }
     }
 }
