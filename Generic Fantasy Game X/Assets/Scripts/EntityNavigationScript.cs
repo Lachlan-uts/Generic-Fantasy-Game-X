@@ -15,10 +15,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	public GameObject currentOrderInvoker { get; private set; }
 
 	//animation stuffs
-	Animator anim;
-
-	//workaround for the currently broken camera, remove later
-	RaycastHit hitInfo = new RaycastHit();
+	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
@@ -31,11 +28,6 @@ public class EntityNavigationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetMouseButtonDown(0)) {
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			if (Physics.Raycast (ray.origin, ray.direction, out hitInfo))
-				SetDestination (hitInfo.point, Camera.main.gameObject);
-		}
 		if (goal != null) {
 			agent.destination = goal.position;
 			Debug.Log ("has goal");

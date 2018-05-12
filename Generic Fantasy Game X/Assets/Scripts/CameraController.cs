@@ -23,10 +23,17 @@ public class CameraController : MonoBehaviour {
 		cameraTarget = GameObject.FindGameObjectWithTag("Hero");
 		lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 		offset = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
-
+		cameraTarget = null;
 	}
 
 	void Update() {
+		if (Input.GetButtonDown ("Fire1")) {
+			GetUnit ();
+		}
+		if (Input.GetButtonDown ("Fire2")) {
+			GetTarget ();
+		}
+
 		//Getting player inputs
 		playerMoveInput = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 		MouseInput ();
@@ -53,18 +60,13 @@ public class CameraController : MonoBehaviour {
 		//Performing zooming
 		CameraZoom ();
 
-
-//		if(Input.GetKey(KeyCode.F))
-//		{
-//			if(following)
-//			{
-//				following = false;
-//			} 
-//			else
-//			{
-//				following = true;
-//			}
-//		} 
+		//Following toggle
+		if(Input.GetKey(KeyCode.F)) {
+			following = !following;
+			if (cameraTarget == null) {
+				cameraTarget = GameObject.FindGameObjectWithTag("Hero");
+			}
+		}
 
 		if(following) {
 			offset = Quaternion.AngleAxis(rotate * rotateSpeed, Vector3.up) * offset;
@@ -73,10 +75,7 @@ public class CameraController : MonoBehaviour {
 				Mathf.Lerp(lastPosition.y, cameraTarget.transform.position.y + offset.y, smoothing * Time.deltaTime), 
 				Mathf.Lerp(lastPosition.z, cameraTarget.transform.position.z + offset.z, smoothing * Time.deltaTime));
 			transform.LookAt(cameraTarget.transform.position);
-		} else {
-			//transform.position = lastPosition; 
 		}
-
 	}
 
 	void LateUpdate() {
@@ -112,14 +111,12 @@ public class CameraController : MonoBehaviour {
 			Ray cameraRay = new Ray (this.transform.position, this.transform.forward);
 			if (Physics.Raycast (cameraRay, out hitInfo, 60f, layerMask)) {
 				rotationTarget = hitInfo.point;
-				Debug.Log (hitInfo.point);
 			}
 		}
 	}
 
 	private void CameraZoom() {
 		if (Input.GetAxis("Mouse ScrollWheel") != 0f) {
-			Debug.Log (Input.GetAxis ("Mouse ScrollWheel"));
 			playerScrollInput = Input.GetAxis ("Mouse ScrollWheel");
 			if (this.transform.position.y <= 4 && playerScrollInput > 0) {
 				return;
@@ -128,6 +125,37 @@ public class CameraController : MonoBehaviour {
 				return;
 			}
 			this.transform.Translate (Vector3.forward * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime * 200, Space.Self);
+		}
+	}
+
+	//method to try and get a unit on the unit layer.
+	private void GetUnit() {
+		int layerMask = 1 << 8;
+		RaycastHit hit;
+		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
+			Debug.Log (hit.collider.name);
+			Debug.Log (hit.collider.gameObject.layer);
+			cameraTarget = hit.collider.gameObject;
+		}
+	}
+
+	//get a target for the controlled unit, either point on ground or enemy.
+	private void GetTarget() {
+		int layerMask = (1 << 8) | (1 << 9);
+		RaycastHit hit;
+		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
+			Debug.Log (hit.collider.name);
+			Debug.Log (hit.collider.gameObject.layer);
+			if (hit.collider.gameObject.layer == 8) {
+//				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = hit.collider.gameObject;
+				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
+			} else {
+//				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = null;
+				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = null;
+			}
+			cameraTarget.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
 		}
 	}
 }
