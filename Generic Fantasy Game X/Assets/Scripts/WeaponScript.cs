@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour {
 
-
+	private Collider weaponCollider;
 	private Rigidbody weaponRGBDY;
 	private Mesh weaponM;
 	private MeshRenderer rend;
@@ -14,8 +14,12 @@ public class WeaponScript : MonoBehaviour {
 	void Start () {
 		weaponRGBDY = GetComponent<Rigidbody> ();
 		rend = GetComponent<MeshRenderer> ();
+		weaponCollider = GetComponent<Collider> ();
 		equiper = null;
 		//SetState (this.transform.parent);
+
+		//workaround for enabling the weapon collider until the setstate is updated.
+		weaponCollider.enabled = false;
 	}
 
 	void Update () {
@@ -97,5 +101,9 @@ public class WeaponScript : MonoBehaviour {
 		weaponRGBDY.AddRelativeForce (Vector3.forward*16, ForceMode.Force);
 		//weaponRGBDY.AddRelativeTorque (Vector3.up * 4);
 		yield return null;
+	}
+
+	public void ToggleCollider(bool state) {
+		weaponCollider.enabled = state;
 	}
 }

@@ -20,11 +20,16 @@ public class EntityTargetScript : MonoBehaviour {
 	//The move system for this entity
 	private EntityNavigationScript entityNavigationScript;
 
+	//The sword
+	private WeaponScript weaponScript;
+
 	//to trigger the attack
 	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
+		weaponScript = GetComponentInChildren<WeaponScript> ();
+
 		entityNavigationScript = GetComponent<EntityNavigationScript> ();
 		anim = GetComponent<Animator> ();
 		targetedEntity = null;
@@ -81,5 +86,16 @@ public class EntityTargetScript : MonoBehaviour {
 			yield return null;
 		}
 		yield return StartCoroutine (WatchForTarget ());
+	}
+
+	/*
+	 * Putting this here until I can think of a better place to toggle the weapon
+	 */
+	public void ToggleWeaponCollider(string state) {
+		if (state.Contains ("true")) {
+			weaponScript.ToggleCollider (true);
+		} else {
+			weaponScript.ToggleCollider (false);
+		}
 	}
 }
