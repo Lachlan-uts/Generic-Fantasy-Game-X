@@ -35,6 +35,7 @@ public class EntityTargetScript : MonoBehaviour {
 	void Start () {
 		targetEntity = GameObject.FindGameObjectWithTag ("Hero");
 		entityNavigationScript = GetComponent<EntityNavigationScript> ();
+		anim = GetComponent<Animator> ();
 		targetedEntity = null;
 		StartCoroutine ("WatchForTarget");
 	}
@@ -50,8 +51,8 @@ public class EntityTargetScript : MonoBehaviour {
 
 	private bool SightCheck() {
 		RaycastHit hit;
-		Ray entityRay = new Ray(transform.position, targetEntity.transform.position - transform.position);
-		Debug.DrawRay (transform.position, targetEntity.transform.position - transform.position, Color.black, 1.0f, true);
+		Ray entityRay = new Ray(transform.position, targetedEntity.transform.position - transform.position);
+		Debug.DrawRay (transform.position, targetedEntity.transform.position - transform.position, Color.black, 1.0f, true);
 		if (Physics.Raycast (entityRay, out hit, 20f)) {
 			if (hit.collider.CompareTag ("Hero") || hit.collider.CompareTag ("Enemy") && !hit.collider.CompareTag(this.gameObject.tag)) {
 				return true;
@@ -62,7 +63,7 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 	private void ProximityCheck() {
-		float targetProximity = Vector3.Distance (this.gameObject.transform.position, targetEntity.transform.position);
+		float targetProximity = Vector3.Distance (this.gameObject.transform.position, targetedEntity.transform.position);
 		if (targetProximity <= 4.0f && targetProximity >= 1.0f) {
 			entityNavigationScript.ProximityTrigger ();
 			anim.SetTrigger ("Attacking");
@@ -90,7 +91,11 @@ public class EntityTargetScript : MonoBehaviour {
 
 	private IEnumerator SightCheckTarget() {
 		while (targetedEntity_) {
-			Debug.Log ("would do a sight check here");
+			if (SightCheck ()) {
+				ProximityCheck ();
+				entityNavigationScript.SetDestination (targetedEntity.transform.position, this.gameObject);
+				entityNavigationScript.StoppedMovementCheck ();
+			}
 			yield return null;
 		}
 		yield return StartCoroutine (WatchForTarget ());
