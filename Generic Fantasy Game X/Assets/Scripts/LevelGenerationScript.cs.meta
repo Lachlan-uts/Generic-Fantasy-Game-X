@@ -5,7 +5,11 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - exitStairs: {fileID: 1652000234630630, guid: ce883f12b11db3e4ab20afa57954c84d,
+      type: 2}
+  - roomDoor: {instanceID: 0}
+  - roomRubble: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

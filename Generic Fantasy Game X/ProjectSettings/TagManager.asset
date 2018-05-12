@@ -15,6 +15,7 @@ TagManager:
   - EquippedWeapon
   - WeaponDrop
   - Enemy
+  - Exit
   layers:
   - Default
   - TransparentFX

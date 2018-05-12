@@ -67,11 +67,11 @@ public class EntityNavigationScript : MonoBehaviour {
 
 	public void ProximityTrigger() {
 		agent.ResetPath ();
-		Debug.Log ("reset path");
+		//Debug.Log ("reset path");
 	}
 
 	public void StoppedMovementCheck() {
-		Debug.Log ("in the stopped movement check");
+		//Debug.Log ("in the stopped movement check");
 		if (agent.remainingDistance == 0)
 			return;
 		if (agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
