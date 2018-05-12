@@ -61,10 +61,12 @@ public class EntityTargetScript : MonoBehaviour {
 
 	private IEnumerator Attack() {
 		Debug.Log ("Prepared to attack");
-		yield return new WaitUntil (() => targetProximity <= 1.2f);
+		yield return new WaitUntil (() => targetProximity <= 1.4f);
 		Debug.Log ("Within striking distance!");
 		anim.SetTrigger ("Attacking");
-		yield return new WaitUntil (() => entityNavigationScript.GetAgentPositionState() == true);
+		yield return new WaitForFixedUpdate ();
+		Debug.Log (entityNavigationScript.GetAgentIsStopped ());
+		yield return new WaitUntil (() => entityNavigationScript.GetAgentIsStopped() == false);
 		if (targetedEntity_) {
 			yield return StartCoroutine ("Attack");
 		} else {

@@ -66,7 +66,9 @@ public class EntityNavigationScript : MonoBehaviour {
 	}
 
 	public void ProximityTrigger() {
-		agent.ResetPath ();
+		if (!agent.isStopped) {
+			agent.ResetPath ();
+		}
 		//Debug.Log ("reset path");
 	}
 
@@ -112,13 +114,15 @@ public class EntityNavigationScript : MonoBehaviour {
 
 	public void PauseMovement(string state) {
 		if (state.Contains ("stop")) {
-			agent.updatePosition = false;
+			//agent.updatePosition = false;
+			agent.isStopped = true;
 		} else if (state.Contains ("start")) {
-			agent.updatePosition = true;
+			//agent.updatePosition = true;
+			agent.isStopped = false;
 		}
 	}
 
-	public bool GetAgentPositionState() {
-		return agent.updatePosition;
+	public bool GetAgentIsStopped() {
+		return agent.isStopped;
 	}
 }
