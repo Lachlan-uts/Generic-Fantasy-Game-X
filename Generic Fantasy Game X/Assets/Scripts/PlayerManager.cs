@@ -40,6 +40,7 @@ public class PlayerManager : MonoBehaviour {
         maxHP = HPUp[currentLevel-1];
 
         Debug.Log ("Player Manager: " + currentHP + currentAttack + currentLevel + currentExp);
+        //DontDestroyOnLoad(this.gameObject);
 	}
 	
 	// Update is called once per frame

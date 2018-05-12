@@ -78,7 +78,6 @@ public class UIManager : MonoBehaviour {
         healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
 
         HPText.text = "HP " + CurrentHP + "/" + MaxHP;
-
         Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))

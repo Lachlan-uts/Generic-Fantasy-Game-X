@@ -4,79 +4,160 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    public float dragSpeed = 1;
-    private Vector3 dragOrigin;
-
-	//camera
 	[SerializeField]
-	private Camera MCamera;
+	GameObject cameraTarget;
+	public float rotateSpeed;
+	float rotate;
+	public float offsetDistance;
+	public float offsetHeight;
+	public float smoothing;
+	Vector3 offset;
+	[SerializeField]
+	bool following = false;
+	Vector3 lastPosition;
 
-	//trying to make it so you can click to select a unit.
-	public GameObject selectedObject { private set; get; }
+	private Vector3 playerMoveInput, rotationTarget;
+	private float playerScrollInput;
 
-    // Use this for initialization
-    void Start () {
-		MCamera = Camera.main;
+	void Start() {
+		cameraTarget = GameObject.FindGameObjectWithTag("Hero");
+		lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
+		offset = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
+		cameraTarget = null;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+	void Update() {
 		if (Input.GetButtonDown ("Fire1")) {
-			GetUnit (MCamera);
+			GetUnit ();
 		}
 		if (Input.GetButtonDown ("Fire2")) {
-			MoveCommand (MCamera);
+			GetTarget ();
 		}
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Vector3 playerPos = GameObject.FindGameObjectWithTag("Hero").transform.position;
-            this.transform.position = new Vector3(playerPos.x, 15, playerPos.z - 15);
-            //transform.rotation.Set(40, 0, 0, 0);
-        }
-        else DragCamControl();
-    }
+		//Getting player inputs
+		playerMoveInput = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
+		MouseInput ();
 
-    private void DragCamControl()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            dragOrigin = Input.mousePosition;
-            return;
-        }
+		//Getting the camera target
+		CameraTarget ();
 
-        if (!Input.GetMouseButton(0)) return;
+		//Rotation adjusted local movement
+		Vector3 adjustedVector;
+		adjustedVector = Quaternion.Euler (0, this.transform.eulerAngles.y, 0) * playerMoveInput;
+		this.transform.Translate (adjustedVector * Time.deltaTime * 5, Space.World);
 
-        Vector3 pos = Camera.main.ScreenToViewportPoint(dragOrigin - Input.mousePosition);
-        Vector3 move = new Vector3(pos.x * dragSpeed, 0, pos.y * dragSpeed);
+		//Performing rotation
+		if (Input.GetKey (KeyCode.Q)) {
+			rotate = 1;
+			this.transform.RotateAround (rotationTarget, Vector3.up, 20 * Time.deltaTime);
+		} else if (Input.GetKey (KeyCode.E)) {
+			rotate = -1;
+			this.transform.RotateAround (rotationTarget, Vector3.down, 20 * Time.deltaTime);
+		} else {
+			rotate = 0;
+		}
 
-        transform.Translate(move, Space.World);
+		//Performing zooming
+		CameraZoom ();
 
-    }
+		//Following toggle
+		if(Input.GetKey(KeyCode.F)) {
+			following = !following;
+			if (cameraTarget == null) {
+				cameraTarget = GameObject.FindGameObjectWithTag("Hero");
+			}
+		}
 
-	//method to try and get a unit on the unit layer.
-	private void GetUnit(Camera camera) {
-		int layerMask = 1 << 8;
-		RaycastHit hit;
-		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
-
-		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
-			selectedObject = hit.collider.gameObject;
-//			Debug.Log (selectedObject.gameObject.name);
+		if(following) {
+			offset = Quaternion.AngleAxis(rotate * rotateSpeed, Vector3.up) * offset;
+			transform.position = cameraTarget.transform.position + offset; 
+			transform.position = new Vector3(Mathf.Lerp(lastPosition.x, cameraTarget.transform.position.x + offset.x, smoothing * Time.deltaTime), 
+				Mathf.Lerp(lastPosition.y, cameraTarget.transform.position.y + offset.y, smoothing * Time.deltaTime), 
+				Mathf.Lerp(lastPosition.z, cameraTarget.transform.position.z + offset.z, smoothing * Time.deltaTime));
+			transform.LookAt(cameraTarget.transform.position);
 		}
 	}
 
-	//telling a unit where to go.
-	private void MoveCommand(Camera camera) {
-		if (!selectedObject)
-			return;
-		int layerMask = 1 << 9;
-		RaycastHit hit;
-		Ray cameraRay = camera.ScreenPointToRay (Input.mousePosition);
+	void LateUpdate() {
+		lastPosition = transform.position;
+	}
 
-		if (Physics.Raycast (cameraRay, out hit, 200f)) {
-			selectedObject.GetComponent<EntityNavigationScript> ().SetDestination (hit.point,this.gameObject);
-//			Debug.Log ("sending a move command");
+	private void MouseInput() {
+		if (Input.mousePosition.x < 20) {
+			playerMoveInput = playerMoveInput + Vector3.left;
+		}
+		if (Input.mousePosition.x > Screen.width - 20) {
+			playerMoveInput = playerMoveInput + Vector3.right;
+		}
+
+		if (Input.mousePosition.y < 20) {
+			playerMoveInput = playerMoveInput + Vector3.back;
+		}
+		if (Input.mousePosition.y > Screen.height - 20) {
+			playerMoveInput = playerMoveInput + Vector3.forward;
+		}
+	}
+
+	private void CameraTarget() {
+		if (following) {
+			rotationTarget = cameraTarget.transform.position;
+			return;
+		}
+
+		Debug.DrawRay (this.transform.position, this.transform.forward*40, Color.green, 5f);
+		int layerMask = 1 << 9;
+		if (!following && playerMoveInput.magnitude > 0f) {
+			RaycastHit hitInfo;
+			Ray cameraRay = new Ray (this.transform.position, this.transform.forward);
+			if (Physics.Raycast (cameraRay, out hitInfo, 60f, layerMask)) {
+				rotationTarget = hitInfo.point;
+			}
+		}
+	}
+
+	private void CameraZoom() {
+		if (Input.GetAxis("Mouse ScrollWheel") != 0f) {
+			playerScrollInput = Input.GetAxis ("Mouse ScrollWheel");
+			if (this.transform.position.y <= 4 && playerScrollInput > 0) {
+				return;
+			}
+			if (this.transform.position.y >= 14 && playerScrollInput < 0) {
+				return;
+			}
+			this.transform.Translate (Vector3.forward * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime * 200, Space.Self);
+		}
+	}
+
+	//method to try and get a unit on the unit layer.
+	private void GetUnit() {
+		int layerMask = 1 << 8;
+		RaycastHit hit;
+		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
+			Debug.Log (hit.collider.name);
+			Debug.Log (hit.collider.gameObject.layer);
+			if (hit.collider.CompareTag("Hero")) {
+				cameraTarget = hit.collider.gameObject;
+			}
+		}
+	}
+
+	//get a target for the controlled unit, either point on ground or enemy.
+	private void GetTarget() {
+		int layerMask = (1 << 8) | (1 << 9);
+		RaycastHit hit;
+		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
+			Debug.Log (hit.collider.name);
+			Debug.Log (hit.collider.gameObject.layer);
+			if (hit.collider.gameObject.layer == 8) {
+//				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = hit.collider.gameObject;
+				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
+			} else {
+//				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = null;
+				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = null;
+			}
+			cameraTarget.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
 		}
 	}
 }
