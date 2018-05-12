@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class EntityTargetScript : MonoBehaviour {
 
+	//various values that need tracking
+	private float targetProximity = Mathf.Infinity;
+
 	/*
 	 * Fancy corountine better entity tracking stuff
 	 */
@@ -50,10 +53,22 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 	private void ProximityCheck() {
-		float targetProximity = Vector3.Distance (this.gameObject.transform.position, targetedEntity.transform.position);
+		targetProximity = Vector3.Distance (this.gameObject.transform.position, targetedEntity.transform.position);
 		if (targetProximity <= 4.0f && targetProximity >= 1.0f) {
 			entityNavigationScript.ProximityTrigger ();
-			anim.SetTrigger ("Attacking");
+		}
+	}
+
+	private IEnumerator Attack() {
+		Debug.Log ("Prepared to attack");
+		yield return new WaitUntil (() => targetProximity <= 1.2f);
+		Debug.Log ("Within striking distance!");
+		anim.SetTrigger ("Attacking");
+		yield return new WaitUntil (() => entityNavigationScript.GetAgentPositionState() == true);
+		if (targetedEntity_) {
+			yield return StartCoroutine ("Attack");
+		} else {
+			yield return null;
 		}
 	}
 
@@ -77,6 +92,7 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 	private IEnumerator SightCheckTarget() {
+		StartCoroutine ("Attack");
 		while (targetedEntity_) {
 			if (SightCheck ()) {
 				ProximityCheck ();

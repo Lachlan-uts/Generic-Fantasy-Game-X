@@ -77,7 +77,7 @@ public class EntityNavigationScript : MonoBehaviour {
 		if (agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
 			agent.ResetPath ();
 			//goal = null;
-			Debug.Log ("attempting to remove current pathing");
+			//Debug.Log ("attempting to remove current pathing");
 		}
 	}
 
@@ -108,5 +108,17 @@ public class EntityNavigationScript : MonoBehaviour {
 	public void CancelMovement() {
 		agent.ResetPath ();
 		anim.SetBool ("Moving", false);
+	}
+
+	public void PauseMovement(string state) {
+		if (state.Contains ("stop")) {
+			agent.updatePosition = false;
+		} else if (state.Contains ("start")) {
+			agent.updatePosition = true;
+		}
+	}
+
+	public bool GetAgentPositionState() {
+		return agent.updatePosition;
 	}
 }

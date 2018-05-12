@@ -194,6 +194,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0
+        functionName: PauseMovement
+        data: stop
+        objectReferenceParameter: {fileID: 11500000, guid: 340883a13a656314991b761028b8f0c3,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.2460645
         functionName: ToggleWeaponCollider
         data: true
@@ -202,9 +210,17 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5492846
+      - time: 0.49127352
         functionName: ToggleWeaponCollider
         data: false
+        objectReferenceParameter: {fileID: 11500000, guid: 6c9ca5ed05dd6234ea08683e82f9ebbc,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: PauseMovement
+        data: start
         objectReferenceParameter: {fileID: 11500000, guid: 6c9ca5ed05dd6234ea08683e82f9ebbc,
           type: 3}
         floatParameter: 0
