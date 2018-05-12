@@ -5,10 +5,6 @@ using UnityEngine.AI;
 
 public class EntityTargetScript : MonoBehaviour {
 
-	//The chosen attack target
-	[SerializeField]
-	public GameObject targetEntity { get; set; }
-
 	/*
 	 * Fancy corountine better entity tracking stuff
 	 */
@@ -21,10 +17,6 @@ public class EntityTargetScript : MonoBehaviour {
 			targetedEntity_ = value;
 		}
 	}
-
-	//Current objective location
-	private Vector3 lastKnownLocation;
-
 	//The move system for this entity
 	private EntityNavigationScript entityNavigationScript;
 
@@ -33,20 +25,10 @@ public class EntityTargetScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		targetEntity = GameObject.FindGameObjectWithTag ("Hero");
 		entityNavigationScript = GetComponent<EntityNavigationScript> ();
 		anim = GetComponent<Animator> ();
 		targetedEntity = null;
 		StartCoroutine ("WatchForTarget");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-//		if (SightCheck ()) {
-//			ProximityCheck ();
-//			entityNavigationScript.SetDestination (targetEntity.transform.position, this.gameObject);
-//			entityNavigationScript.StoppedMovementCheck ();
-//		}
 	}
 
 	private bool SightCheck() {
