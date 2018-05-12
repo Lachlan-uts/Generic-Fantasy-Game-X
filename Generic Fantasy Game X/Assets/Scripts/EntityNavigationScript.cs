@@ -14,10 +14,15 @@ public class EntityNavigationScript : MonoBehaviour {
 
 	public GameObject currentOrderInvoker { get; private set; }
 
+	//animation stuffs
+	private Animator anim;
+
 	// Use this for initialization
 	void Start () {
 		line = GetComponent<LineRenderer> ();
 		agent = GetComponent<NavMeshAgent> ();
+		anim = GetComponent<Animator> ();
+//		agent.updatePosition = false;
 		//agent.destination = goal.position;
 	}
 	
@@ -28,6 +33,11 @@ public class EntityNavigationScript : MonoBehaviour {
 			Debug.Log ("has goal");
 			//if (agent.remainingDistance
 		}
+			
+
+		bool shouldMove = agent.remainingDistance > agent.radius;
+		anim.SetBool ("Moving", shouldMove);
+
 		//StoppedMovementCheck ();
 //		if (agent.velocity.magnitude <= 0.1f) {
 //			Debug.Log (agent.remainingDistance);
@@ -91,10 +101,12 @@ public class EntityNavigationScript : MonoBehaviour {
 		agent.destination = goal;
 		agent.stoppingDistance = 0.5f;
 //		DrawPath (agent.path); // <- use this draw path to see a single set path
+		anim.SetBool ("Moving", true);
+
 	}
 
 	public void CancelMovement() {
 		agent.ResetPath ();
-
+		anim.SetBool ("Moving", false);
 	}
 }
