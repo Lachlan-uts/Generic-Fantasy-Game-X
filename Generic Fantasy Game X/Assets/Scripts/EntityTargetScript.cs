@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class EntityTargetScript : MonoBehaviour {
 
+	//various values that need tracking
+	private float targetProximity = Mathf.Infinity;
+
 	/*
 	 * Fancy corountine better entity tracking stuff
 	 */
@@ -20,11 +23,16 @@ public class EntityTargetScript : MonoBehaviour {
 	//The move system for this entity
 	private EntityNavigationScript entityNavigationScript;
 
+	//The sword
+	private WeaponScript weaponScript;
+
 	//to trigger the attack
 	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
+		weaponScript = GetComponentInChildren<WeaponScript> ();
+
 		entityNavigationScript = GetComponent<EntityNavigationScript> ();
 		anim = GetComponent<Animator> ();
 		targetedEntity = null;
@@ -45,10 +53,24 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 	private void ProximityCheck() {
-		float targetProximity = Vector3.Distance (this.gameObject.transform.position, targetedEntity.transform.position);
+		targetProximity = Vector3.Distance (this.gameObject.transform.position, targetedEntity.transform.position);
 		if (targetProximity <= 4.0f && targetProximity >= 1.0f) {
 			entityNavigationScript.ProximityTrigger ();
-			anim.SetTrigger ("Attacking");
+		}
+	}
+
+	private IEnumerator Attack() {
+		Debug.Log ("Prepared to attack");
+		yield return new WaitUntil (() => targetProximity <= 1.4f);
+		Debug.Log ("Within striking distance!");
+		anim.SetTrigger ("Attacking");
+		yield return new WaitForFixedUpdate ();
+		Debug.Log (entityNavigationScript.GetAgentIsStopped ());
+		yield return new WaitUntil (() => entityNavigationScript.GetAgentIsStopped() == false);
+		if (targetedEntity_) {
+			yield return StartCoroutine ("Attack");
+		} else {
+			yield return null;
 		}
 	}
 
@@ -72,6 +94,7 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 	private IEnumerator SightCheckTarget() {
+		StartCoroutine ("Attack");
 		while (targetedEntity_) {
 			if (SightCheck ()) {
 				ProximityCheck ();
@@ -81,5 +104,16 @@ public class EntityTargetScript : MonoBehaviour {
 			yield return null;
 		}
 		yield return StartCoroutine (WatchForTarget ());
+	}
+
+	/*
+	 * Putting this here until I can think of a better place to toggle the weapon
+	 */
+	public void ToggleWeaponCollider(string state) {
+		if (state.Contains ("true")) {
+			weaponScript.ToggleCollider (true);
+		} else {
+			weaponScript.ToggleCollider (false);
+		}
 	}
 }

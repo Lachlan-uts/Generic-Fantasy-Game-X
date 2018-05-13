@@ -66,7 +66,9 @@ public class EntityNavigationScript : MonoBehaviour {
 	}
 
 	public void ProximityTrigger() {
-		agent.ResetPath ();
+		if (!agent.isStopped) {
+			agent.ResetPath ();
+		}
 		//Debug.Log ("reset path");
 	}
 
@@ -77,7 +79,7 @@ public class EntityNavigationScript : MonoBehaviour {
 		if (agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
 			agent.ResetPath ();
 			//goal = null;
-			Debug.Log ("attempting to remove current pathing");
+			//Debug.Log ("attempting to remove current pathing");
 		}
 	}
 
@@ -108,5 +110,19 @@ public class EntityNavigationScript : MonoBehaviour {
 	public void CancelMovement() {
 		agent.ResetPath ();
 		anim.SetBool ("Moving", false);
+	}
+
+	public void PauseMovement(string state) {
+		if (state.Contains ("stop")) {
+			//agent.updatePosition = false;
+			agent.isStopped = true;
+		} else if (state.Contains ("start")) {
+			//agent.updatePosition = true;
+			agent.isStopped = false;
+		}
+	}
+
+	public bool GetAgentIsStopped() {
+		return agent.isStopped;
 	}
 }
