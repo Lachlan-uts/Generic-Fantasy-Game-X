@@ -24,6 +24,7 @@ public class EntityNavigationScript : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 //		agent.updatePosition = false;
 		//agent.destination = goal.position;
+		line.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -42,7 +43,7 @@ public class EntityNavigationScript : MonoBehaviour {
 //		if (agent.velocity.magnitude <= 0.1f) {
 //			Debug.Log (agent.remainingDistance);
 //		}
-		DrawPath (agent.path); // <- use this drawpath to see the path updated in realtime.
+		//DrawPath (agent.path); // <- use this drawpath to see the path updated in realtime.
 	}
 
 	private void DrawPath(NavMeshPath path) {
