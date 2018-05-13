@@ -63,7 +63,7 @@ public class EntityTargetScript : MonoBehaviour {
 	private bool SightCheck() {
 		RaycastHit hit;
 		Ray entityRay = new Ray(transform.position, targetedEntity.transform.position - transform.position);
-		Debug.DrawRay (transform.position, targetedEntity.transform.position - transform.position, Color.black, 1.0f, true);
+		//Debug.DrawRay (transform.position, targetedEntity.transform.position - transform.position, Color.black, 1.0f, true);
 		if (Physics.Raycast (entityRay, out hit, 20f)) {
 			if (hit.collider.CompareTag ("Hero") || hit.collider.CompareTag ("Enemy") && !hit.collider.CompareTag(this.gameObject.tag)) {
 				return true;

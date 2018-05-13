@@ -104,7 +104,7 @@ public class CameraController : MonoBehaviour {
 			return;
 		}
 
-		Debug.DrawRay (this.transform.position, this.transform.forward*40, Color.green, 5f);
+		//Debug.DrawRay (this.transform.position, this.transform.forward*40, Color.green, 5f);
 		int layerMask = 1 << 9;
 		if (!following && playerMoveInput.magnitude > 0f) {
 			RaycastHit hitInfo;
