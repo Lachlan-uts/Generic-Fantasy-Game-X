@@ -92,13 +92,18 @@ public class UIManager : MonoBehaviour {
 
     public void PauseMenu()
     {
+
+        audio = GameObject.FindGameObjectWithTag("GameUI").GetComponent<AudioSource>();
+
         if (!pauseMenuStatus)
         {
+            audio.Play();
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
         }
         else
         {
+            audio.Play();
             pauseMenu.SetActive(false);
             Time.timeScale = 1;
         }
@@ -116,21 +121,6 @@ public class UIManager : MonoBehaviour {
                 !enemy.GetComponent<EntityNavigationScript>().enabled;
         }
     }
-    public Text gameText;
-    public Button returnButton;
 
 
-    public void GameOver()
-    {
-
-        gameText = GameObject.FindGameObjectWithTag("MenuText").GetComponent<Text>();
-        gameText.text = "Game Over";
-
-        returnButton = GameObject.FindGameObjectWithTag("ReturnButton").GetComponent<Button>();
-        returnButton.enabled = !returnButton.enabled;
-
-
-    
-
-}
 }
