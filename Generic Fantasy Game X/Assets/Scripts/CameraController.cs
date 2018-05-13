@@ -20,7 +20,8 @@ public class CameraController : MonoBehaviour {
 	private float playerScrollInput;
 
 	void Start() {
-		cameraTarget = GameObject.FindGameObjectWithTag("Hero");
+        Time.timeScale = 1;
+        cameraTarget = GameObject.FindGameObjectWithTag("Hero");
 		lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 		offset = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 		cameraTarget = null;

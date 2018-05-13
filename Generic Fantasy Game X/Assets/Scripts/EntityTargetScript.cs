@@ -38,7 +38,8 @@ public class EntityTargetScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		weaponScript = GetComponentInChildren<WeaponScript> ();
+        Time.timeScale = 1;
+        weaponScript = GetComponentInChildren<WeaponScript> ();
 
 		//remove own tag from list of targetable tags
 		targetableTags.Remove(this.gameObject.tag);
