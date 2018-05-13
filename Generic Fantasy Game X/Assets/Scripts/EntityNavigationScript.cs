@@ -78,7 +78,7 @@ public class EntityNavigationScript : MonoBehaviour {
 		//Debug.Log ("in the stopped movement check");
 		if (agent.remainingDistance == 0)
 			return;
-		if (agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
+		if (!agent.isStopped && agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
 			agent.ResetPath ();
 			//goal = null;
 			//Debug.Log ("attempting to remove current pathing");
