@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour {
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene("LevelCompletion");
+		SceneManager.LoadScene("UI - Test Scene");
         //When Combining
         //SceneManager.LoadScene("Main Scene");
     }

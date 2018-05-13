@@ -65,16 +65,18 @@ public class UIManager : MonoBehaviour {
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
         HPText = healthBar.GetComponentInChildren<Text>();
 
+		MaxHP = playerManager.maxHP;
+		healthBar.maxValue += MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
+
         heroes = GameObject.FindGameObjectsWithTag("Hero");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 	}
 
     void Update()
     {
-        MaxHP = playerManager.maxHP;
         CurrentHP = playerManager.currentHP;
 
-        healthBar.maxValue += MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
+
         healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
 
         HPText.text = "HP " + CurrentHP + "/" + MaxHP;

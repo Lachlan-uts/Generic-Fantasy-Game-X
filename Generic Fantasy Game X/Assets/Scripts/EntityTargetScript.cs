@@ -17,6 +17,7 @@ public class EntityTargetScript : MonoBehaviour {
 	/*
 	 * Fancy corountine better entity tracking stuff
 	 */
+	[SerializeField]
 	private GameObject targetedEntity_;
 	public GameObject targetedEntity {
 		get {

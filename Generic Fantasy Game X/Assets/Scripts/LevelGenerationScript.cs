@@ -125,26 +125,26 @@ public class LevelGenerationScript : MonoBehaviour {
 			genStage = 8;
 		} else if (genStage == 8) {
 			// Disable enemy units so no premature action occurs
-			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
-			foreach (GameObject enemy in enemyList) {
-				enemy.SetActive (false);
-			}
+//			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
+//			foreach (GameObject enemy in enemyList) {
+//				enemy.SetActive (false);
+//			}
 			genStage = 9;
 		} else if (genStage == 9) {
 			// Spawn in heroes (in reality, relocate them from wherever to spawn points within the starting room)
-			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
-			int iCount = 0;
-			while (iCount < heroes.Length) {
-				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position + 
-                    new Vector3(0,1,0);
-				iCount++;
-			}
+//			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
+//			int iCount = 0;
+//			while (iCount < heroes.Length) {
+//				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position + 
+//                    new Vector3(0,1,0);
+//				iCount++;
+//			}
 			genStage = 10;
 		} else if (genStage == 10) {
 			// Re-enable enemies within the floor. It's altercation time!
-			foreach (GameObject enemy in enemyList) {
-				enemy.SetActive (true);
-			}
+//			foreach (GameObject enemy in enemyList) {
+//				enemy.SetActive (true);
+//			}
 			genStage = 11;
 		}
 	}
