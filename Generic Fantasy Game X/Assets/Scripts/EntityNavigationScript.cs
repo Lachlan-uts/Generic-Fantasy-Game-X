@@ -73,6 +73,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	}
 
 	public void StoppedMovementCheck() {
+		Debug.Log (this.gameObject.name);
 		//Debug.Log ("in the stopped movement check");
 		if (agent.remainingDistance == 0)
 			return;
@@ -115,6 +116,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	public void PauseMovement(string state) {
 		if (state.Contains ("stop")) {
 			//agent.updatePosition = false;
+			agent.ResetPath ();
 			agent.isStopped = true;
 		} else if (state.Contains ("start")) {
 			//agent.updatePosition = true;

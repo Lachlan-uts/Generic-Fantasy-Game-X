@@ -210,7 +210,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.49127352
+      - time: 0.41668788
         functionName: ToggleWeaponCollider
         data: false
         objectReferenceParameter: {fileID: 11500000, guid: 6c9ca5ed05dd6234ea08683e82f9ebbc,

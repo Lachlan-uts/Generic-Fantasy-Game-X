@@ -42,7 +42,12 @@ public class WeaponScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.layer == LayerMask.NameToLayer ("Units")) {
-			Debug.Log ("Trigger the attack/kill!");
+			//Debug.Log ("Trigger the attack/kill!");
+			Debug.Log (this.gameObject.name + " Hit " + other.gameObject.name);
+			other.gameObject.GetComponent<Collider>().enabled = false;
+			GetComponentInParent<EntityTargetScript> ().targetedEntity = null;
+			//Will use the navigation script for now, but in future will need to be updated to use the entity controller/statistics script as that makes more sense.
+			other.gameObject.GetComponent<EntityTargetScript> ().Die();
 		}
 	}
 

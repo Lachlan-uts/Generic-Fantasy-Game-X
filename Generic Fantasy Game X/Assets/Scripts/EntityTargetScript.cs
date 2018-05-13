@@ -81,7 +81,8 @@ public class EntityTargetScript : MonoBehaviour {
 	private IEnumerator Attack() {
 		Debug.Log ("Prepared to attack");
 		yield return new WaitUntil (() => targetProximity <= 1.4f);
-		Debug.Log ("Within striking distance!");
+		Debug.Log (this.gameObject.name + " is within striking distance!");
+		targetProximity = Mathf.Infinity;
 		anim.SetTrigger ("Attacking");
 		yield return new WaitForFixedUpdate ();
 		Debug.Log (entityNavigationScript.GetAgentIsStopped ());
@@ -135,5 +136,16 @@ public class EntityTargetScript : MonoBehaviour {
 		} else {
 			weaponScript.ToggleCollider (false);
 		}
+	}
+
+
+	public void Die() {
+		targetedEntity_ = null;
+		StopAllCoroutines ();
+		anim.enabled = false;
+		entityNavigationScript.enabled = false;
+		GetComponent<NavMeshAgent>().enabled = false;
+		GetComponentInChildren<WeaponScript> ().enabled = false;
+		this.enabled = false;
 	}
 }
