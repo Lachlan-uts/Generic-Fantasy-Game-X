@@ -8,6 +8,12 @@ public class EntityTargetScript : MonoBehaviour {
 	//various values that need tracking
 	private float targetProximity = Mathf.Infinity;
 
+	//settable, important fields
+	[SerializeField]
+	private List<string> targetableTags = new List<string> () {"Hero", "Enemy"}; //<--- Make sure this always has atleast 2 elements or bad times will occour
+
+//	private string[] targetableTags = new string[] {"Hero", "Enemy"};
+
 	/*
 	 * Fancy corountine better entity tracking stuff
 	 */
@@ -33,10 +39,24 @@ public class EntityTargetScript : MonoBehaviour {
 	void Start () {
 		weaponScript = GetComponentInChildren<WeaponScript> ();
 
+		//remove own tag from list of targetable tags
+		targetableTags.Remove(this.gameObject.tag);
+
 		entityNavigationScript = GetComponent<EntityNavigationScript> ();
 		anim = GetComponent<Animator> ();
 		targetedEntity = null;
 		StartCoroutine ("WatchForTarget");
+	}
+
+	/*
+	 * In future I'd like this to be a field of view sort of system
+	 */
+	private IEnumerator AquireEnemy() {
+		if (targetedEntity_) {
+			yield return new WaitUntil (() => !targetedEntity_);
+		}
+		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
+		yield return null;
 	}
 
 	private bool SightCheck() {
@@ -46,7 +66,6 @@ public class EntityTargetScript : MonoBehaviour {
 		if (Physics.Raycast (entityRay, out hit, 20f)) {
 			if (hit.collider.CompareTag ("Hero") || hit.collider.CompareTag ("Enemy") && !hit.collider.CompareTag(this.gameObject.tag)) {
 				return true;
-				Debug.Log ("it can see it!");
 			}
 		}
 		return false;
@@ -86,6 +105,7 @@ public class EntityTargetScript : MonoBehaviour {
 		Debug.Log ("attempting to watch for target");
 		if (!targetedEntity_) {
 			Debug.Log ("The target is null now");
+			yield return StartCoroutine (AquireEnemy());
 			yield return new WaitUntil (() => targetedEntity_);
 			Debug.Log ("Have a target again!");
 		}

@@ -125,4 +125,13 @@ public class EntityNavigationScript : MonoBehaviour {
 	public bool GetAgentIsStopped() {
 		return agent.isStopped;
 	}
+
+	public bool GetAgentPathing() {
+		if (agent.remainingDistance <= agent.stoppingDistance) {
+			if (!agent.hasPath || agent.velocity.sqrMagnitude <= 0.2f) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
