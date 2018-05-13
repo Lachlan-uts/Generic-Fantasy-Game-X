@@ -2425,6 +2425,7 @@ MonoBehaviour:
   targetableTags:
   - Hero
   - Enemy
+  targetedEntity_: {fileID: 0}
 --- !u!120 &120887816660030146
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -2656,7 +2657,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100002, guid: 2ec9d7d5aecc48645a186c19ee98041f, type: 3}
+  - {fileID: 2100000, guid: eb014fb139d0f7f4093d8ed5894862d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

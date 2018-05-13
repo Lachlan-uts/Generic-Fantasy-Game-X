@@ -1,7 +1,7 @@
 WindowsStandalone
 SceneListBegin?
 Assets/Scenes/StartMenu.unity
-Assets/Scenes/Main Scene.unity
+Assets/Scenes/UI - Test Scene.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -17,8 +17,8 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 df374c01140c2d578bf70cbd60073d1d UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 62f4e803247774277263cc3434718a62 Assembly-CSharp.dll:UnityEngine.AI.NavMeshModifier
 a71e89494a00540356e3247bc0ed0342 Assembly-CSharp.dll:UnityEngine.AI.NavMeshLink
+7b1eae85317c3c89d4f3dc245575ee11 Assembly-CSharp.dll:.CameraController
 3750b7d4d64a5eeaaba713c94db46706 Assembly-CSharp.dll:.EntityNavigationScript
-be5a89d0f72c01cf91be87a65bd03a58 Assembly-CSharp.dll:.GameManager
 384fc0604047747966095aecbdfac37f Assembly-CSharp.dll:.FurnitureScript
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -84,7 +84,7 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-385626f38d4310fe795f5b6c1694a8d6 Assembly-CSharp.dll:.CameraController
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.WeaponScript
 166a47a41e975faa5eeb40ab08e66de7 Assembly-CSharp.dll:.RotateObjectScript
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -98,6 +98,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 df374c01140c2d578bf70cbd60073d1d UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SceneController
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -113,8 +114,9 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 d63ecaa471e8f091be4e5ad16b4a24e0 Assembly-CSharp.dll:.GUIManager
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.LevelManager
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-48db86507bd2021abff9e55f2765f881 Assembly-CSharp.dll:.UIManager
+e1f2e4c39398eab60b63506c1f0e218e Assembly-CSharp.dll:.UIManager
 a9aa4c090bad4e6ebcbe0dadb05a78b7 Assembly-CSharp.dll:.DummyWeaponSpawn
 322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
@@ -161,6 +163,6 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 8797d28113a43cb5e373ab625a7183e5 Assembly-CSharp.dll:.PlayerManager
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 951b50ccff85f2b0307461b46a91c0d6 Assembly-CSharp.dll:.PlayerStatManager
-81766ef81b5a0f7da2a41a449df69a9e Assembly-CSharp.dll:.EntityTargetScript
+22c530dbb4ad89acf0ccb62cf035565d Assembly-CSharp.dll:.EntityTargetScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.WeaponSwitch
 98087458f27c0176306638bb60682b24 Assembly-CSharp.dll:.WeaponEquip
