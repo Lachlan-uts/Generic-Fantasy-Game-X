@@ -19,6 +19,7 @@ public class EntityNavigationScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Time.timeScale = 1;
 		line = GetComponent<LineRenderer> ();
 		agent = GetComponent<NavMeshAgent> ();
 		anim = GetComponent<Animator> ();

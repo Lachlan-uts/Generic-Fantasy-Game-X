@@ -55,98 +55,140 @@ public class LevelGenerationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (genStage == -2)
+        {
+            curRooms = 0;
+            generateInitialRoom();
+            curEnemies = 0;
+            genStage = -1;
+            heroSpawnList = rooms[0].GetComponent<RoomValueStore>().enemyLocations;
+        }
+        else if (genStage == -1)
+        {
+            if (curRooms < numRooms)
+            {
+                generateAdditionalRoom();
+            }
+            else
+            {
+                genStage = 0; // Temporarily "skip" a "generation stage" during which obstacles could be spawned
+                curRooms = 0; // Reset the curRooms so as to iterate through each room for furniture later
+            }
+        }
+        else if (genStage == 0)
+        {
+            // Generate List of Rubble Nodes
+            rubbleNodes = GetRubbleLocations();
+            genStage = 1;
+        }
+        else if (genStage == 1)
+        {
+            // Spawn Rubble
+            if (rubbleNodes.Count > 0)
+            {
+                SpawnRubble();
+            }
+            else
+            {
+                genStage = 2;
+            }
+        }
+        else if (genStage == 2)
+        {
+            // Spawn Furniture
+            if (curRooms < rooms.Count)
+            {
+                rooms[curRooms].GetComponent<RoomValueStore>().spawnFurniture();
+                curRooms++;
+                Debug.Log("Furniture in 'incomplete' rooms.");
+            }
+            else if (curRooms < (rooms.Count + completedRooms.Count))
+            {
+                completedRooms[curRooms - rooms.Count].GetComponent<RoomValueStore>().spawnFurniture();
+                curRooms++;
+                Debug.Log("Furniture in 'complete' rooms.");
+            }
+            else
+            {
+                genStage = 3;
+            }
+        }
+        else if (genStage == 3)
+        {
+            // Generate NavMesh
+            GenerateNavMesh();
+            genStage = 4;
+        }
+        else if (genStage == 4)
+        {
+            // Spawn Doors
+            if (doorNodes.Count > 0)
+            {
+                SpawnDoor();
+            }
+            else
+            {
+                genStage = 5;
+            }
+        }
+        else if (genStage == 5)
+        {
+            // Generate List of enemy spawn locations
+            enemySpawnPoints = GetEnemySpawns();
+            genStage = 6;
+        }
+        else if (genStage == 6)
+        {
+            // Spawn Enemies
+            Debug.Log("Spawning Enemy");
+            if (curEnemies < numEnemies)
+            {
+                SpawnEnemy();
+            }
+            else
+            {
+                genStage = 7;
+            }
+        }
+        else if (genStage == 7)
+        {
+            // Spawn the exit hatch
+            SpawnExit();
+            genStage = 8;
+        }
+        else if (genStage == 8)
+        {
+            // Disable enemy units so no premature action occurs
+            //			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
+            //			foreach (GameObject enemy in enemyList) {
+            //				enemy.SetActive (false);
+            //			}
+            genStage = 9;
+        }
+        else if (genStage == 9)
+        {
+            // Spawn in heroes (in reality, relocate them from wherever to spawn points within the starting room)
+            //			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
+            //			int iCount = 0;
+            //			while (iCount < heroes.Length) {
+            //				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position + 
+            //                    new Vector3(0,1,0);
+            //				iCount++;
+            //			}
+            genStage = 10;
+        }
+        else if (genStage == 10)
+        {
+            // Re-enable enemies within the floor. It's altercation time!
+            //			foreach (GameObject enemy in enemyList) {
+            //				enemy.SetActive (true);
+            //			}
+            genStage = 11;
+        }
+    }
 
 	void FixedUpdate () {
-		if (genStage == -2) {
-			curRooms = 0;
-			generateInitialRoom ();
-			curEnemies = 0;
-			genStage = -1;
-			heroSpawnList = rooms [0].GetComponent<RoomValueStore> ().enemyLocations;
-		} else if (genStage == -1) {
-			if (curRooms < numRooms) {
-				generateAdditionalRoom ();
-			} else {
-				genStage = 0; // Temporarily "skip" a "generation stage" during which obstacles could be spawned
-				curRooms = 0; // Reset the curRooms so as to iterate through each room for furniture later
-			}
-		} else if (genStage == 0) {
-			// Generate List of Rubble Nodes
-			rubbleNodes = GetRubbleLocations ();
-			genStage = 1;
-		} else if (genStage == 1) {
-			// Spawn Rubble
-			if (rubbleNodes.Count > 0) {
-				SpawnRubble ();
-			} else {
-				genStage = 2;
-			}
-		} else if (genStage == 2) {
-			// Spawn Furniture
-			if (curRooms < rooms.Count) {
-				rooms [curRooms].GetComponent<RoomValueStore> ().spawnFurniture ();
-				curRooms++;
-				Debug.Log ("Furniture in 'incomplete' rooms.");
-			} else if (curRooms < (rooms.Count + completedRooms.Count)) {
-				completedRooms [curRooms - rooms.Count].GetComponent<RoomValueStore> ().spawnFurniture ();
-				curRooms++;
-				Debug.Log ("Furniture in 'complete' rooms.");
-			} else {
-				genStage = 3;
-			}
-		} else if (genStage == 3) {
-			// Generate NavMesh
-			GenerateNavMesh ();
-			genStage = 4;
-		} else if (genStage == 4) {
-			// Spawn Doors
-			if (doorNodes.Count > 0) {
-				SpawnDoor ();
-			} else {
-				genStage = 5;
-			}
-		} else if (genStage == 5) {
-			// Generate List of enemy spawn locations
-			enemySpawnPoints = GetEnemySpawns ();
-			genStage = 6;
-		} else if (genStage == 6) {
-			// Spawn Enemies
-			Debug.Log ("Spawning Enemy");
-			if (curEnemies < numEnemies) {
-				SpawnEnemy ();
-			} else {
-				genStage = 7;
-			}
-		} else if (genStage == 7) {
-			// Spawn the exit hatch
-			SpawnExit ();
-			genStage = 8;
-		} else if (genStage == 8) {
-			// Disable enemy units so no premature action occurs
-//			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
-//			foreach (GameObject enemy in enemyList) {
-//				enemy.SetActive (false);
-//			}
-			genStage = 9;
-		} else if (genStage == 9) {
-			// Spawn in heroes (in reality, relocate them from wherever to spawn points within the starting room)
-//			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
-//			int iCount = 0;
-//			while (iCount < heroes.Length) {
-//				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position + 
-//                    new Vector3(0,1,0);
-//				iCount++;
-//			}
-			genStage = 10;
-		} else if (genStage == 10) {
-			// Re-enable enemies within the floor. It's altercation time!
-//			foreach (GameObject enemy in enemyList) {
-//				enemy.SetActive (true);
-//			}
-			genStage = 11;
-		}
+		
 	}
 
 	void generateInitialRoom() {
@@ -547,4 +589,8 @@ public class LevelGenerationScript : MonoBehaviour {
 		Debug.Log("Exit Spawned.");
 	}
 
+    public void Restart()
+    {
+        genStage = -2;
+    }
 }

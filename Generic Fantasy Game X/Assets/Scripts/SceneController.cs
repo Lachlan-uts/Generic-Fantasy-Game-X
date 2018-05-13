@@ -5,14 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour {
 
+    private LevelGenerationScript restart;
+    private Scene currentScene;
 	// Use this for initialization
 	void Start () {
-        DontDestroyOnLoad(this);
-	}
+        currentScene = SceneManager.GetActiveScene();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "UI - Test Scene")
+        {
+            restart = GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>();
+        }
 	}
 
     public void StartGame()
@@ -21,6 +27,10 @@ public class SceneController : MonoBehaviour {
         //SceneManager.LoadScene("Main Scene");
 
         //For Testing
+        if (restart != null)
+        {
+            restart.Restart();
+        }
         SceneManager.LoadScene("UI - Test Scene");
     }
 
