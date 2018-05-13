@@ -12,18 +12,21 @@ public class EntityNavigationScript : MonoBehaviour {
 	private LineRenderer line;
 	private NavMeshAgent agent;
 
-	private Animator anim;
-
 	public GameObject currentOrderInvoker { get; private set; }
+
+	//animation stuffs
+	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
 		line = GetComponent<LineRenderer> ();
 		agent = GetComponent<NavMeshAgent> ();
+		anim = GetComponent<Animator> ();
+//		agent.updatePosition = false;
 		//agent.destination = goal.position;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (goal != null) {
@@ -31,6 +34,11 @@ public class EntityNavigationScript : MonoBehaviour {
 			Debug.Log ("has goal");
 			//if (agent.remainingDistance
 		}
+
+
+		bool shouldMove = agent.remainingDistance > agent.radius;
+		anim.SetBool ("Moving", shouldMove);
+
 		//StoppedMovementCheck ();
 //		if (agent.velocity.magnitude <= 0.1f) {
 //			Debug.Log (agent.remainingDistance);
@@ -39,7 +47,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	}
 
 	private void DrawPath(NavMeshPath path) {
-		
+
 //		Debug.Log (path.corners.Length);
 		if (path.corners.Length < 2)
 			return;
@@ -60,12 +68,11 @@ public class EntityNavigationScript : MonoBehaviour {
 
 	public void ProximityTrigger() {
 		agent.ResetPath ();
-		Debug.Log ("reset path");
+		//Debug.Log ("reset path");
 	}
 
 	public void StoppedMovementCheck() {
-		Debug.Log ("in the stopped movement check");
-		
+		//Debug.Log ("in the stopped movement check");
 		if (agent.remainingDistance == 0)
 			return;
 		if (agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
@@ -100,10 +107,12 @@ public class EntityNavigationScript : MonoBehaviour {
 		agent.destination = goal;
 		agent.stoppingDistance = 0.5f;
 //		DrawPath (agent.path); // <- use this draw path to see a single set path
+		anim.SetBool ("Moving", true);
+
 	}
 
 	public void CancelMovement() {
 		agent.ResetPath ();
-
+		anim.SetBool ("Moving", false);
 	}
 }

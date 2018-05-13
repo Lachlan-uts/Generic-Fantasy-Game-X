@@ -52,10 +52,10 @@ public class LevelGenerationScript : MonoBehaviour {
 		doorNodes = new List<GameObject> ();
 		genStage = -2;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	void FixedUpdate () {
@@ -135,7 +135,8 @@ public class LevelGenerationScript : MonoBehaviour {
 			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
 			int iCount = 0;
 			while (iCount < heroes.Length) {
-				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position + new Vector3 (0.0f, 1.0f, 0.0f);
+				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position +
+                    new Vector3(0,1,0);
 				iCount++;
 			}
 			genStage = 10;
@@ -175,7 +176,7 @@ public class LevelGenerationScript : MonoBehaviour {
 
 		//Debug.Log ("Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
 		//	+ "\nRotation x/y/z: " + gameObject.transform.rotation.x + "/" + gameObject.transform.rotation.y + "/" + gameObject.transform.rotation.z);
-		
+
 
 
 		Debug.Log ("Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
@@ -197,7 +198,7 @@ public class LevelGenerationScript : MonoBehaviour {
 
 		//Vector3 vRotation = new Vector3(0.0f, 0.0f, 0.0f);
 		//vRotation.y = 180 + selectedNodeB.transform.rotation.eulerAngles.y - selectedNodeA.transform.rotation.eulerAngles.y;
-		//Debug.Log ("SNA LEuler: " + selectedNodeA.transform.localRotation.eulerAngles.y + " : SNA Euler: " + selectedNodeA.transform.rotation.eulerAngles.y + 
+		//Debug.Log ("SNA LEuler: " + selectedNodeA.transform.localRotation.eulerAngles.y + " : SNA Euler: " + selectedNodeA.transform.rotation.eulerAngles.y +
 		//	"\nSNB LEuler: " + selectedNodeB.transform.localRotation.eulerAngles.y + " : SNB Euler: " + selectedNodeB.transform.rotation.eulerAngles.y);
 		//gameObject.transform.Rotate (vRotation, Space.World);
 		//gameObject.transform.Translate (selectedNodeA.transform.position - selectedNodeB.transform.position, Space.World); // New Method
@@ -207,11 +208,11 @@ public class LevelGenerationScript : MonoBehaviour {
 		//gameObject.transform.position = (gameObject.transform.position + selectedNodeB.transform.localPosition); // Old Method
 
 		// Possible new methodology
-		/* 
+		/*
 		 * Go to the position and rotation of the master room
 		 * Translate to node a, rotate to match node a in the world
 		 * flip to match node b's facing angle, back translate to new room's position and rotation
-		 * 
+		 *
 		 */
 
 		gameObject.transform.Translate (-selectedNodeB.transform.position, Space.Self);
@@ -255,7 +256,7 @@ public class LevelGenerationScript : MonoBehaviour {
 		foreach (Bounds floorPiece in newFloorPlan) {
 			Debug.Log ("Old Extents: " + floorPiece.extents);
 			floorPiece.Expand (-0.1f); // Cut a small amount off the bounds for each new floor piece a tiny bit to avoid detecting "touches"
-			Debug.Log ("New Extents: " + floorPiece.extents); 
+			Debug.Log ("New Extents: " + floorPiece.extents);
 		}
 		*/
 
@@ -413,7 +414,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	//}
 
 	void GenerateNavMesh() {
-		
+
 		/*
 		foreach (GameObject room in rooms) {
 			foreach (GameObject floorPiece in room.GetComponent<RoomValueStore>().floorPlanObjects) {
@@ -458,7 +459,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	}
 
 	void SpawnEnemy() {
-		
+
 
 		// Add conditions for spawning an enemy in a valid position, possibly using Physics.OverlapBox centered on the chosen enemy configuration
 		int enemySpawnNumber = Random.Range(0, enemySpawnPoints.Count);
@@ -497,12 +498,12 @@ public class LevelGenerationScript : MonoBehaviour {
 		Vector3 spawnPosTest = new Vector3 (spawnPos.x, spawnPos.y + 0.2f, spawnPos.z);
 
 		//Debug.Log ("Spawn Position: " + spawnPosTest);
-		//Debug.Log ("Spawn Collisions Length: " + Physics.OverlapBox (spawnPosTest, 
-		//	new Vector3 (enemyToSpawn.transform.localScale.x / 2, 0.05f, enemyToSpawn.transform.localScale.z / 2), 
+		//Debug.Log ("Spawn Collisions Length: " + Physics.OverlapBox (spawnPosTest,
+		//	new Vector3 (enemyToSpawn.transform.localScale.x / 2, 0.05f, enemyToSpawn.transform.localScale.z / 2),
 		//	Quaternion.Euler (spawnRot)).Length);
 
-		if (Physics.OverlapBox (spawnPosTest, 
-			    new Vector3 (enemyToSpawn.transform.localScale.x/2, 0.05f, enemyToSpawn.transform.localScale.z/2), 
+		if (Physics.OverlapBox (spawnPosTest,
+			    new Vector3 (enemyToSpawn.transform.localScale.x/2, 0.05f, enemyToSpawn.transform.localScale.z/2),
 			    Quaternion.Euler (spawnRot)).Length == 0) {
 			GameObject newEnemy = Instantiate (enemyToSpawn, spawnPos, Quaternion.Euler (spawnRot)) as GameObject;
 			// Note: Here is where code would go to properly initialize enemy resources

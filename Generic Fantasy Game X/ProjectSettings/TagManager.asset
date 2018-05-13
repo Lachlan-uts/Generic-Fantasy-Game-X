@@ -15,6 +15,10 @@ TagManager:
   - EquippedWeapon
   - WeaponDrop
   - Enemy
+  - ExpBar
+  - Slot1
+  - Slot2
+  - Exit
   layers:
   - Default
   - TransparentFX
