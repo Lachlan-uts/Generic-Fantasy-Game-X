@@ -116,4 +116,21 @@ public class UIManager : MonoBehaviour {
                 !enemy.GetComponent<EntityNavigationScript>().enabled;
         }
     }
+    public Text gameText;
+    public Button returnButton;
+
+
+    public void GameOver()
+    {
+
+        gameText = GameObject.FindGameObjectWithTag("MenuText").GetComponent<Text>();
+        gameText.text = "Game Over";
+
+        returnButton = GameObject.FindGameObjectWithTag("ReturnButton").GetComponent<Button>();
+        returnButton.enabled = !returnButton.enabled;
+
+
+    
+
+}
 }

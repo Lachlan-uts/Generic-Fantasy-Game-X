@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 
 public class EntityTargetScript : MonoBehaviour {
@@ -142,6 +143,7 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 
+  
 	public void Die() {
 		targetedEntity_ = null;
 		StopAllCoroutines ();
@@ -150,5 +152,8 @@ public class EntityTargetScript : MonoBehaviour {
 		GetComponent<NavMeshAgent>().enabled = false;
 		GetComponentInChildren<WeaponScript> ().enabled = false;
 		this.enabled = false;
+        SceneManager.LoadScene(2); //Temp
+
+        
 	}
 }
