@@ -34,11 +34,11 @@ public class EntityNavigationScript : MonoBehaviour {
 			Debug.Log ("has goal");
 			//if (agent.remainingDistance
 		}
-			
 
-		bool shouldMove = agent.remainingDistance > agent.radius;
-		anim.SetBool ("Moving", shouldMove);
-
+		if (agent.isOnNavMesh) {
+			bool shouldMove = agent.remainingDistance > agent.radius;
+			anim.SetBool ("Moving", shouldMove);
+		}
 		//StoppedMovementCheck ();
 //		if (agent.velocity.magnitude <= 0.1f) {
 //			Debug.Log (agent.remainingDistance);
@@ -78,7 +78,7 @@ public class EntityNavigationScript : MonoBehaviour {
 		//Debug.Log ("in the stopped movement check");
 		if (agent.remainingDistance == 0)
 			return;
-		if (agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
+		if (!agent.isStopped && agent.remainingDistance <= 1.0f && agent.velocity.magnitude <= 0.1f) {
 			agent.ResetPath ();
 			//goal = null;
 			//Debug.Log ("attempting to remove current pathing");
@@ -117,11 +117,11 @@ public class EntityNavigationScript : MonoBehaviour {
 	public void PauseMovement(string state) {
 		if (state.Contains ("stop")) {
 			//agent.updatePosition = false;
-			agent.ResetPath ();
 			agent.isStopped = true;
 		} else if (state.Contains ("start")) {
 			//agent.updatePosition = true;
 			agent.isStopped = false;
+			agent.ResetPath ();
 		}
 	}
 
