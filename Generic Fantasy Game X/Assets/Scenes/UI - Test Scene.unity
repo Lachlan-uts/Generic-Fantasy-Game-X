@@ -314,9 +314,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 0
   m_WholeNumbers: 1
-  m_Value: 100
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1280,64 +1280,24 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
         type: 2}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
-        type: 2}
-      propertyPath: HPText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
-        type: 2}
-      propertyPath: slot1
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114782944450482848, guid: f38b1f6badd0f004ba0b008471ca09db,
-        type: 2}
-      propertyPath: currentPlayer
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1319806677692778, guid: f38b1f6badd0f004ba0b008471ca09db, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114175515678677098, guid: f38b1f6badd0f004ba0b008471ca09db,
-        type: 2}
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 1521433321}
-    - target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
-        type: 2}
-      propertyPath: pauseMenu
-      value: 
-      objectReference: {fileID: 1521433321}
-    m_RemovedComponents:
-    - {fileID: 114175515678677098, guid: f38b1f6badd0f004ba0b008471ca09db, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f38b1f6badd0f004ba0b008471ca09db, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &530364020 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1319806677692778, guid: f38b1f6badd0f004ba0b008471ca09db,
+--- !u!114 &530364020 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114315075635544190, guid: f38b1f6badd0f004ba0b008471ca09db,
     type: 2}
   m_PrefabInternal: {fileID: 530364019}
+  m_Script: {fileID: 11500000, guid: 7e924d83e66a51047af0bd080a8b367b, type: 3}
 --- !u!114 &530364021 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
     type: 2}
   m_PrefabInternal: {fileID: 530364019}
   m_Script: {fileID: 11500000, guid: 55b3d614feb761a408077d1ddb6b5b7a, type: 3}
---- !u!114 &530364022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 530364020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9210c1d31d24aec4dbaeddfe73963ef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &542828158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,9 +2380,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
-          type: 2}
-        m_MethodName: openMenu
+      - m_Target: {fileID: 530364021}
+        m_MethodName: PauseMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2636,7 +2595,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 530364020}
         m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
