@@ -64,7 +64,8 @@ public class PlayerManager : MonoBehaviour {
 		//playerHealth.playerMaxHealth = currentHP;
 
 		
-		currentHP += currentHP - HPUp [currentLevel - 1];
+		currentHP += currentHP - HPUp [currentLevel];
+        maxHP = HPUp[currentLevel];
 		//playerInfo.
 
 	}
