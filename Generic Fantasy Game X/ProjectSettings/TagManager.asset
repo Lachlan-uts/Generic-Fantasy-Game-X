@@ -19,6 +19,10 @@ TagManager:
   - Slot1
   - Slot2
   - Exit
+  - MenuText
+  - ExitButton
+  - ReturnButton
+  - GameOverCanvas
   layers:
   - Default
   - TransparentFX

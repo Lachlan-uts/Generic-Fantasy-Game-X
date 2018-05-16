@@ -36,7 +36,8 @@ public class SceneController : MonoBehaviour {
 
     public void ExitGame()
     {
-        SceneManager.LoadScene("StartMenu");
+       // SceneManager.LoadScene("StartMenu");
+        SceneManager.LoadScene(0);
     }
 
     public void CloseApp()

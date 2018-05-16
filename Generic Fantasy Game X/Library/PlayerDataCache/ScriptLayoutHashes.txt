@@ -2,6 +2,7 @@ WindowsStandalone
 SceneListBegin?
 Assets/Scenes/StartMenu.unity
 Assets/Scenes/UI - Test Scene.unity
+Assets/Scenes/GameOver.unity
 SceneListEnd?
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
