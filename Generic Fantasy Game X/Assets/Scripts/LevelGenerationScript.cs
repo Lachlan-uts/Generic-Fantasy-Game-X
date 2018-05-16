@@ -506,6 +506,7 @@ public class LevelGenerationScript : MonoBehaviour {
 		// Add conditions for spawning an enemy in a valid position, possibly using Physics.OverlapBox centered on the chosen enemy configuration
 		int enemySpawnNumber = Random.Range(0, enemySpawnPoints.Count);
 		int chanceLow, chanceMid, chanceBrt; // Determines the % chance of a particular enemy class spawning
+		int enemyCategory = 0;
 		// i.e. > 100 means that class cannot spawn. Useful when the lists are empty as they tend to be at this early stage
 		// Note: should later allow chances to be augmented by party count, floor, etc.
 		if (validEnemiesModerate.Length > 0 && validEnemiesBrute.Length == 0) {
@@ -525,11 +526,14 @@ public class LevelGenerationScript : MonoBehaviour {
 		int enemyClassInt = Mathf.RoundToInt(Random.Range (0.0f, 100.0f));
 		GameObject enemyToSpawn;
 		if (enemyClassInt < chanceLow) {
+			enemyCategory = 0;
 			enemyToSpawn = validEnemiesLight [Random.Range (0, validEnemiesLight.Length)];
 		} else if (enemyClassInt < chanceMid) {
+			enemyCategory = 1;
 			enemyToSpawn = validEnemiesLight [Random.Range (0, validEnemiesLight.Length)];
 			//enemyToSpawn = validEnemiesModerate [Random.Range (0, validEnemiesModerate.GetLength ())];
 		} else {
+			enemyCategory = 2;
 			enemyToSpawn = validEnemiesLight [Random.Range (0, validEnemiesLight.Length)];
 			//enemyToSpawn = validEnemiesBrute [Random.Range (0, validEnemiesBrute.GetLength ())];
 		}
@@ -549,7 +553,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			    Quaternion.Euler (spawnRot)).Length == 0) {
 			GameObject newEnemy = Instantiate (enemyToSpawn, spawnPos, Quaternion.Euler (spawnRot)) as GameObject;
 			// Note: Here is where code would go to properly initialize enemy resources
-
+			newEnemy.GetComponent<EntityStatisticsScript>().GenerateStats(floorNumber, enemyCategory);
 			// Remove SpawnPoint from the list
 			enemySpawnPoints.Remove(enemySpawnPoints[enemySpawnNumber]);
 
