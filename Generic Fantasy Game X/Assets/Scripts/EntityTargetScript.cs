@@ -87,8 +87,9 @@ public class EntityTargetScript : MonoBehaviour {
 		targetProximity = Mathf.Infinity;
 
         //Switch between animations depending on weapon
-		anim.SetTrigger ("SwordAttack");
-        //anim.SetTrigger ("AxeAttack");
+		//anim.SetTrigger ("SwordAttack");
+        anim.SetTrigger ("AxeAttack");
+        //anim.SetTrigger("KnifeAttack");
 
         entityNavigationScript.PauseMovement ("stop");
 		yield return new WaitForFixedUpdate ();
