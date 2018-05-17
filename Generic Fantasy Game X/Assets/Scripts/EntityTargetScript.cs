@@ -85,8 +85,12 @@ public class EntityTargetScript : MonoBehaviour {
 		yield return new WaitUntil (() => targetProximity <= 1.4f);
 		Debug.Log (this.gameObject.name + " is within striking distance!");
 		targetProximity = Mathf.Infinity;
-		anim.SetTrigger ("Attacking");
-		entityNavigationScript.PauseMovement ("stop");
+
+        //Switch between animations depending on weapon
+		anim.SetTrigger ("SwordAttack");
+        //anim.SetTrigger ("AxeAttack");
+
+        entityNavigationScript.PauseMovement ("stop");
 		yield return new WaitForFixedUpdate ();
 		Debug.Log (entityNavigationScript.GetAgentIsStopped ());
 		yield return new WaitUntil (() => entityNavigationScript.GetAgentIsStopped() == false);
