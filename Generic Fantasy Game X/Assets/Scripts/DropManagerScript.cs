@@ -42,4 +42,10 @@ public class DropManagerScript : MonoBehaviour {
 		newItem.transform.SetParent (newLootHolder.transform);
 		newLootHolder.GetComponent<DropScript> ().lootItem = newItem;
 	}
+
+	public void DropItem(Transform lootPosition, GameObject item) {
+		GameObject newLootHolder = Instantiate (lootHolder, lootPosition.position, Quaternion.identity) as GameObject;
+		item.transform.SetParent (newLootHolder.transform);
+		newLootHolder.GetComponent<DropScript> ().lootItem = item;
+	}
 }
