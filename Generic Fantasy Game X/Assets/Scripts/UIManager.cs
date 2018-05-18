@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour {
         else if (instance != this)
 
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
-            Destroy(gameObject);
+          //  Destroy(gameObject);  - Causes Bug where restarting disables pause.
 
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);

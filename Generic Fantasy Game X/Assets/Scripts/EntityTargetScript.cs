@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EntityTargetScript : MonoBehaviour {
 
 	//various values that need tracking
@@ -143,12 +144,27 @@ public class EntityTargetScript : MonoBehaviour {
 
 
 	public void Die() {
-		targetedEntity_ = null;
+        
+       
+        targetedEntity_ = null;
 		StopAllCoroutines ();
 		anim.enabled = false;
 		entityNavigationScript.enabled = false;
 		GetComponent<NavMeshAgent>().enabled = false;
 		GetComponentInChildren<WeaponScript> ().enabled = false;
 		this.enabled = false;
-	}
+        if (gameObject.tag == "Hero")
+        {
+            Debug.Log("DeathSceneHERE!");
+            Invoke("DeathScene", 3.0f);
+        }
+
+
+    }
+
+    public void DeathScene()
+    {
+        Debug.Log("WILL THIS TRIGGER?");
+        GameObject.FindGameObjectWithTag("GameManangers").GetComponent<SceneController>().GameOverTrigger();
+    }
 }
