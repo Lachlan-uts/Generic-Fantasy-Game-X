@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 
 public class EntityTargetScript : MonoBehaviour {
@@ -12,6 +13,8 @@ public class EntityTargetScript : MonoBehaviour {
 	//settable, important fields
 	[SerializeField]
 	private List<string> targetableTags = new List<string> () {"Hero", "Enemy"}; //<--- Make sure this always has atleast 2 elements or bad times will occour
+
+
 
 //	private string[] targetableTags = new string[] {"Hero", "Enemy"};
 
@@ -49,6 +52,7 @@ public class EntityTargetScript : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		targetedEntity = null;
 		StartCoroutine ("WatchForTarget");
+
 	}
 
 	/*
@@ -145,7 +149,9 @@ public class EntityTargetScript : MonoBehaviour {
 
 	public void Die() {
         
-       
+		if (this.gameObject.CompareTag("Hero")) {
+			Invoke("PlayerDeath", 3.0f);
+		}
         targetedEntity_ = null;
 		StopAllCoroutines ();
 		anim.enabled = false;
@@ -153,18 +159,11 @@ public class EntityTargetScript : MonoBehaviour {
 		GetComponent<NavMeshAgent>().enabled = false;
 		GetComponentInChildren<WeaponScript> ().enabled = false;
 		this.enabled = false;
-        if (gameObject.tag == "Hero")
-        {
-            Debug.Log("DeathSceneHERE!");
-            Invoke("DeathScene", 3.0f);
-        }
 
 
     }
 
-    public void DeathScene()
-    {
-        Debug.Log("WILL THIS TRIGGER?");
-        GameObject.FindGameObjectWithTag("GameManangers").GetComponent<SceneController>().GameOverTrigger();
-    }
+	private void PlayerDeath() {
+		SceneManager.LoadScene(2); //Temp
+	}
 }
