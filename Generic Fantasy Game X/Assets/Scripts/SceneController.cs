@@ -43,4 +43,13 @@ public class SceneController : MonoBehaviour {
     {
         Application.Quit();
     }
+
+
+    //GameOverTrigger
+
+    public void GameOverTrigger()
+    {
+        if(gameObject.name == "Hero")
+        SceneManager.LoadScene("GameOver");
+    }
 }
