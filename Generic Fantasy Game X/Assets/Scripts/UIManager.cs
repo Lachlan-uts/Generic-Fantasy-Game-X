@@ -20,8 +20,11 @@ public class UIManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject pauseMenu;
+	private GameObject scoreScreen;
 
-    private bool pauseMenuStatus;
+    
+	private bool pauseMenuStatus;
+	private bool scoreScreenStatus;
 
     private int level = 1;
     //public Text gameOverText;
@@ -52,6 +55,9 @@ public class UIManager : MonoBehaviour {
         //LoadCanvas
         pauseMenu.SetActive(false);
         pauseMenuStatus = false;
+
+		scoreScreen.SetActive (false);
+		scoreScreenStatus = false;
     }
 
     //TO DO: Replace Slot1 with "Current Player"
@@ -116,4 +122,21 @@ public class UIManager : MonoBehaviour {
                 !enemy.GetComponent<EntityNavigationScript>().enabled;
         }
     }
+
+	public void ScoreScreen()
+	{
+		if (!scoreScreen)
+		{
+			scoreScreen.SetActive(true);
+			Time.timeScale = 0;
+		}
+		else
+		{
+			scoreScreen.SetActive(false);
+			Time.timeScale = 1;
+		}
+
+		scoreScreenStatus = !scoreScreenStatus;
+	}
+
 }
