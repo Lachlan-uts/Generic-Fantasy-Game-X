@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PowerGridInventory.PGISlotItem))]
+
+
 public class DropScript : MonoBehaviour {
 
 	// public variables
@@ -18,7 +21,10 @@ public class DropScript : MonoBehaviour {
 	//}
 
 	public void Pickup(Transform inventory) {
-		lootItem.transform.SetParent (inventory);
+		//lootItem.transform.SetParent (inventory);
+		inventory.GetComponent<PowerGridInventory.PGIModel>().Pickup(lootItem.GetComponent<PowerGridInventory.PGISlotItem>());
+
 		Destroy (this.gameObject);
+
 	}
 }

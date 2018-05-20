@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4495835380643084}
-  - component: {fileID: 114832508056692938}
+  - component: {fileID: 114399604469161490}
   m_Layer: 0
   m_Name: DropManager
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114832508056692938
+--- !u!114 &114399604469161490
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,9 +48,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1745513842062154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f18dc0239c24dd94aafb0f46f279d742, type: 3}
+  m_Script: {fileID: 11500000, guid: 811d16d33c5e8704780f61c76b9a7699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemTemplates:
-  - {fileID: 1996900126613674, guid: ae52a31d174ac0648ac31520dc8faae5, type: 2}
-  lootHolder: {fileID: 1253711686378362, guid: 484ace38eb3c7e54eb540d7c2cb0eb5e, type: 2}
+  - {fileID: 1996900126613674, guid: c708ffc7e5ee25f47a0fc95eaa2adae3, type: 2}
+  lootHolder: {fileID: 1253711686378362, guid: fdb8631988b492c40b4db7d02634d7a8, type: 2}

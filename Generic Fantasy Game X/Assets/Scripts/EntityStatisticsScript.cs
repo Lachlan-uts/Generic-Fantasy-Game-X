@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PowerGridInventory;
+
 
 public class EntityStatisticsScript : MonoBehaviour {
 
@@ -11,7 +13,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public GameObject nameUI; // placeholder
 	public GameObject healthUI; // placeholder
 
-	public GameObject inventoryGO;
+	public PGIModel inventory;
+	//public GameObject inventoryGO;
+
 
 	// public properties
 	[SerializeField]
@@ -48,7 +52,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	public Dictionary<entitySlots, GameObject> equippedItems = new Dictionary<entitySlots, GameObject> ();
 
-	public List<GameObject> inventoryItems;
+	//public List<GameObject> inventoryItems;
 
 	public GameObject target;
 	public string targetContext;
@@ -68,13 +72,18 @@ public class EntityStatisticsScript : MonoBehaviour {
 		if (target != null) {
 			if (targetContext == "Item") {
 				if (Vector3.Distance (this.gameObject.transform.position, target.transform.position) < 0.2f) {
-					Pickup (target);
+					//Pickup (target);
 				}
 			} else if (targetContext == "Furniture") {
 				if (Vector3.Distance (this.gameObject.transform.position, target.transform.position) < 0.2f) {
 					Interact (target);
 				}
 			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.P)) {
+			Debug.Log ("attempting to find item");
+			Pickup (GameObject.Find ("DropHolder"));
 		}
 	}
 
@@ -91,6 +100,12 @@ public class EntityStatisticsScript : MonoBehaviour {
 	}
 
 	public void Pickup (GameObject other) {
+		other.GetComponent<DropScript> ().Pickup (inventory.transform);
+		target = null;
+		this.gameObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
+	}
+
+	/*public void Pickup (GameObject other) {
 		other.transform.SetParent (inventoryGO.transform);
 		inventoryItems.Add (other);
 		target = null;
@@ -100,7 +115,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public void Drop (GameObject other) {
 		inventoryItems.Remove (other);
 		other.transform.parent = null;
-	}
+	}*/
 
 	public void Quaff () {
 		GameObject equippedPotion;
