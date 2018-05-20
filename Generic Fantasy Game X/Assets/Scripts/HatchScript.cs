@@ -13,6 +13,10 @@ public class HatchScript : MonoBehaviour {
 
     private int enemyKills;
 
+	//Data Collection Functions
+	private DataCollector dataCollector;
+	private UIManager uiManager;
+	private GameObject scoreScreen;
 	// Use this for initialization
 	void Start () {
         missionObjective = Random.Range(0, 2);
@@ -40,6 +44,11 @@ public class HatchScript : MonoBehaviour {
             SetKeyObjective();
         }
 
+		//Data Collector within Game Manager
+		dataCollector = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<DataCollector>();
+		uiManager = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ();
+		scoreScreen = GameObject.FindGameObjectWithTag ("ScoreScreen");
+
         Debug.Log(missionObjective);
         Debug.Log(enemyCondition);
         Debug.Log(obtainKeyCondition);
@@ -60,7 +69,12 @@ public class HatchScript : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
                     Debug.Log("Level Complete");
-                    ExitLevel();
+					dataCollector.StopTimer ();
+					uiManager.ScoreScreen (true);
+					Invoke ("ScoreFix", 2.0f);
+					Invoke ("ExitLevel", 3.0f);
+				
+
                 }
             }
             else
@@ -95,6 +109,7 @@ public class HatchScript : MonoBehaviour {
 
     public void ExitLevel()
     {
+		
         GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
         foreach (GameObject hero in heroes)
         {
@@ -103,6 +118,7 @@ public class HatchScript : MonoBehaviour {
         }
 
         //Load Next Level
+
         GameObject gameManager = GameObject.Find("GameManagers");
         LevelManager sceneLoader = gameManager.GetComponent<LevelManager>();
         Debug.Log(sceneLoader);
@@ -135,4 +151,11 @@ public class HatchScript : MonoBehaviour {
     {
         return true;
     }
+
+	private void ScoreFix()
+	{
+		uiManager.ScoreScreen (false);
+		dataCollector.resetScore ();
+	}
+	
 }

@@ -20,28 +20,63 @@ public class DataCollector : MonoBehaviour {
 	public int collectCount;
 	public int collectMax;
 
+	public bool timeOn;
+
 	// Use this for initialization
 	void Start () {
-		scoreScreen = GameObject.FindGameObjectWithTag ("ScoreScreen");
+		
+		//scoreScreen = GameObject.FindGameObjectWithTag("ScoreScreen");
 		timerText = GameObject.FindGameObjectWithTag("TimerScore").GetComponent<Text> ();
 		killText =  GameObject.FindGameObjectWithTag("KillScore").GetComponent<Text> ();
 		collectableText = GameObject.FindGameObjectWithTag("CollectableScore").GetComponent<Text> ();
 	}
+
+	void Awake()
+	{
+		timeOn = true;
+		killCount = 0;
+		collectCount = 0;
+		collectMax = 1;
+
+	}
 	
 	// Update is called once per frame
 	void Update () {
-		TimerScore ();
-		KillScore ();
-		CollectableScore ();
+		if (timeOn) {
+			TimerOn ();
+		}
+
 
 	}
 
-	public void TimerScore()
+	public void GetScore()
 	{
+		KillScore ();
+		CollectableScore ();
+		TimeScore ();
+	}
+	public void TimerOn(){
+		
 		Debug.Log (hourCount + "h:" + minuteCount + "m:" + (int)secondsCount + "s");
 		//levelTimer += Time.deltaTime;
+
 		secondsCount += Time.deltaTime;
-		timerText.text = "Level Completed in: " + hourCount + ":" + minuteCount + ":" + (int)secondsCount + "s";
+
+
+
+
+	}
+
+	public float StopTimer()
+	{
+		timeOn = false;
+		return secondsCount;
+
+	}
+
+	public void TimeScore()
+	{
+
 		if (secondsCount >= 60) {
 			minuteCount++;
 			secondsCount = 0;
@@ -50,6 +85,7 @@ public class DataCollector : MonoBehaviour {
 			minuteCount = 0;
 
 		}
+		timerText.text = "Level Completed in: " + hourCount + ":" + minuteCount + ":" + (int)secondsCount + "s";
 	}
 
 	public void KillScore()
@@ -63,9 +99,9 @@ public class DataCollector : MonoBehaviour {
 		collectableText.text = "Collected: " + collectCount + "/" + collectMax;
 	}
 
-	public void AddPoints()
+	public void AddPoints(int score)
 	{
-		killCount += 1;
+		killCount += score;
 	}
 
 	public void resetScore()

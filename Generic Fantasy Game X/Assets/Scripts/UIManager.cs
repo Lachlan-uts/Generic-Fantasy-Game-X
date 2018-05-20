@@ -18,13 +18,14 @@ public class UIManager : MonoBehaviour {
     private GameObject[] heroes;
     private GameObject[] enemies;
 
-    [SerializeField]
-    private GameObject pauseMenu;
-	private GameObject scoreScreen;
+    //[SerializeField]
+    public GameObject pauseMenu;
 
+	public GameObject scoreScreen;
+	public DataCollector dataCollector;
     
 	private bool pauseMenuStatus;
-	private bool scoreScreenStatus;
+	public bool scoreScreenStatus;
 
     private int level = 1;
     //public Text gameOverText;
@@ -36,6 +37,9 @@ public class UIManager : MonoBehaviour {
 
     void Awake()
     {
+
+		//scoreScreen = GameObject.FindGameObjectWithTag ("ScoreScreen");
+		//pauseMenu = GameObject.FindGameObjectWithTag ("PauseMenu");
         //Check if instance already exists
         if (instance == null)
 
@@ -65,7 +69,7 @@ public class UIManager : MonoBehaviour {
 	{
         playerManager = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<PlayerManager>();
         canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
-
+		dataCollector = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<DataCollector> ();
         //Calling the variables from Player Stats
         slot1 = GameObject.FindGameObjectWithTag("Slot1");
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
@@ -80,6 +84,9 @@ public class UIManager : MonoBehaviour {
 
     void Update()
     {
+
+		dataCollector.GetScore ();
+
         CurrentHP = playerManager.currentHP;
 
 
@@ -123,9 +130,9 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-	public void ScoreScreen()
+	public void ScoreScreen(bool switcher)
 	{
-		if (!scoreScreen)
+		if (switcher)
 		{
 			scoreScreen.SetActive(true);
 			Time.timeScale = 0;
@@ -136,7 +143,7 @@ public class UIManager : MonoBehaviour {
 			Time.timeScale = 1;
 		}
 
-		scoreScreenStatus = !scoreScreenStatus;
+
 	}
 
 }

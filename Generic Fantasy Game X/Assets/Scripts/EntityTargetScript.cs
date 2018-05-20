@@ -40,6 +40,10 @@ public class EntityTargetScript : MonoBehaviour {
 	//to trigger the attack
 	private Animator anim;
 
+	//Data Collection Functions
+	private DataCollector dataCollector;
+
+
 	// Use this for initialization
 	void Start () {
         Time.timeScale = 1;
@@ -52,6 +56,9 @@ public class EntityTargetScript : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		targetedEntity = null;
 		StartCoroutine ("WatchForTarget");
+
+		//Data Collector within Game Manager
+		dataCollector = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<DataCollector>();
 
 	}
 
@@ -152,6 +159,11 @@ public class EntityTargetScript : MonoBehaviour {
 		if (this.gameObject.CompareTag("Hero")) {
 			Invoke("PlayerDeath", 3.0f);
 		}
+
+		if (this.gameObject.CompareTag ("Enemy")) {
+			dataCollector.AddPoints (1);
+		}
+
         targetedEntity_ = null;
 		StopAllCoroutines ();
 		anim.enabled = false;
