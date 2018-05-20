@@ -18,6 +18,9 @@ public class CameraController : MonoBehaviour {
 
 	private Vector3 playerMoveInput, rotationTarget;
 	private float playerScrollInput;
+	private Vector2 boxPosOrg, boxPosEnd = Vector2.zero;
+	//The texture of the bawx
+	public Texture bawxTexture;
 
 	void Start() {
         Time.timeScale = 1;
@@ -28,6 +31,19 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void Update() {
+		if (Input.GetKey (KeyCode.Mouse0)) {
+			if (Input.GetKeyDown (KeyCode.Mouse0))
+				boxPosOrg = Input.mousePosition;
+			else
+				boxPosEnd = Input.mousePosition;
+		} else {
+			if (boxPosOrg != Vector2.zero && boxPosOrg != Vector2.zero)
+				Debug.Log ("Many welps, Handle it!");
+				//run a unit selection
+			boxPosOrg = Vector2.zero;
+			boxPosEnd = Vector2.zero;
+		}
+
 		if (Input.GetButtonDown ("Fire1")) {
 			GetUnit ();
 		}
@@ -81,6 +97,15 @@ public class CameraController : MonoBehaviour {
 
 	void LateUpdate() {
 		lastPosition = transform.position;
+	}
+
+	//drawing relevent gui stuff
+	void OnGUI() {
+		if (boxPosOrg != Vector2.zero && boxPosEnd != Vector2.zero) {
+//			Rect metalBawx = new Rect (boxPosOrg, new Vector2 (boxPosEnd.x - boxPosOrg.x, boxPosEnd.y - boxPosEnd.y));
+			Rect metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
+			GUI.DrawTexture (metalBawx, bawxTexture);
+		}
 	}
 
 	private void MouseInput() {
