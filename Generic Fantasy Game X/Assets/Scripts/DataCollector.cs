@@ -6,15 +6,16 @@ using UnityEngine.UI;
 public class DataCollector : MonoBehaviour {
 	[SerializeField]
 	private GameObject scoreScreen;
-	private Text timerText;
-	private Text killText;
-	private Text collectableText;
+
+	public Text timerText;
+	public Text killText;
+	public Text collectableText;
 
 	public int scoreValue;
 	public int levelTimer;
-	private float secondsCount;
-	private float minuteCount;
-	private int hourCount;
+	public float secondsCount;
+	public float minuteCount;
+	public int hourCount;
 	public int killCount;
 
 	public int collectCount;
@@ -24,58 +25,49 @@ public class DataCollector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		timeOn = true;
 		//scoreScreen = GameObject.FindGameObjectWithTag("ScoreScreen");
+		//ScoreScreen variables from DataCollector
 		timerText = GameObject.FindGameObjectWithTag("TimerScore").GetComponent<Text> ();
 		killText =  GameObject.FindGameObjectWithTag("KillScore").GetComponent<Text> ();
 		collectableText = GameObject.FindGameObjectWithTag("CollectableScore").GetComponent<Text> ();
-	}
 
-	void Awake()
-	{
-		timeOn = true;
+
 		killCount = 0;
 		collectCount = 0;
 		collectMax = 1;
+
+			}
+
+	void Awake()
+	{
+		
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (timeOn) {
-			TimerOn ();
-		}
-
+		TimerOn ();
+		GetScore ();
 
 	}
 
 	public void GetScore()
 	{
-		KillScore ();
-		CollectableScore ();
-		TimeScore ();
+		//Score Updates
+		killText.text = "Enemies Defeated: " + killCount;
+		collectableText.text = "Collected: " + collectCount + "/" + collectMax;
+		timerText.text = "Level Completed in: " + hourCount + ":" + minuteCount + ":" + (int)secondsCount + "s";
+
 	}
+
+
 	public void TimerOn(){
 		
 		Debug.Log (hourCount + "h:" + minuteCount + "m:" + (int)secondsCount + "s");
 		//levelTimer += Time.deltaTime;
 
 		secondsCount += Time.deltaTime;
-
-
-
-
-	}
-
-	public float StopTimer()
-	{
-		timeOn = false;
-		return secondsCount;
-
-	}
-
-	public void TimeScore()
-	{
 
 		if (secondsCount >= 60) {
 			minuteCount++;
@@ -85,18 +77,18 @@ public class DataCollector : MonoBehaviour {
 			minuteCount = 0;
 
 		}
-		timerText.text = "Level Completed in: " + hourCount + ":" + minuteCount + ":" + (int)secondsCount + "s";
 	}
 
-	public void KillScore()
+	public float StopTimer()
 	{
-		killText.text = "Enemies Defeated: " + killCount;
+		timeOn = false;
+		return secondsCount;
 
 	}
-
-	public void CollectableScore()
+		
+	public void AddCollectableScore(int collected)
 	{
-		collectableText.text = "Collected: " + collectCount + "/" + collectMax;
+		collectCount += collected;
 	}
 
 	public void AddPoints(int score)

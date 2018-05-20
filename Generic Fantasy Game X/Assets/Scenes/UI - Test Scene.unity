@@ -156,6 +156,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e8ab6f246dd7d0743af71581a96de4e0, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &39075849 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114337502392850150, guid: 4264e8b0edf1b1f428eec04bf14b4623,
+    type: 2}
+  m_PrefabInternal: {fileID: 1804754796}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &458608272 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1865541419565906, guid: 4264e8b0edf1b1f428eec04bf14b4623,
@@ -210,6 +216,26 @@ Prefab:
       propertyPath: scoreScreen
       value: 
       objectReference: {fileID: 793612634}
+    - target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
+        type: 2}
+      propertyPath: killText
+      value: 
+      objectReference: {fileID: 870048146}
+    - target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
+        type: 2}
+      propertyPath: collectableText
+      value: 
+      objectReference: {fileID: 39075849}
+    - target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
+        type: 2}
+      propertyPath: timerText
+      value: 
+      objectReference: {fileID: 1117144177}
+    - target: {fileID: 114956237955502734, guid: f38b1f6badd0f004ba0b008471ca09db,
+        type: 2}
+      propertyPath: dataCollector
+      value: 
+      objectReference: {fileID: 1628111173}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f38b1f6badd0f004ba0b008471ca09db, type: 2}
   m_IsPrefabParent: 0
@@ -295,6 +321,18 @@ GameObject:
   m_PrefabParentObject: {fileID: 1215772992298786, guid: 4264e8b0edf1b1f428eec04bf14b4623,
     type: 2}
   m_PrefabInternal: {fileID: 1804754796}
+--- !u!114 &870048146 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114553653619180152, guid: 4264e8b0edf1b1f428eec04bf14b4623,
+    type: 2}
+  m_PrefabInternal: {fileID: 1804754796}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1117144177 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114091065560373614, guid: 4264e8b0edf1b1f428eec04bf14b4623,
+    type: 2}
+  m_PrefabInternal: {fileID: 1804754796}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1346822079
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,8 +476,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreScreen: {fileID: 793612634}
+  timerText: {fileID: 1117144177}
+  killText: {fileID: 870048146}
+  collectableText: {fileID: 39075849}
   scoreValue: 0
   levelTimer: 0
+  secondsCount: 0
+  minuteCount: 0
+  hourCount: 0
   killCount: 0
   collectCount: 0
   collectMax: 0

@@ -69,8 +69,8 @@ public class UIManager : MonoBehaviour {
 	{
         playerManager = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<PlayerManager>();
         canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
-		dataCollector = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<DataCollector> ();
-        //Calling the variables from Player Stats
+
+		//Calling the variables from Player Stats
         slot1 = GameObject.FindGameObjectWithTag("Slot1");
         healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
         HPText = healthBar.GetComponentInChildren<Text>();
@@ -80,16 +80,18 @@ public class UIManager : MonoBehaviour {
 
         heroes = GameObject.FindGameObjectsWithTag("Hero");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+
+
+
 	}
 
     void Update()
     {
 
-		dataCollector.GetScore ();
 
+		//HP Updates
         CurrentHP = playerManager.currentHP;
-
-
         healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
 
         HPText.text = "HP " + CurrentHP + "/" + MaxHP;
@@ -99,6 +101,8 @@ public class UIManager : MonoBehaviour {
         {
             PauseMenu();
         }
+
+
 
     }
 
@@ -134,6 +138,7 @@ public class UIManager : MonoBehaviour {
 	{
 		if (switcher)
 		{
+			dataCollector.StopTimer ();
 			scoreScreen.SetActive(true);
 			Time.timeScale = 0;
 		}
