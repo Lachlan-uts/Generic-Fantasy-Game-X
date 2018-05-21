@@ -9,14 +9,23 @@ public class UIManager : MonoBehaviour {
 	private Slider healthBar;
 	private Text HPText;
 	private PlayerManager playerManager;
-	private GameObject slot1;
-    private int MaxHP;
-    private int CurrentHP;
+	//private GameObject slot1;
+    //private int MaxHP;
+    //private int CurrentHP;
 
     //PauseMenu
     private Canvas canvas;
-    private GameObject[] heroes;
-    private GameObject[] enemies;
+    private List<GameObject> heroes;
+    private List<GameObject> enemies;
+
+	[SerializeField]
+	private GameObject slot1;
+	[SerializeField]
+	private GameObject slot2;
+	[SerializeField]
+	private GameObject slot3;
+	[SerializeField]
+	private GameObject slot4;
 
     //[SerializeField]
     public GameObject pauseMenu;
@@ -71,17 +80,20 @@ public class UIManager : MonoBehaviour {
         canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
 
 		//Calling the variables from Player Stats
-        slot1 = GameObject.FindGameObjectWithTag("Slot1");
-        healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
-        HPText = healthBar.GetComponentInChildren<Text>();
+        //slot1 = GameObject.FindGameObjectWithTag("Slot1");
+        //healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
+        //HPText = healthBar.GetComponentInChildren<Text>();
 
-		MaxHP = playerManager.maxHP;
-		healthBar.maxValue += MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
+		//MaxHP = playerManager.maxHP;
+		//healthBar.maxValue += MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
 
-        heroes = GameObject.FindGameObjectsWithTag("Hero");
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		heroes = new List<GameObject> ();
+		enemies = new List<GameObject> ();
 
+		heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
+		enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
+		heroes [0].GetComponent<EntityStatisticsScript> ().AssignUI (slot1);
 
 
 	}
@@ -91,11 +103,11 @@ public class UIManager : MonoBehaviour {
 
 
 		//HP Updates
-        CurrentHP = playerManager.currentHP;
-        healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
+        //CurrentHP = playerManager.currentHP;
+        //healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
 
-        HPText.text = "HP " + CurrentHP + "/" + MaxHP;
-        Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
+        //HPText.text = "HP " + CurrentHP + "/" + MaxHP;
+        //Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
