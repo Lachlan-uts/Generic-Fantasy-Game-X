@@ -20,7 +20,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 		}
 		private set { 
 			curHealth = value;
-			//healthUI.GetComponent<Text> ().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
+			
 		} }
 	[SerializeField]
 	public int maxHealth { get { 
@@ -32,12 +32,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 	[SerializeField]
 	public int level { get; private set; }
 	[SerializeField]
-	public int experience { get { 
-			return experience;
-		}
-		private set { 
-			experience = value;
-		} }
+	public int experience { get { return experience;} private set { experience = value;} }
 
 	[SerializeField]
 	public int statStrength { get; private set; }
@@ -61,6 +56,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 		equippedItems.Add (entitySlots.RightHand, null);
 		equippedItems.Add (entitySlots.LeftHand, null);
 		equippedItems.Add (entitySlots.Potion, null);
+
+        testHealthUI();
+
 	}
 	
 	// Update is called once per frame
@@ -76,7 +74,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 				}
 			}
 		}
-	}
+        Debug.Log(curHealth + " / " + maxHealth);
+        healthUI.GetComponent<Text>().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
+    }
 
 	public void InstigateCommand (string context, GameObject other) {
 		targetContext = context;
@@ -184,10 +184,16 @@ public class EntityStatisticsScript : MonoBehaviour {
 				}
 			}
 
+            this.gameObject.GetComponent<EntityTargetScript>().Die();
 			// Invoke "death" here
 
 		}
 
 
 	}
+
+    public void testHealthUI()
+    {
+        GainExperience(25);
+    }
 }

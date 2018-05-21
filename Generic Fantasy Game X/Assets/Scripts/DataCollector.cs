@@ -33,10 +33,6 @@ public class DataCollector : MonoBehaviour {
 		collectableText = GameObject.FindGameObjectWithTag("CollectableScore").GetComponent<Text> ();
 
 
-		killCount = 0;
-		collectCount = 0;
-		collectMax = 1;
-
 			}
 
 	void Awake()
@@ -65,9 +61,11 @@ public class DataCollector : MonoBehaviour {
 	public void TimerOn(){
 		
 		Debug.Log (hourCount + "h:" + minuteCount + "m:" + (int)secondsCount + "s");
-		//levelTimer += Time.deltaTime;
-
-		secondsCount += Time.deltaTime;
+        //levelTimer += Time.deltaTime;
+        if (timeOn == true)
+        {
+            secondsCount += Time.deltaTime;
+        }
 
 		if (secondsCount >= 60) {
 			minuteCount++;

@@ -4,14 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
-
-    //Health UI
-	private Slider healthBar;
-	private Text HPText;
-	private PlayerManager playerManager;
-	private GameObject slot1;
-    private int MaxHP;
-    private int CurrentHP;
+   
 
     //PauseMenu
     private Canvas canvas;
@@ -67,17 +60,10 @@ public class UIManager : MonoBehaviour {
     //TO DO: Replace Slot1 with "Current Player"
     void Start()
 	{
-        playerManager = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<PlayerManager>();
-        canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
+      
 
 		//Calling the variables from Player Stats
-        slot1 = GameObject.FindGameObjectWithTag("Slot1");
-        healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
-        HPText = healthBar.GetComponentInChildren<Text>();
-
-		MaxHP = playerManager.maxHP;
-		healthBar.maxValue += MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
-
+       
         heroes = GameObject.FindGameObjectsWithTag("Hero");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -88,14 +74,6 @@ public class UIManager : MonoBehaviour {
 
     void Update()
     {
-
-
-		//HP Updates
-        CurrentHP = playerManager.currentHP;
-        healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
-
-        HPText.text = "HP " + CurrentHP + "/" + MaxHP;
-        Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
@@ -138,14 +116,14 @@ public class UIManager : MonoBehaviour {
 	{
 		if (switcher)
 		{
-			dataCollector.StopTimer ();
+			//dataCollector.StopTimer ();
 			scoreScreen.SetActive(true);
-			Time.timeScale = 0;
+			//Time.timeScale = 0;
 		}
 		else
 		{
 			scoreScreen.SetActive(false);
-			Time.timeScale = 1;
+			//Time.timeScale = 1;
 		}
 
 
