@@ -19,8 +19,12 @@ public class CameraController : MonoBehaviour {
 	private Vector3 playerMoveInput, rotationTarget;
 	private float playerScrollInput;
 	private Vector2 boxPosOrg, boxPosEnd = Vector2.zero;
+	private Rect metalBawx;
 	//The texture of the bawx
 	public Texture bawxTexture;
+	//The list of hero dudes.
+	[SerializeField]
+	private List<GameObject> heros;
 
 	void Start() {
         Time.timeScale = 1;
@@ -28,6 +32,7 @@ public class CameraController : MonoBehaviour {
 		lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 		offset = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 		cameraTarget = null;
+		heros.AddRange (GameObject.FindGameObjectsWithTag ("Hero"));
 	}
 
 	void Update() {
@@ -38,8 +43,9 @@ public class CameraController : MonoBehaviour {
 				boxPosEnd = Input.mousePosition;
 		} else {
 			if (boxPosOrg != Vector2.zero && boxPosOrg != Vector2.zero)
-				Debug.Log ("Many welps, Handle it!");
-				//run a unit selection
+//				Debug.Log ("Many welps, Handle it!");
+//				run a unit selection
+				GetDudes();
 			boxPosOrg = Vector2.zero;
 			boxPosEnd = Vector2.zero;
 		}
@@ -103,8 +109,17 @@ public class CameraController : MonoBehaviour {
 	void OnGUI() {
 		if (boxPosOrg != Vector2.zero && boxPosEnd != Vector2.zero) {
 //			Rect metalBawx = new Rect (boxPosOrg, new Vector2 (boxPosEnd.x - boxPosOrg.x, boxPosEnd.y - boxPosEnd.y));
-			Rect metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
+			metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
 			GUI.DrawTexture (metalBawx, bawxTexture);
+		}
+	}
+
+	private void GetDudes() {
+		metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
+		foreach (var hero in heros) {
+			if (metalBawx.Contains (Camera.main.WorldToScreenPoint (hero.transform.position))) {
+				Debug.Log(hero.name + "is at " + Camera.main.WorldToScreenPoint (hero.transform.position));
+			}
 		}
 	}
 
