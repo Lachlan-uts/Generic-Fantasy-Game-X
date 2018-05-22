@@ -113,6 +113,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &287734115 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1092673791111224, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
+--- !u!114 &287734116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 287734115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b1eab4d1f8a434b817a3127e7d6b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lights:
+  - {fileID: 307995836}
+  - {fileID: 1609346609}
+  - {fileID: 554510547}
+  - {fileID: 847722541}
+  - {fileID: 720786012}
+  - {fileID: 2141656238}
+  - {fileID: 756093704}
+  - {fileID: 443389183}
+  - {fileID: 1310188593}
+--- !u!108 &307995836 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108489295557059970, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
+--- !u!108 &443389183 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108340204660431058, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
+--- !u!108 &554510547 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108970962351632600, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
+--- !u!108 &720786012 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108688014931162026, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
+--- !u!108 &756093704 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108519031113670374, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
+--- !u!108 &847722541 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108785143608299656, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
+--- !u!108 &1310188593 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108778315650198068, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
+--- !u!108 &1609346609 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108576790236345778, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}
 --- !u!1001 &1788205301
 Prefab:
   m_ObjectHideFlags: 0
@@ -261,3 +327,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!108 &2141656238 stripped
+Light:
+  m_PrefabParentObject: {fileID: 108696294171220868, guid: a747feb827bc422429905bd43b800147,
+    type: 2}
+  m_PrefabInternal: {fileID: 1788205301}

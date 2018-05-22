@@ -20,10 +20,7 @@ public class CameraFacing : MonoBehaviour
 	// }
 	void Update() {
 
-		Vector3 v = cameraToLookAt.transform.position - transform.position;
-		Vector3 trans = {1.0, 0.0, 0.0};
-		v = v * trans;
-		transform.LookAt(cameraToLookAt.transform.position - v);
+		
 		
 	}
 }
