@@ -4,32 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
-<<<<<<< HEAD
    
-=======
-
-    //Health UI
-	private Slider healthBar;
-	private Text HPText;
-	private PlayerManager playerManager;
-	//private GameObject slot1;
-    //private int MaxHP;
-    //private int CurrentHP;
->>>>>>> 440aac63cd6915f40c0e7769f7a17f3c6e878022
 
     //PauseMenu
     private Canvas canvas;
-    private List<GameObject> heroes;
-    private List<GameObject> enemies;
-
-	[SerializeField]
-	private GameObject slot1;
-	[SerializeField]
-	private GameObject slot2;
-	[SerializeField]
-	private GameObject slot3;
-	[SerializeField]
-	private GameObject slot4;
+    private GameObject[] heroes;
+    private GameObject[] enemies;
 
     //[SerializeField]
     public GameObject pauseMenu;
@@ -83,26 +63,11 @@ public class UIManager : MonoBehaviour {
       
 
 		//Calling the variables from Player Stats
-<<<<<<< HEAD
        
         heroes = GameObject.FindGameObjectsWithTag("Hero");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-=======
-        //slot1 = GameObject.FindGameObjectWithTag("Slot1");
-        //healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
-        //HPText = healthBar.GetComponentInChildren<Text>();
 
-		//MaxHP = playerManager.maxHP;
-		//healthBar.maxValue += MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
 
-		heroes = new List<GameObject> ();
-		enemies = new List<GameObject> ();
->>>>>>> 440aac63cd6915f40c0e7769f7a17f3c6e878022
-
-		heroes.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
-		enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-
-		heroes [0].GetComponent<EntityStatisticsScript> ().AssignUI (slot1);
 
 
 	}
@@ -110,17 +75,6 @@ public class UIManager : MonoBehaviour {
     void Update()
     {
 
-<<<<<<< HEAD
-=======
-
-		//HP Updates
-        //CurrentHP = playerManager.currentHP;
-        //healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
-
-        //HPText.text = "HP " + CurrentHP + "/" + MaxHP;
-        //Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
-
->>>>>>> 440aac63cd6915f40c0e7769f7a17f3c6e878022
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
             PauseMenu();

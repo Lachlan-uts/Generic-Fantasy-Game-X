@@ -84,14 +84,13 @@ GameObject:
   m_Component:
   - component: {fileID: 224491143770398708}
   - component: {fileID: 222437478591269932}
-  - component: {fileID: 114271193347346794}
   m_Layer: 5
   m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1119566413835700
 GameObject:
   m_ObjectHideFlags: 1
@@ -175,7 +174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1248778788093798
 GameObject:
   m_ObjectHideFlags: 1
@@ -756,7 +755,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224946904895761612}
   - component: {fileID: 222282971343669158}
-  - component: {fileID: 114255137634192858}
   m_Layer: 5
   m_Name: Slot2
   m_TagString: Untagged
@@ -858,7 +856,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224531964469814550}
   - component: {fileID: 222644696437777294}
-  - component: {fileID: 114749650119941510}
   m_Layer: 5
   m_Name: Slot3
   m_TagString: Untagged
@@ -1181,18 +1178,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883453431713012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b3d614feb761a408077d1ddb6b5b7a, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  slot1: {fileID: 1098054264256802}
-  slot2: {fileID: 1828735405925546}
-  slot3: {fileID: 1899562750716104}
-  slot4: {fileID: 1856388454237072}
-  pauseMenu: {fileID: 1865541419565906}
-  scoreScreen: {fileID: 1215772992298786}
-  dataCollector: {fileID: 0}
-  scoreScreenStatus: 0
-  audio: {fileID: 0}
 --- !u!114 &114139842478911712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1480,19 +1468,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114255137634192858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1828735405925546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77504899511903c438f3980322248f8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthText: {fileID: 114770725215677384}
-  healthBar: {fileID: 0}
 --- !u!114 &114257790990348094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1580,19 +1555,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Slot 1
---- !u!114 &114271193347346794
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1098054264256802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77504899511903c438f3980322248f8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthText: {fileID: 114205250400033296}
-  healthBar: {fileID: 0}
 --- !u!114 &114300592359965224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2395,19 +2357,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Slot 3
---- !u!114 &114749650119941510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1899562750716104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77504899511903c438f3980322248f8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthText: {fileID: 114517454480512816}
-  healthBar: {fileID: 0}
 --- !u!114 &114752228412117394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3255,7 +3204,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 3}
   m_SizeDelta: {x: 100, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3638,7 +3587,7 @@ RectTransform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.6999817, y: 15.800003}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
