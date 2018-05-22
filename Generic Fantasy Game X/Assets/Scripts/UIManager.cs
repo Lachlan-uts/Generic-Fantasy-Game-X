@@ -16,9 +16,11 @@ public class UIManager : MonoBehaviour {
 
 	public GameObject scoreScreen;
 	public DataCollector dataCollector;
+    public GameObject inventoryUI;
     
-	private bool pauseMenuStatus;
-	public bool scoreScreenStatus;
+	public bool pauseMenuStatus;
+	private bool scoreScreenStatus;
+    public bool inventoryStatus;
 
     private int level = 1;
     //public Text gameOverText;
@@ -55,6 +57,9 @@ public class UIManager : MonoBehaviour {
 
 		scoreScreen.SetActive (false);
 		scoreScreenStatus = false;
+
+        inventoryUI.SetActive(false);
+        inventoryStatus = false;
     }
 
     //TO DO: Replace Slot1 with "Current Player"
@@ -80,7 +85,10 @@ public class UIManager : MonoBehaviour {
             PauseMenu();
         }
 
-
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            InventorySwitch();
+        }
 
     }
 
@@ -128,5 +136,32 @@ public class UIManager : MonoBehaviour {
 
 
 	}
+
+    public void InventorySwitch()
+    {
+        if (!inventoryStatus)
+        {
+            inventoryUI.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            inventoryUI.SetActive(false);
+            Time.timeScale = 1;
+        }
+
+       inventoryStatus = !inventoryStatus;
+
+        foreach (GameObject hero in heroes)
+        {
+            hero.GetComponent<EntityNavigationScript>().enabled =
+                !hero.GetComponent<EntityNavigationScript>().enabled;
+        }
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EntityNavigationScript>().enabled =
+                !enemy.GetComponent<EntityNavigationScript>().enabled;
+        }
+    }
 
 }

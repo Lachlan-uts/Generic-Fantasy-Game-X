@@ -25,6 +25,7 @@ TagManager:
   - CollectableScore
   - MainMenu
   - DropItem
+  - InventoryUI
   layers:
   - Default
   - TransparentFX

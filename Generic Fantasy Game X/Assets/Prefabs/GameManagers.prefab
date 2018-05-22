@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4301134972690900}
   - component: {fileID: 114956237955502734}
-  - component: {fileID: 114782944450482848}
   - component: {fileID: 114347522242919768}
   - component: {fileID: 114315075635544190}
+  - component: {fileID: 114819710702601582}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: GameManagers
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9210c1d31d24aec4dbaeddfe73963ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114782944450482848
+--- !u!114 &114819710702601582
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -73,19 +73,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1319806677692778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf8ac3c7182934448f152fbd7522208, type: 3}
+  m_Script: {fileID: 11500000, guid: 05b4d1c6200b1ab46949ca7f22e86b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  currentLevel: 1
-  currentExp: 5
-  toLevelUp: 050000000a0000000f000000
-  HPUp: 050000000a0000000f000000
-  attackUp: 050000000a0000000f000000
-  currentHP: 0
-  maxHP: 0
-  currentAttack: 0
-  currentPlayer: {fileID: 0}
+  scoreScreen: {fileID: 0}
+  timerText: {fileID: 0}
+  killText: {fileID: 0}
+  collectableText: {fileID: 0}
+  scoreValue: 0
+  levelTimer: 0
+  secondsCount: 0
+  minuteCount: 0
+  hourCount: 0
+  killCount: 0
+  collectCount: 0
+  collectMax: 0
+  timeOn: 0
 --- !u!114 &114956237955502734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,4 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
+  scoreScreen: {fileID: 0}
+  dataCollector: {fileID: 114819710702601582}
+  inventoryUI: {fileID: 0}
   audio: {fileID: 0}
