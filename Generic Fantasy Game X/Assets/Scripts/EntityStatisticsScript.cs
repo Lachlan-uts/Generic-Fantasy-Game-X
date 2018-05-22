@@ -20,7 +20,14 @@ public class EntityStatisticsScript : MonoBehaviour {
 		}
 		private set { 
 			curHealth = value;
+<<<<<<< HEAD
 			
+=======
+			//healthUI.GetComponent<Text> ().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
+			if (healthUI != null) {
+				healthUI.GetComponent<UISlotScript> ().updateHealthStatus (curHealth, maxHealth);
+			}
+>>>>>>> 440aac63cd6915f40c0e7769f7a17f3c6e878022
 		} }
 	[SerializeField]
 	public int maxHealth { get { 
@@ -77,6 +84,11 @@ public class EntityStatisticsScript : MonoBehaviour {
         Debug.Log(curHealth + " / " + maxHealth);
         healthUI.GetComponent<Text>().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
     }
+
+	public void AssignUI (GameObject UISlot) {
+		healthUI = UISlot;
+		curHealth = curHealth;
+	}
 
 	public void InstigateCommand (string context, GameObject other) {
 		targetContext = context;
