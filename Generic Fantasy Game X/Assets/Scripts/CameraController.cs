@@ -117,18 +117,15 @@ public class CameraController : MonoBehaviour {
 	}
 
 	private void GetDudes(bool shiftSelect = false) {
-		Debug.Log (boxPosOrg);
-		Debug.Log (boxPosEnd);
+		Vector2 screenBoxMin = GUIUtility.ScreenToGUIPoint (metalBawx.min);
+		Vector2 screenBoxMax = GUIUtility.ScreenToGUIPoint (boxPosEnd);
 		if (!shiftSelect)
 			selectedHeros = new List<GameObject> ();
 //		metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
-		Debug.Log ("the box min is " + metalBawx.min + " and the max is " + metalBawx.max);
-		Vector2 screenBoxMin = GUIUtility.ScreenToGUIPoint (boxPosOrg);
-		Vector2 screenBoxMax = GUIUtility.ScreenToGUIPoint (boxPosEnd);
 		foreach (var hero in heros) {
-			Debug.Log (Camera.main.WorldToScreenPoint (hero.transform.position));
-			if (metalBawx.Contains (Camera.main.WorldToScreenPoint (hero.transform.position),true)) {
-				Debug.Log(hero.name + "is at " + Camera.main.WorldToScreenPoint (hero.transform.position));
+			Vector2 heroPos = Camera.main.WorldToScreenPoint (hero.transform.position);
+			Vector2 convertedPos = new Vector2(heroPos.x, Screen.height - heroPos.y);
+			if (metalBawx.Contains (convertedPos,true)) {
 				if (!selectedHeros.Contains (hero))
 					selectedHeros.Add (hero);
 			}
