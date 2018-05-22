@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: EntityAnimationController
+  m_Name: xBotAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Attacking
@@ -219,7 +219,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 115e7c34c1c7da14cb3f2bc6d3840957, type: 3}
+  m_Motion: {fileID: 7400000, guid: cc832582619680a48a2ef5b56ce326a4, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -231,7 +231,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Standing Melee Attack Horizontal
+  m_Name: Attack
   m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
@@ -246,7 +246,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 055b60d5f3503a44ab9657fb9bcbe580, type: 3}
+  m_Motion: {fileID: 7400000, guid: 2b957a9f53e60ab45a5da0ff90831031, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -273,7 +273,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3415be9f9bdf7f04eb54aec03838b495, type: 3}
+  m_Motion: {fileID: 7400000, guid: 73f8c1ab3e7004d41976c065b48f4bba, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -324,15 +324,15 @@ AnimatorStateMachine:
   m_EntryTransitions:
   - {fileID: 1109117482251800418}
   m_StateMachineTransitions:
-  - first: {fileID: 1107919180846696074}
-    second:
-    - {fileID: 1109815211545244168}
   - first: {fileID: 1107512328065794160}
     second:
     - {fileID: 1109884536023726838}
   - first: {fileID: 1107560583850274740}
     second:
     - {fileID: 1109450691577057052}
+  - first: {fileID: 1107919180846696074}
+    second:
+    - {fileID: 1109815211545244168}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -96, y: 84, z: 0}
   m_EntryPosition: {x: 72, y: 84, z: 0}
