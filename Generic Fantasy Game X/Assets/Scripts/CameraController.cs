@@ -24,7 +24,7 @@ public class CameraController : MonoBehaviour {
 	public Texture bawxTexture;
 	//The list of hero dudes.
 	[SerializeField]
-	private List<GameObject> heros;
+	private List<GameObject> heros, selectedHeros;
 
 	void Start() {
         Time.timeScale = 1;
@@ -33,6 +33,7 @@ public class CameraController : MonoBehaviour {
 		offset = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 		cameraTarget = null;
 		heros.AddRange (GameObject.FindGameObjectsWithTag ("Hero"));
+		selectedHeros = new List<GameObject> ();
 	}
 
 	void Update() {
@@ -42,10 +43,11 @@ public class CameraController : MonoBehaviour {
 			else
 				boxPosEnd = Input.mousePosition;
 		} else {
-			if (boxPosOrg != Vector2.zero && boxPosOrg != Vector2.zero)
-//				Debug.Log ("Many welps, Handle it!");
+			if (boxPosOrg != Vector2.zero && boxPosOrg != Vector2.zero) {
+				Debug.Log ("Many welps, Handle it!");
 //				run a unit selection
-				GetDudes();
+				GetDudes ();
+			}
 			boxPosOrg = Vector2.zero;
 			boxPosEnd = Vector2.zero;
 		}
@@ -114,11 +116,21 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
-	private void GetDudes() {
-		metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
+	private void GetDudes(bool shiftSelect = false) {
+		Debug.Log (boxPosOrg);
+		Debug.Log (boxPosEnd);
+		if (!shiftSelect)
+			selectedHeros = new List<GameObject> ();
+//		metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
+		Debug.Log ("the box min is " + metalBawx.min + " and the max is " + metalBawx.max);
+		Vector2 screenBoxMin = GUIUtility.ScreenToGUIPoint (boxPosOrg);
+		Vector2 screenBoxMax = GUIUtility.ScreenToGUIPoint (boxPosEnd);
 		foreach (var hero in heros) {
-			if (metalBawx.Contains (Camera.main.WorldToScreenPoint (hero.transform.position))) {
+			Debug.Log (Camera.main.WorldToScreenPoint (hero.transform.position));
+			if (metalBawx.Contains (Camera.main.WorldToScreenPoint (hero.transform.position),true)) {
 				Debug.Log(hero.name + "is at " + Camera.main.WorldToScreenPoint (hero.transform.position));
+				if (!selectedHeros.Contains (hero))
+					selectedHeros.Add (hero);
 			}
 		}
 	}
@@ -171,6 +183,7 @@ public class CameraController : MonoBehaviour {
 
 	//method to try and get a unit on the unit layer.
 	private void GetUnit() {
+		Debug.Log ("getting unit");
 		int layerMask = 1 << 8;
 		RaycastHit hit;
 		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -178,13 +191,17 @@ public class CameraController : MonoBehaviour {
 			Debug.Log (hit.collider.name);
 			Debug.Log (hit.collider.gameObject.layer);
 			if (hit.collider.CompareTag("Hero")) {
-				cameraTarget = hit.collider.gameObject;
+//				cameraTarget = hit.collider.gameObject;
+				selectedHeros.Add (hit.collider.gameObject);
 			}
 		}
 	}
 
 	//get a target for the controlled unit, either point on ground or enemy.
 	private void GetTarget() {
+		if (selectedHeros.Count == 0) {
+			return;
+		}
 		int layerMask = (1 << 8) | (1 << 9);
 		RaycastHit hit;
 		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -193,12 +210,21 @@ public class CameraController : MonoBehaviour {
 			Debug.Log (hit.collider.gameObject.layer);
 			if (hit.collider.gameObject.layer == 8) {
 //				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = hit.collider.gameObject;
-				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
+//				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
+				foreach (var hero in selectedHeros) {
+					hero.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
+				}
 			} else {
 //				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = null;
-				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = null;
+//				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = null;
+				foreach (var hero in selectedHeros) {
+					hero.GetComponent<EntityTargetScript> ().targetedEntity = null;
+				}
 			}
-			cameraTarget.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
+//			cameraTarget.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
+			foreach (var hero in selectedHeros) {
+				hero.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
+			}
 		}
 	}
 }

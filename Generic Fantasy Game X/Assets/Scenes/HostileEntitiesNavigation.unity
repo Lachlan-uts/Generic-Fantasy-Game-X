@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -473,7 +473,9 @@ MonoBehaviour:
   offsetHeight: 10
   smoothing: 1
   following: 0
-  bawxTexture: {fileID: 10904, guid: 0000000000000000f000000000000000, type: 0}
+  bawxTexture: {fileID: 2800000, guid: 125fc8ef6c8666b47969f6711df1456b, type: 3}
+  heros: []
+  selectedHeros: []
 --- !u!1 &214324031
 GameObject:
   m_ObjectHideFlags: 0
