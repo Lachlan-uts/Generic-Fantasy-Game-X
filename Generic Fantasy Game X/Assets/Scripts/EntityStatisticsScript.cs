@@ -83,7 +83,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.P)) {
 			Debug.Log ("attempting to find item");
-			Pickup (GameObject.Find ("DropHolder"));
+			Pickup (GameObject.Find ("ExampleDrop(Clone)"));
 		}
 	}
 
