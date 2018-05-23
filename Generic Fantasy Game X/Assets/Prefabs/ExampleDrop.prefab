@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 23339828266421208}
   - component: {fileID: 114581836409919330}
   - component: {fileID: 114778117504257584}
+  - component: {fileID: 114489061974163542}
   - component: {fileID: 114785845071476834}
   m_Layer: 10
   m_Name: ExampleDrop
@@ -102,6 +103,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114489061974163542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996900126613674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba8cc65dde39a74e92477e1c0d22551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 5
 --- !u!114 &114581836409919330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,7 +139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropCollider: {fileID: 135896679251121348}
-  owner: {fileID: 0}
 --- !u!114 &114785845071476834
 MonoBehaviour:
   m_ObjectHideFlags: 1

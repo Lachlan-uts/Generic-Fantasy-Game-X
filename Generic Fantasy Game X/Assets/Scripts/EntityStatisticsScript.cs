@@ -48,6 +48,14 @@ public class EntityStatisticsScript : MonoBehaviour {
 	[SerializeField]
 	public int statVitality { get; private set; }
 
+	// "Equipment Slots" for items - where they go when they are equipped
+	[SerializeField]
+	private GameObject rightHand;
+	[SerializeField]
+	private GameObject leftHand;
+	[SerializeField]
+	private GameObject chest;
+
 	public Dictionary<string, GameObject> e = new Dictionary<string, GameObject>();
 
 	public Dictionary<entitySlots, GameObject> equippedItems = new Dictionary<entitySlots, GameObject> ();
@@ -84,6 +92,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.P)) {
 			Debug.Log ("attempting to find item");
 			Pickup (GameObject.Find ("ExampleDrop(Clone)"));
+			Pickup (GameObject.Find ("Sword(x)"));
 		}
 	}
 
@@ -117,11 +126,27 @@ public class EntityStatisticsScript : MonoBehaviour {
 		other.transform.parent = null;
 	}*/
 
-	public void Quaff () {
-		GameObject equippedPotion;
-		if (equippedItems.TryGetValue (entitySlots.Potion, out equippedPotion)) {
-
+	public void Equip(PGISlotItem item, PGIModel model, PGISlot slot) {
+		switch (item.GetComponent<ItemTypeScript> ().itemType) {
+		case entitySlots.RightHand:
+			item.gameObject.transform.position = rightHand.transform.position;
+			item.gameObject.transform.rotation = rightHand.transform.rotation;
+			item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
+			item.gameObject.transform.SetParent (rightHand.transform);
+			item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
+			break;
+		default:
+			break;
 		}
+	}
+
+	public void Quaff () {
+//		GameObject equippedPotion;
+//		if (equippedItems.TryGetValue (entitySlots.Potion, out equippedPotion)) {
+//
+//		}
+		int healAmount = inventory.Equipment[0].Item.GetComponent<PotionUsageScript>().Quaff(maxHealth - curHealth);
+		Heal (healAmount);
 	}
 
 	private void LevelUp () {
@@ -201,6 +226,12 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 			// Invoke "death" here
 
+		} else if (curHealth <= ((int) 0.3f * maxHealth)) {
+			if (inventory.Equipment [0].Item != null) {
+				if (inventory.Equipment [0].Item.GetComponent<PotionUsageScript> ().fluidAmount > 0) {
+					Quaff ();
+				}
+			}
 		}
 
 
