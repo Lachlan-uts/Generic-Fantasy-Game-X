@@ -17,6 +17,9 @@ public class EntityNavigationScript : MonoBehaviour {
 	//animation stuffs
 	private Animator anim;
 
+	//used as the variable for faster turning speed.
+	private float extraRotationSpeed = 100;
+
 	// Use this for initialization
 	void Start () {
         Time.timeScale = 1;
@@ -30,6 +33,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//extraRotation ();
 		if (goal != null) {
 			agent.destination = goal.position;
 			Debug.Log ("has goal");
@@ -45,6 +49,11 @@ public class EntityNavigationScript : MonoBehaviour {
 //			Debug.Log (agent.remainingDistance);
 //		}
 		//DrawPath (agent.path); // <- use this drawpath to see the path updated in realtime.
+	}
+
+	void extraRotation() {
+		Vector3 lookrotation = agent.steeringTarget - transform.position;
+		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (lookrotation), extraRotationSpeed * Time.deltaTime);
 	}
 
 	private void DrawPath(NavMeshPath path) {
