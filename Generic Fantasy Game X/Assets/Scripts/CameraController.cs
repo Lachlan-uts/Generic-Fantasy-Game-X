@@ -127,7 +127,8 @@ public class CameraController : MonoBehaviour {
 			Vector2 convertedPos = new Vector2(heroPos.x, Screen.height - heroPos.y);
 			if (metalBawx.Contains (convertedPos,true)) {
 				if (!selectedHeros.Contains (hero))
-					selectedHeros.Add (hero);
+//					selectedHeros.Add (hero);
+					AddHeroToSelected(hero);
 			}
 		}
 	}
@@ -223,5 +224,17 @@ public class CameraController : MonoBehaviour {
 				hero.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
 			}
 		}
+	}
+
+	private void AddHeroToSelected(GameObject hero) {
+		selectedHeros.Add (hero);
+		StartCoroutine ("SelectHero", hero);
+	}
+
+	private IEnumerator SelectHero(GameObject hero) {
+		hero.GetComponent<EntityStatisticsScript> ().SelectionToggle ();
+		yield return new WaitUntil (() => !selectedHeros.Contains (hero));
+		hero.GetComponent<EntityStatisticsScript> ().SelectionToggle ();
+		yield return null;
 	}
 }

@@ -7,7 +7,7 @@ public class EntitySelectedScript : MonoBehaviour {
 	private MeshRenderer rend;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		rend = GetComponent<MeshRenderer> ();
 		rend.enabled = false;
 	}
@@ -18,5 +18,12 @@ public class EntitySelectedScript : MonoBehaviour {
 
 	public void SelectionToggle() {
 		rend.enabled = !rend.enabled;
+	}
+
+	void OnEnable() {
+		rend.enabled = true;
+	}
+	void OnDisable() {
+		rend.enabled = false;
 	}
 }

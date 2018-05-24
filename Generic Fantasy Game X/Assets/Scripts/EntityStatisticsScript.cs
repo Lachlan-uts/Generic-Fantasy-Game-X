@@ -210,6 +210,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 
 	}
+
+	public void SelectionToggle() {
+		selected.enabled = !selected.enabled;
+	}
+
 //	private IEnumerator IsSelected() {
 //	}
 }
