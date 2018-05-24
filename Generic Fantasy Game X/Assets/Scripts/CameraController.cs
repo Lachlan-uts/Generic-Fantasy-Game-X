@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//to be removed after working this out
+using UnityEngine.AI;
+
 public class CameraController : MonoBehaviour {
 
 	[SerializeField]
@@ -25,6 +28,9 @@ public class CameraController : MonoBehaviour {
 	//The list of hero dudes.
 	[SerializeField]
 	private List<GameObject> heros, selectedHeros;
+
+	//list of destinations to help work out destination pathing.
+	private List<Vector3> destinationGizmos = new List<Vector3>();
 
 	void Start() {
         Time.timeScale = 1;
@@ -134,17 +140,17 @@ public class CameraController : MonoBehaviour {
 	}
 
 	private void MouseInput() {
-		if (Input.mousePosition.x < 20) {
+		if (Input.mousePosition.x > 0 && Input.mousePosition.x < 20) {
 			playerMoveInput = playerMoveInput + Vector3.left;
 		}
-		if (Input.mousePosition.x > Screen.width - 20) {
+		if (Input.mousePosition.x < Screen.width && Input.mousePosition.x > Screen.width - 20) {
 			playerMoveInput = playerMoveInput + Vector3.right;
 		}
 
-		if (Input.mousePosition.y < 20) {
+		if (Input.mousePosition.y > 0 && Input.mousePosition.y < 20) {
 			playerMoveInput = playerMoveInput + Vector3.back;
 		}
-		if (Input.mousePosition.y > Screen.height - 20) {
+		if (Input.mousePosition.y < Screen.height && Input.mousePosition.y > Screen.height - 20) {
 			playerMoveInput = playerMoveInput + Vector3.forward;
 		}
 	}
@@ -206,6 +212,25 @@ public class CameraController : MonoBehaviour {
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
 			Debug.Log (hit.collider.name);
 			Debug.Log (hit.collider.gameObject.layer);
+
+//			Debug.DrawRay (hit.transform.position, hit.transform.TransformDirection(Vector3.forward)*2, Color.green,4.0f);
+
+			Vector3 heading = hit.point - selectedHeros [0].transform.position;
+			float distance = heading.magnitude;
+			Vector3 direction = heading / distance;
+
+			//stuff to try and have better pathing
+			//Going to use a line formation initially.
+			destinationGizmos.Add (hit.point);
+			for (int i = 0; i < 10; i++) {
+				Vector3 randomPoint = hit.point + Random.insideUnitSphere * 2.0f;
+				NavMeshHit hitt;
+				if (NavMesh.SamplePosition (randomPoint, out hitt, 1.0f, NavMesh.AllAreas)) {
+					destinationGizmos.Add (hitt.position);
+				}
+			}
+
+
 			if (hit.collider.gameObject.layer == 8) {
 //				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = hit.collider.gameObject;
 //				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
@@ -236,5 +261,13 @@ public class CameraController : MonoBehaviour {
 		yield return new WaitUntil (() => !selectedHeros.Contains (hero));
 		hero.GetComponent<EntityStatisticsScript> ().SelectionToggle ();
 		yield return null;
+	}
+
+	void OnDrawGizmos() {
+		if (destinationGizmos.Count > 0) {
+			foreach (var point in destinationGizmos) {
+				Gizmos.DrawSphere (point, 0.5f);
+			}
+		}
 	}
 }
