@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 4664230433840302}
   - component: {fileID: 114944864440739332}
   - component: {fileID: 114554517836624604}
+  - component: {fileID: 65762454560317678}
   m_Layer: 0
   m_Name: DungeonRoomD
   m_TagString: Untagged
@@ -3479,6 +3480,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65762454560317678
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1286862292745190}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.99, y: 2.56, z: 10.05}
+  m_Center: {x: 0, y: 1.39, z: 0}
 --- !u!65 &65775374264752504
 BoxCollider:
   m_ObjectHideFlags: 1

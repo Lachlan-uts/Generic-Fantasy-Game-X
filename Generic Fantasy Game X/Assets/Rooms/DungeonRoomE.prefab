@@ -1078,6 +1078,8 @@ GameObject:
   - component: {fileID: 4202649785420172}
   - component: {fileID: 114897755373322272}
   - component: {fileID: 114533821677190656}
+  - component: {fileID: 65634997679187270}
+  - component: {fileID: 65524899785495086}
   m_Layer: 0
   m_Name: DungeonRoomE
   m_TagString: Untagged
@@ -5908,6 +5910,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65524899785495086
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1641199527653146}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.537755, y: 3.0654259, z: 10.181877}
+  m_Center: {x: 0.03049469, y: 1.0327129, z: 9.951107}
 --- !u!65 &65532750662167820
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -5956,6 +5970,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65634997679187270
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1641199527653146}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.3900585, y: 2.5484967, z: 9.126309}
+  m_Center: {x: -0.082736015, y: 1.7057517, z: -0.08315468}
 --- !u!65 &65776780378511644
 BoxCollider:
   m_ObjectHideFlags: 1
