@@ -5,7 +5,15 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pauseMenu: {fileID: 1365071471515958, guid: 70c59e4b808532a408047ea7dccd613d,
+      type: 2}
+  - scoreScreen: {fileID: 1175975926901464, guid: 70c59e4b808532a408047ea7dccd613d,
+      type: 2}
+  - dataCollector: {instanceID: 0}
+  - inventoryUI: {fileID: 1323954768447292, guid: 70c59e4b808532a408047ea7dccd613d,
+      type: 2}
+  - audio: {fileID: 82107821016219404, guid: 70c59e4b808532a408047ea7dccd613d, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -100,8 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b3d614feb761a408077d1ddb6b5b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
-  scoreScreen: {fileID: 0}
+  pauseMenu: {fileID: 1365071471515958, guid: 70c59e4b808532a408047ea7dccd613d, type: 2}
+  scoreScreen: {fileID: 1175975926901464, guid: 70c59e4b808532a408047ea7dccd613d,
+    type: 2}
   dataCollector: {fileID: 114819710702601582}
-  inventoryUI: {fileID: 0}
-  audio: {fileID: 0}
+  inventoryUI: {fileID: 1323954768447292, guid: 70c59e4b808532a408047ea7dccd613d,
+    type: 2}
+  pauseMenuStatus: 0
+  inventoryStatus: 0
+  audio: {fileID: 82107821016219404, guid: 70c59e4b808532a408047ea7dccd613d, type: 2}

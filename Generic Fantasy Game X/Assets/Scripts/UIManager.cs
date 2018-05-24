@@ -95,6 +95,8 @@ public class UIManager : MonoBehaviour {
 
     public void PauseMenu()
     {
+
+		audio.Play ();
         if (!pauseMenuStatus)
         {
             pauseMenu.SetActive(true);
@@ -121,7 +123,7 @@ public class UIManager : MonoBehaviour {
     }
 
 	public void ScoreScreen(bool switcher)
-	{
+	{ audio.Play ();
 		if (switcher)
 		{
 			//dataCollector.StopTimer ();
@@ -138,7 +140,7 @@ public class UIManager : MonoBehaviour {
 	}
 
     public void InventorySwitch()
-    {
+	{ audio.Play ();
         if (!inventoryStatus)
         {
             inventoryUI.SetActive(true);

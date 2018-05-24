@@ -17,6 +17,13 @@ public class HatchScript : MonoBehaviour {
 	private DataCollector dataCollector;
 	private UIManager uiManager;
 	private GameObject scoreScreen;
+
+	//GameObjects for Collection
+	public GameObject key; 
+
+
+	//
+
 	// Use this for initialization
 	void Start () {
         missionObjective = Random.Range(0, 2);
@@ -128,7 +135,7 @@ public class HatchScript : MonoBehaviour {
 
     void CheckObjective()
     {
-
+	
     }
 
     private void SetEnemyObjective(int i)
