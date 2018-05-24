@@ -36,7 +36,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	private GameObject entranceRoom; // Used later for comparison such that the starting room cannot contain enemies
 	private int genStage;
 	private int curRooms;
-	private int curEnemies;
+	private int curEnemies =0;
 	private List<GameObject> rooms; // List of rooms with still usable nodes
 	private List<GameObject> completedRooms; // List of rooms with nodes that are all used
 	private List<GameObject> doorNodes; // List of nodes at which to place doors
@@ -55,11 +55,12 @@ public class LevelGenerationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        Debug.Log(curEnemies + "/" + numEnemies);
         if (genStage == -2)
         {
             curRooms = 0;
             generateInitialRoom();
-            curEnemies = 0;
+            //curEnemies = 0;
             genStage = -1;
             heroSpawnList = rooms[0].GetComponent<RoomValueStore>().enemyLocations;
         }
@@ -144,9 +145,11 @@ public class LevelGenerationScript : MonoBehaviour {
             if (curEnemies < numEnemies)
             {
                 SpawnEnemy();
+                curEnemies++;
             }
             else
             {
+                Debug.Log("finish spawning enemies");
                 genStage = 7;
             }
         }
@@ -557,7 +560,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			// Remove SpawnPoint from the list
 			enemySpawnPoints.Remove(enemySpawnPoints[enemySpawnNumber]);
 
-			curEnemies++;
+			//curEnemies++;
 		}
 
 
