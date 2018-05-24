@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: VanguardAnimator
+  m_Controller: {fileID: 9100000, guid: f5b40552b32e1dd4ba5a50c4ebf6c788, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: cc832582619680a48a2ef5b56ce326a4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: dee6dcada26af16478dd019385299c8d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2b957a9f53e60ab45a5da0ff90831031, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ddaf73a2a3b919945ab2bb57de8f0059, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 73f8c1ab3e7004d41976c065b48f4bba, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cab037f50d133f4459ce923df75f9e97, type: 2}
