@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Lighting.unity
+- path: Assets/Scenes/UI - Test Scene.unity
   isLoaded: 1
   isActive: 1
