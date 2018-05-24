@@ -30,4 +30,14 @@ public class Lighting : MonoBehaviour {
 
 		}
 	}
+	void OnTriggerEnter(Collider other){
+
+		if(other.tag == "Hero"){
+			Debug.Log("hero has entered: "+ this.name);
+			for(int i = 0; i < lights.Length; i++){
+				lights[i].enabled = true;
+				on = true;
+			}
+		}
+	}
 }

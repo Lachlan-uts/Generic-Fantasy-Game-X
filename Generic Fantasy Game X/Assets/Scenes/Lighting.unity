@@ -171,8 +171,8 @@ Camera:
   m_GameObject: {fileID: 529485442}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.027450982, g: 0.027450982, b: 0.027450982, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -443,7 +443,7 @@ Prefab:
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
       propertyPath: numEnemies
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
@@ -460,7 +460,7 @@ Prefab:
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
       propertyPath: numRooms
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 376dc87281407b645a3a74fafd0ee1a0, type: 2}

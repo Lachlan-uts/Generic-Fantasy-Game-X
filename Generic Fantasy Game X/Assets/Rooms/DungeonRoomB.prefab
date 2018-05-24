@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 4207552826763576}
   - component: {fileID: 114927261400288590}
   - component: {fileID: 114889057514761612}
+  - component: {fileID: 65300312995958778}
   m_Layer: 0
   m_Name: DungeonRoomB
   m_TagString: Untagged
@@ -4578,6 +4579,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65300312995958778
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1092673791111224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.35, y: 2.83, z: 10.04}
+  m_Center: {x: 0, y: 1.38, z: 0}
 --- !u!65 &65362198638635570
 BoxCollider:
   m_ObjectHideFlags: 1
