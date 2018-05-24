@@ -36,7 +36,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	private GameObject entranceRoom; // Used later for comparison such that the starting room cannot contain enemies
 	private int genStage;
 	private int curRooms;
-	private int curEnemies;
+	private int curEnemies =0;
 	private List<GameObject> rooms; // List of rooms with still usable nodes
 	private List<GameObject> completedRooms; // List of rooms with nodes that are all used
 	private List<GameObject> doorNodes; // List of nodes at which to place doors
@@ -51,156 +51,157 @@ public class LevelGenerationScript : MonoBehaviour {
 		completedRooms = new List<GameObject> ();
 		doorNodes = new List<GameObject> ();
 		genStage = -2;
-
-		InvokeRepeating ("coRoom", 0.00f, 0.10f);
-
+		InvokeRepeating ("coRoom", 0.0f, 0.1f);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
+		Debug.Log (curEnemies + "/" + numEnemies);
 
-		//CancelInvoke("coRoom"); if gen stages =11;
-    }
-
-	void FixedUpdate () {
-		Debug.Log ("Enemy Count: " + curEnemies + " / Enemy Max: " + numEnemies);
 	}
 
-	//Room Generating, as of Third Sprint. Updates and tested
+	void FixedUpdate () {
+
+	}
+
 	void coRoom()
-			{if (genStage == -2)
-				{
-					curRooms = 0;
-					generateInitialRoom();
-					curEnemies = 0;
-					genStage = -1;
-					heroSpawnList = rooms[0].GetComponent<RoomValueStore>().enemyLocations;
-				}
-			else if (genStage == -1)
+	{
+		if (genStage == -2)
+		{
+			curRooms = 0;
+			generateInitialRoom();
+			//curEnemies = 0;
+			genStage = -1;
+			heroSpawnList = rooms[0].GetComponent<RoomValueStore>().enemyLocations;
+		}
+		else if (genStage == -1)
+		{
+			if (curRooms < numRooms)
 			{
-				if (curRooms < numRooms)
-				{
-					generateAdditionalRoom();
-				}
-				else
-				{
-					genStage = 0; // Temporarily "skip" a "generation stage" during which obstacles could be spawned
-					curRooms = 0; // Reset the curRooms so as to iterate through each room for furniture later
-				}
+				generateAdditionalRoom();
 			}
-			else if (genStage == 0)
+			else
 			{
-				// Generate List of Rubble Nodes
-				rubbleNodes = GetRubbleLocations();
-				genStage = 1;
+				genStage = 0; // Temporarily "skip" a "generation stage" during which obstacles could be spawned
+				curRooms = 0; // Reset the curRooms so as to iterate through each room for furniture later
 			}
-			else if (genStage == 1)
+		}
+		else if (genStage == 0)
+		{
+			// Generate List of Rubble Nodes
+			rubbleNodes = GetRubbleLocations();
+			genStage = 1;
+		}
+		else if (genStage == 1)
+		{
+			// Spawn Rubble
+			if (rubbleNodes.Count > 0)
 			{
-				// Spawn Rubble
-				if (rubbleNodes.Count > 0)
-				{
-					SpawnRubble();
-				}
-				else
-				{
-					genStage = 2;
-				}
+				SpawnRubble();
 			}
-			else if (genStage == 2)
+			else
 			{
-				// Spawn Furniture
-				if (curRooms < rooms.Count)
-				{
-					rooms[curRooms].GetComponent<RoomValueStore>().spawnFurniture();
-					curRooms++;
-					Debug.Log("Furniture in 'incomplete' rooms.");
-				}
-				else if (curRooms < (rooms.Count + completedRooms.Count))
-				{
-					completedRooms[curRooms - rooms.Count].GetComponent<RoomValueStore>().spawnFurniture();
-					curRooms++;
-					Debug.Log("Furniture in 'complete' rooms.");
-				}
-				else
-				{
-					genStage = 3;
-				}
+				genStage = 2;
 			}
-			else if (genStage == 3)
+		}
+		else if (genStage == 2)
+		{
+			// Spawn Furniture
+			if (curRooms < rooms.Count)
 			{
-				// Generate NavMesh
-				GenerateNavMesh();
-				genStage = 4;
+				rooms[curRooms].GetComponent<RoomValueStore>().spawnFurniture();
+				curRooms++;
+				Debug.Log("Furniture in 'incomplete' rooms.");
 			}
-			else if (genStage == 4)
+			else if (curRooms < (rooms.Count + completedRooms.Count))
 			{
-				// Spawn Doors
-				if (doorNodes.Count > 0)
-				{
-					SpawnDoor();
-				}
-				else
-				{
-					genStage = 5;
-				}
+				completedRooms[curRooms - rooms.Count].GetComponent<RoomValueStore>().spawnFurniture();
+				curRooms++;
+				Debug.Log("Furniture in 'complete' rooms.");
 			}
-			else if (genStage == 5)
+			else
 			{
-				// Generate List of enemy spawn locations
-				enemySpawnPoints = GetEnemySpawns();
-				genStage = 6;
+				genStage = 3;
 			}
-			else if (genStage == 6)
+		}
+		else if (genStage == 3)
+		{
+			// Generate NavMesh
+			GenerateNavMesh();
+			genStage = 4;
+		}
+		else if (genStage == 4)
+		{
+			// Spawn Doors
+			if (doorNodes.Count > 0)
 			{
-				// Spawn Enemies
-				Debug.Log("Spawning Enemy");
-				if (curEnemies < numEnemies)
-				{
-					SpawnEnemy();
-				}
-				else
-				{
-					genStage = 7;
-				}
+				SpawnDoor();
 			}
-			else if (genStage == 7)
+			else
 			{
-				// Spawn the exit hatch
-				SpawnExit();
-				genStage = 8;
+				genStage = 5;
 			}
-			else if (genStage == 8)
+		}
+		else if (genStage == 5)
+		{
+			// Generate List of enemy spawn locations
+			enemySpawnPoints = GetEnemySpawns();
+			genStage = 6;
+		}
+		else if (genStage == 6)
+		{
+			// Spawn Enemies
+			Debug.Log("Spawning Enemy");
+			if (curEnemies < numEnemies)
 			{
-				// Disable enemy units so no premature action occurs
-				//			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
-				//			foreach (GameObject enemy in enemyList) {
-				//				enemy.SetActive (false);
-				//			}
-				genStage = 9;
+				SpawnEnemy();
+				curEnemies++;
 			}
-			else if (genStage == 9)
+			else
 			{
-				// Spawn in heroes (in reality, relocate them from wherever to spawn points within the starting room)
-				//			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
-				//			int iCount = 0;
-				//			while (iCount < heroes.Length) {
-				//				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position + 
-				//                    new Vector3(0,1,0);
-				//				iCount++;
-				//			}
-				genStage = 10;
+				Debug.Log("finish spawning enemies");
+				genStage = 7;
 			}
-			else if (genStage == 10)
-			{
-				// Re-enable enemies within the floor. It's altercation time!
-				//			foreach (GameObject enemy in enemyList) {
-				//				enemy.SetActive (true);
-				//			}
-				genStage = 11;
-			}}
-		
-	
+		}
+		else if (genStage == 7)
+		{
+			// Spawn the exit hatch
+			SpawnExit();
+			genStage = 8;
+		}
+		else if (genStage == 8)
+		{
+			// Disable enemy units so no premature action occurs
+			//			enemyList = GameObject.FindGameObjectsWithTag ("Enemy");
+			//			foreach (GameObject enemy in enemyList) {
+			//				enemy.SetActive (false);
+			//			}
+			genStage = 9;
+		}
+		else if (genStage == 9)
+		{
+			// Spawn in heroes (in reality, relocate them from wherever to spawn points within the starting room)
+			//			GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
+			//			int iCount = 0;
+			//			while (iCount < heroes.Length) {
+			//				heroes [iCount].transform.position = heroSpawnList [iCount].transform.position + 
+			//                    new Vector3(0,1,0);
+			//				iCount++;
+			//			}
+			genStage = 10;
+		}
+		else if (genStage == 10)
+		{
+			// Re-enable enemies within the floor. It's altercation time!
+			//			foreach (GameObject enemy in enemyList) {
+			//				enemy.SetActive (true);
+			//			}
+			genStage = 11;
+			CancelInvoke ();
+		}
+
+	}
 	void generateInitialRoom() {
 		GameObject newRoom = validEntrances [Random.Range (0, validEntrances.Length)];
 		entranceRoom = Instantiate (newRoom, new Vector3 (0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
@@ -228,7 +229,7 @@ public class LevelGenerationScript : MonoBehaviour {
 
 		//Debug.Log ("Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
 		//	+ "\nRotation x/y/z: " + gameObject.transform.rotation.x + "/" + gameObject.transform.rotation.y + "/" + gameObject.transform.rotation.z);
-		
+
 
 
 		Debug.Log ("Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
@@ -466,7 +467,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	//}
 
 	void GenerateNavMesh() {
-		
+
 		/*
 		foreach (GameObject room in rooms) {
 			foreach (GameObject floorPiece in room.GetComponent<RoomValueStore>().floorPlanObjects) {
@@ -511,7 +512,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	}
 
 	void SpawnEnemy() {
-		
+
 
 		// Add conditions for spawning an enemy in a valid position, possibly using Physics.OverlapBox centered on the chosen enemy configuration
 		int enemySpawnNumber = Random.Range(0, enemySpawnPoints.Count);
@@ -559,18 +560,15 @@ public class LevelGenerationScript : MonoBehaviour {
 		//	Quaternion.Euler (spawnRot)).Length);
 
 		if (Physics.OverlapBox (spawnPosTest, 
-			    new Vector3 (enemyToSpawn.transform.localScale.x/2, 0.05f, enemyToSpawn.transform.localScale.z/2), 
-			    Quaternion.Euler (spawnRot)).Length == 0) {
+			new Vector3 (enemyToSpawn.transform.localScale.x/2, 0.05f, enemyToSpawn.transform.localScale.z/2), 
+			Quaternion.Euler (spawnRot)).Length == 0) {
 			GameObject newEnemy = Instantiate (enemyToSpawn, spawnPos, Quaternion.Euler (spawnRot)) as GameObject;
 			// Note: Here is where code would go to properly initialize enemy resources
 			newEnemy.GetComponent<EntityStatisticsScript>().GenerateStats(floorNumber, enemyCategory);
 			// Remove SpawnPoint from the list
 			enemySpawnPoints.Remove(enemySpawnPoints[enemySpawnNumber]);
 
-			// curEnemies++; NOT COUNTING
-
-
-
+			//curEnemies++;
 		}
 
 
@@ -606,8 +604,8 @@ public class LevelGenerationScript : MonoBehaviour {
 		Debug.Log("Exit Spawned.");
 	}
 
-    public void Restart()
-    {
-        genStage = -2;
-    }
+	public void Restart()
+	{
+		genStage = -2;
+	}
 }

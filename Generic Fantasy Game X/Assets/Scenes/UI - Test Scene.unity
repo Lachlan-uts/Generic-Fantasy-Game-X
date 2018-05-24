@@ -316,6 +316,10 @@ Prefab:
       propertyPath: m_Name
       value: Hero (xbot) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1481202565919898, guid: e8ab6f246dd7d0743af71581a96de4e0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e8ab6f246dd7d0743af71581a96de4e0, type: 2}
   m_IsPrefabParent: 0
@@ -627,12 +631,12 @@ Prefab:
     - target: {fileID: 224552908679104028, guid: 70c59e4b808532a408047ea7dccd613d,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224552908679104028, guid: 70c59e4b808532a408047ea7dccd613d,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1175975926901464, guid: 70c59e4b808532a408047ea7dccd613d, type: 2}
       propertyPath: m_IsActive
@@ -767,7 +771,7 @@ Prefab:
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
       propertyPath: numEnemies
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
