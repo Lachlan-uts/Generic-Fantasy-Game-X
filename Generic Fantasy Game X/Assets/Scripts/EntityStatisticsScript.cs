@@ -8,6 +8,13 @@ using PowerGridInventory;
 public class EntityStatisticsScript : MonoBehaviour {
 
 	public enum entitySlots { Helmet, Chestplate, Greaves, RightHand, LeftHand, Potion };
+	public enum entityScripts { Navigation, Targeting, Selection };
+
+	//All the different components that the entity statisics script controls
+	[SerializeField]
+	private EntityTargetScript target;
+	private EntityNavigationScript navigation;
+	private EntitySelectedScript selected;
 
 	// public variables
 	public GameObject nameUI; // placeholder
@@ -19,27 +26,27 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	// public properties
 	[SerializeField]
-	public int curHealth { get { 
+	public int curHealth { get {
 			return curHealth;
 		}
-		private set { 
+		private set {
 			curHealth = value;
 			//healthUI.GetComponent<Text> ().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
 		} }
 	[SerializeField]
-	public int maxHealth { get { 
-			return maxHealth; 
-		} 
-		private set { 
-			maxHealth = value; 
+	public int maxHealth { get {
+			return maxHealth;
+		}
+		private set {
+			maxHealth = value;
 		} }
 	[SerializeField]
 	public int level { get; private set; }
 	[SerializeField]
-	public int experience { get { 
+	public int experience { get {
 			return experience;
 		}
-		private set { 
+		private set {
 			experience = value;
 		} }
 
@@ -56,13 +63,13 @@ public class EntityStatisticsScript : MonoBehaviour {
 	[SerializeField]
 	private GameObject chest;
 
-	public Dictionary<string, GameObject> e = new Dictionary<string, GameObject>();
+	public Dictionary<entityScripts, GameObject> e = new Dictionary<entityScripts, GameObject>();
 
 	public Dictionary<entitySlots, GameObject> equippedItems = new Dictionary<entitySlots, GameObject> ();
 
 	//public List<GameObject> inventoryItems;
 
-	public GameObject target;
+	public GameObject targetThing;
 	public string targetContext;
 
 	// Use this for initialization
@@ -73,18 +80,31 @@ public class EntityStatisticsScript : MonoBehaviour {
 		equippedItems.Add (entitySlots.RightHand, null);
 		equippedItems.Add (entitySlots.LeftHand, null);
 		equippedItems.Add (entitySlots.Potion, null);
+		//get the selection
+		target = GetComponent<EntityTargetScript> ();
+		navigation = GetComponent<EntityNavigationScript> ();
+		selected = GetComponentInChildren<EntitySelectedScript> ();
+		//the below is all garbage!
+
+//		isSelected
+//		Debug.Log (GetComponentInChildren<EntitySelectedScript> ().GetType ());
+//		e.Add(entityScripts.Navigation,GetComponentInChildren<EntitySelectedScript>());
+//		MonoBehaviour temp = null;
+//		if (e.TryGetValue (entityScripts.Navigation, out temp)) {
+//			Debug.Log();
+//		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		if (target != null) {
+		if (targetThing != null) {
 			if (targetContext == "Item") {
-				if (Vector3.Distance (this.gameObject.transform.position, target.transform.position) < 0.2f) {
-					//Pickup (target);
+				if (Vector3.Distance (this.gameObject.transform.position, targetThing.transform.position) < 0.2f) {
+					//Pickup (targetThing);
 				}
 			} else if (targetContext == "Furniture") {
-				if (Vector3.Distance (this.gameObject.transform.position, target.transform.position) < 0.2f) {
-					Interact (target);
+				if (Vector3.Distance (this.gameObject.transform.position, targetThing.transform.position) < 0.2f) {
+					Interact (targetThing);
 				}
 			}
 		}
@@ -98,13 +118,13 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	public void InstigateCommand (string context, GameObject other) {
 		targetContext = context;
-		target = other;
-		this.gameObject.GetComponent<EntityNavigationScript> ().SetDestination (target.transform.position, this.gameObject);
+		targetThing = other;
+		this.gameObject.GetComponent<EntityNavigationScript> ().SetDestination (targetThing.transform.position, this.gameObject);
 	}
 
 	public void Interact (GameObject other) {
 		other.GetComponent<FurnitureScript> ().Interact ();
-		target = null;
+		targetThing = null;
 		this.gameObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
 	}
 
@@ -117,7 +137,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 	/*public void Pickup (GameObject other) {
 		other.transform.SetParent (inventoryGO.transform);
 		inventoryItems.Add (other);
-		target = null;
+		targetThing = null;
 		this.gameObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
 	}
 
@@ -236,4 +256,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 
 	}
+
+	public void SelectionToggle() {
+		selected.enabled = !selected.enabled;
+	}
+
+//	private IEnumerator IsSelected() {
+//	}
 }

@@ -747,7 +747,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -794,6 +794,9 @@ MonoBehaviour:
   offsetHeight: 5
   smoothing: 1
   following: 0
+  bawxTexture: {fileID: 0}
+  heros: []
+  selectedHeros: []
 --- !u!1 &222896718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,7 +1234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &458608273
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3760,7 +3763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b4d1c6200b1ab46949ca7f22e86b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreScreen: {fileID: 0}
+  scoreScreen: {fileID: 2074878389}
   scoreValue: 0
   levelTimer: 0
   killCount: 0

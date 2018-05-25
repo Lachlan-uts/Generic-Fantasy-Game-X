@@ -2,7 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//to be removed after working this out - or maybe not
+using UnityEngine.AI;
+
 public class CameraController : MonoBehaviour {
+
+	public enum relativePositions {
+		Right,
+		Left,
+		forward,
+		backward,
+		diagForwardRight,
+		diagForwardLeft,
+		diagBackwardRight,
+		diagBackwardLeft
+	}
 
 	[SerializeField]
 	GameObject cameraTarget;
@@ -18,6 +32,19 @@ public class CameraController : MonoBehaviour {
 
 	private Vector3 playerMoveInput, rotationTarget;
 	private float playerScrollInput;
+	private Vector2 boxPosOrg, boxPosEnd = Vector2.zero;
+	private Rect metalBawx;
+	//The texture of the bawx
+	public Texture bawxTexture;
+	//The list of hero dudes.
+	[SerializeField]
+	private List<GameObject> heros, selectedHeros;
+
+	//list of destinations to help work out destination pathing.
+	private List<Vector3> destinationGizmos = new List<Vector3>();
+
+	//A series of needed vector3 lists
+	private List<Vector3> heroDestinations, lineFormation, initialPoint;
 
 	void Start() {
         Time.timeScale = 1;
@@ -25,9 +52,31 @@ public class CameraController : MonoBehaviour {
 		lastPosition = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 		offset = new Vector3(cameraTarget.transform.position.x, cameraTarget.transform.position.y + offsetHeight, cameraTarget.transform.position.z - offsetDistance);
 		cameraTarget = null;
+		heros.AddRange (GameObject.FindGameObjectsWithTag ("Hero"));
+		selectedHeros = new List<GameObject> ();
+
+		//setup the formations here
+		heroDestinations = new List<Vector3>();
+		lineFormation = new List<Vector3> () { Vector3.right, Vector3.left, Vector3.back };
+		initialPoint = new List<Vector3> () { Vector3.zero };
 	}
 
 	void Update() {
+		if (Input.GetKey (KeyCode.Mouse0)) {
+			if (Input.GetKeyDown (KeyCode.Mouse0))
+				boxPosOrg = Input.mousePosition;
+			else
+				boxPosEnd = Input.mousePosition;
+		} else {
+			if (boxPosOrg != Vector2.zero && boxPosOrg != Vector2.zero) {
+				Debug.Log ("Many welps, Handle it!");
+//				run a unit selection
+				GetDudes ();
+			}
+			boxPosOrg = Vector2.zero;
+			boxPosEnd = Vector2.zero;
+		}
+
 		if (Input.GetButtonDown ("Fire1")) {
 			GetUnit ();
 		}
@@ -83,18 +132,44 @@ public class CameraController : MonoBehaviour {
 		lastPosition = transform.position;
 	}
 
+	//drawing relevent gui stuff
+	void OnGUI() {
+		if (boxPosOrg != Vector2.zero && boxPosEnd != Vector2.zero) {
+//			Rect metalBawx = new Rect (boxPosOrg, new Vector2 (boxPosEnd.x - boxPosOrg.x, boxPosEnd.y - boxPosEnd.y));
+			metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
+			GUI.DrawTexture (metalBawx, bawxTexture);
+		}
+	}
+
+	private void GetDudes(bool shiftSelect = false) {
+		Vector2 screenBoxMin = GUIUtility.ScreenToGUIPoint (metalBawx.min);
+		Vector2 screenBoxMax = GUIUtility.ScreenToGUIPoint (boxPosEnd);
+		if (!shiftSelect)
+			selectedHeros = new List<GameObject> ();
+//		metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
+		foreach (var hero in heros) {
+			Vector2 heroPos = Camera.main.WorldToScreenPoint (hero.transform.position);
+			Vector2 convertedPos = new Vector2(heroPos.x, Screen.height - heroPos.y);
+			if (metalBawx.Contains (convertedPos,true)) {
+				if (!selectedHeros.Contains (hero))
+//					selectedHeros.Add (hero);
+					AddHeroToSelected(hero);
+			}
+		}
+	}
+
 	private void MouseInput() {
-		if (Input.mousePosition.x < 20) {
+		if (Input.mousePosition.x > 0 && Input.mousePosition.x < 20) {
 			playerMoveInput = playerMoveInput + Vector3.left;
 		}
-		if (Input.mousePosition.x > Screen.width - 20) {
+		if (Input.mousePosition.x < Screen.width && Input.mousePosition.x > Screen.width - 20) {
 			playerMoveInput = playerMoveInput + Vector3.right;
 		}
 
-		if (Input.mousePosition.y < 20) {
+		if (Input.mousePosition.y > 0 && Input.mousePosition.y < 20) {
 			playerMoveInput = playerMoveInput + Vector3.back;
 		}
-		if (Input.mousePosition.y > Screen.height - 20) {
+		if (Input.mousePosition.y < Screen.height && Input.mousePosition.y > Screen.height - 20) {
 			playerMoveInput = playerMoveInput + Vector3.forward;
 		}
 	}
@@ -131,6 +206,7 @@ public class CameraController : MonoBehaviour {
 
 	//method to try and get a unit on the unit layer.
 	private void GetUnit() {
+		Debug.Log ("getting unit");
 		int layerMask = 1 << 8;
 		RaycastHit hit;
 		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -138,27 +214,161 @@ public class CameraController : MonoBehaviour {
 			Debug.Log (hit.collider.name);
 			Debug.Log (hit.collider.gameObject.layer);
 			if (hit.collider.CompareTag("Hero")) {
-				cameraTarget = hit.collider.gameObject;
+//				cameraTarget = hit.collider.gameObject;
+				selectedHeros.Add (hit.collider.gameObject);
 			}
 		}
 	}
 
 	//get a target for the controlled unit, either point on ground or enemy.
 	private void GetTarget() {
+		if (selectedHeros.Count == 0) {
+			return;
+		}
 		int layerMask = (1 << 8) | (1 << 9);
 		RaycastHit hit;
 		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
 			Debug.Log (hit.collider.name);
 			Debug.Log (hit.collider.gameObject.layer);
-			if (hit.collider.gameObject.layer == 8) {
-//				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = hit.collider.gameObject;
-				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
+
+//			Debug.DrawRay (hit.transform.position, hit.transform.TransformDirection(Vector3.forward)*2, Color.green,4.0f);
+
+			Vector3 heading = hit.point - selectedHeros [0].transform.position;
+			heading.y = 0;
+			float distance = heading.magnitude;
+			Vector3 direction = heading / distance;
+
+			//Quaternion.Euler (0, this.transform.eulerAngles.y, 0)
+			Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+
+			heroDestinations = new List<Vector3> ();
+			if (selectedHeros.Count % 2 == 0) {
+				heroDestinations.Add (GetNavMeshSpot(hit.point,rotation,initialPoint) + rotation * Vector3.left * (selectedHeros.Count / 2 + 0.5f));
 			} else {
-//				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = null;
-				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = null;
+				heroDestinations.Add (GetNavMeshSpot(hit.point,rotation,initialPoint) + rotation * Vector3.left * selectedHeros.Count / 2);
 			}
-			cameraTarget.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
+			if (selectedHeros.Count >= 2)
+				heroDestinations.Add (GetNavMeshSpot(heroDestinations[0], rotation, lineFormation));
+			
+			while (heroDestinations.Count < selectedHeros.Count) {
+				heroDestinations.Add (GetNavMeshSpot (heroDestinations [heroDestinations.Count - 1], rotation, lineFormation));
+			}
+
+//			Vector3 rowOriginPoint = heroDestinations [0];
+//			bool canPlaceRight = true;
+//			bool canPlaceLeft = true;
+//			while (heroDestinations.Count < selectedHeros.Count) {
+//				NavMeshHit navHit;
+//				if (canPlaceLeft && heroDestinations.Count % 2 == 0) {
+//					//attempt to place hero to the left
+//					if (NavMesh.SamplePosition (heroDestinations[heroDestinations.Count-2] + rotation * Vector3.left, out navHit, 0.5f, NavMesh.AllAreas)) {
+//						heroDestinations.Add(navHit.position);
+//					} else {
+//						canPlaceLeft = false;
+//					}
+//				} else if (canPlaceRight) {
+//					//attempt to place hero to the right
+//					if (NavMesh.SamplePosition (heroDestinations[heroDestinations.Count-2] + rotation * Vector3.right, out navHit, 0.5f, NavMesh.AllAreas)) {
+//						heroDestinations.Add(navHit.position);
+//					} else {
+//						canPlaceRight = false;
+//					}
+//				} else {
+//					//move back 1 row
+//					//this has the weakness of assuming you'll never have your back to a wall.
+//					if (NavMesh.SamplePosition (rowOriginPoint + rotation * Vector3.back, out navHit, 0.5f, NavMesh.AllAreas)) {
+//						heroDestinations.Add(navHit.position);
+//						rowOriginPoint = rowOriginPoint + rotation * Vector3.back;
+//						canPlaceLeft = true;
+//						canPlaceRight = true;
+//					}
+//				}
+//				//system for random spot selection
+////				bool foundSpot = false;
+////				while (!foundSpot) {
+////				}
+//			}
+			destinationGizmos = heroDestinations;
+
+
+			//stuff to try and have better pathing
+			//Going to use a line formation initially.
+//			destinationGizmos.Add (hit.point);
+//			for (int i = 0; i < 10; i++) {
+//				Vector3 randomPoint = hit.point + Random.insideUnitSphere * 2.0f;
+//				NavMeshHit hitt;
+//				if (NavMesh.SamplePosition (randomPoint, out hitt, 1.0f, NavMesh.AllAreas)) {
+//					destinationGizmos.Add (hitt.position);
+//				}
+//			}
+
+
+			if (hit.collider.gameObject.layer == 8) {
+				foreach (var hero in selectedHeros) {
+					hero.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
+				}
+			} else {
+				foreach (var hero in selectedHeros) {
+					hero.GetComponent<EntityTargetScript> ().targetedEntity = null;
+				}
+			}
+			for (int i = 0; i < selectedHeros.Count; i++) {
+				selectedHeros[i].GetComponent<EntityNavigationScript> ().SetDestination (heroDestinations[i], this.gameObject);
+			}
+		}
+	}
+
+	private Vector3 GetNavMeshSpot(Vector3 parentPosition, Quaternion rotation, List<Vector3> targetDirections) {
+		NavMeshHit navHit;
+		foreach (var dir in targetDirections) {
+			if (NavMesh.SamplePosition (parentPosition + rotation * dir, out navHit, 0.5f, NavMesh.AllAreas)) {
+				return navHit.position;
+			}
+		}
+		//if this fails, time for random position, so we try a few times to get a random position
+		for (int i = 0; i < 10; i++) {
+			Vector3 randomPoint = parentPosition + Random.insideUnitSphere * 3.0f;
+			if (heroDestinations.TrueForAll (vec => vec.sqrMagnitude - randomPoint.sqrMagnitude > 1.0f)) {
+				if (NavMesh.SamplePosition (randomPoint, out navHit, 0.5f, NavMesh.AllAreas)) {
+					return navHit.position;
+				}
+			}
+//			foreach (var vec in heroDestinations) {
+//				if (vec.sqrMagnitude - randomPoint.sqrMagnitude < 1.0f^2) {
+//					break;
+//				}
+//			}
+		}
+		//That also failed??! Then all hope is lost, return a zero vector and hope for the best!
+		return Vector3.zero;
+
+//		if (NavMesh.SamplePosition (parentPosition + rotation * Vector3.left, out navHit, 0.5f, NavMesh.AllAreas)) {
+//			heroDestinations.Add(navHit.position);
+//		} else {
+//			canPlaceLeft = false;
+//		}
+	}
+
+//	private static bool SufficientDistance(
+
+	private void AddHeroToSelected(GameObject hero) {
+		selectedHeros.Add (hero);
+		StartCoroutine ("SelectHero", hero);
+	}
+
+	private IEnumerator SelectHero(GameObject hero) {
+		hero.GetComponent<EntityStatisticsScript> ().SelectionToggle ();
+		yield return new WaitUntil (() => !selectedHeros.Contains (hero));
+		hero.GetComponent<EntityStatisticsScript> ().SelectionToggle ();
+		yield return null;
+	}
+
+	void OnDrawGizmos() {
+		if (destinationGizmos.Count > 0) {
+			foreach (var point in destinationGizmos) {
+				Gizmos.DrawSphere (point, 0.5f);
+			}
 		}
 	}
 }
