@@ -2,10 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//to be removed after working this out
+//to be removed after working this out - or maybe not
 using UnityEngine.AI;
 
 public class CameraController : MonoBehaviour {
+
+	public enum relativePositions {
+		Right,
+		Left,
+		forward,
+		backward,
+		diagForwardRight,
+		diagForwardLeft,
+		diagBackwardRight,
+		diagBackwardLeft
+	}
 
 	[SerializeField]
 	GameObject cameraTarget;
@@ -32,6 +43,9 @@ public class CameraController : MonoBehaviour {
 	//list of destinations to help work out destination pathing.
 	private List<Vector3> destinationGizmos = new List<Vector3>();
 
+	//A series of needed vector3 lists
+	private List<Vector3> heroDestinations, lineFormation, initialPoint;
+
 	void Start() {
         Time.timeScale = 1;
         cameraTarget = GameObject.FindGameObjectWithTag("Hero");
@@ -40,6 +54,11 @@ public class CameraController : MonoBehaviour {
 		cameraTarget = null;
 		heros.AddRange (GameObject.FindGameObjectsWithTag ("Hero"));
 		selectedHeros = new List<GameObject> ();
+
+		//setup the formations here
+		heroDestinations = new List<Vector3>();
+		lineFormation = new List<Vector3> () { Vector3.right, Vector3.left, Vector3.back };
+		initialPoint = new List<Vector3> () { Vector3.zero };
 	}
 
 	void Update() {
@@ -223,47 +242,53 @@ public class CameraController : MonoBehaviour {
 			//Quaternion.Euler (0, this.transform.eulerAngles.y, 0)
 			Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
 
-			List<Vector3> heroDestinations = new List<Vector3> ();
-			if (selectedHeros.Count % 2 == 0)
-				heroDestinations.Add ((hit.point + rotation * Vector3.left * 0.5f));
-			else
-				heroDestinations.Add (hit.point);
-			Vector3 rowOriginPoint = heroDestinations [0];
-			if (selectedHeros.Count >= 2)
-				heroDestinations.Add (heroDestinations[0] + rotation * Vector3.right);
-			bool canPlaceRight = true;
-			bool canPlaceLeft = true;
-			while (heroDestinations.Count < selectedHeros.Count) {
-				NavMeshHit navHit;
-				if (canPlaceLeft && heroDestinations.Count % 2 == 0) {
-					//attempt to place hero to the left
-					if (NavMesh.SamplePosition (heroDestinations[heroDestinations.Count-2] + rotation * Vector3.left, out navHit, 0.5f, NavMesh.AllAreas)) {
-						heroDestinations.Add(navHit.position);
-					} else {
-						canPlaceLeft = false;
-					}
-				} else if (canPlaceRight) {
-					//attempt to place hero to the right
-					if (NavMesh.SamplePosition (heroDestinations[heroDestinations.Count-2] + rotation * Vector3.right, out navHit, 0.5f, NavMesh.AllAreas)) {
-						heroDestinations.Add(navHit.position);
-					} else {
-						canPlaceRight = false;
-					}
-				} else {
-					//move back 1 row
-					//this has the weakness of assuming you'll never have your back to a wall.
-					if (NavMesh.SamplePosition (rowOriginPoint + rotation * Vector3.back, out navHit, 0.5f, NavMesh.AllAreas)) {
-						heroDestinations.Add(navHit.position);
-						rowOriginPoint = rowOriginPoint + rotation * Vector3.back;
-						canPlaceLeft = true;
-						canPlaceRight = true;
-					}
-				}
-				//system for random spot selection
-//				bool foundSpot = false;
-//				while (!foundSpot) {
-//				}
+			heroDestinations = new List<Vector3> ();
+			if (selectedHeros.Count % 2 == 0) {
+				heroDestinations.Add (GetNavMeshSpot(hit.point,rotation,initialPoint) + rotation * Vector3.left * (selectedHeros.Count / 2 + 0.5f));
+			} else {
+				heroDestinations.Add (GetNavMeshSpot(hit.point,rotation,initialPoint) + rotation * Vector3.left * selectedHeros.Count / 2);
 			}
+			if (selectedHeros.Count >= 2)
+				heroDestinations.Add (GetNavMeshSpot(heroDestinations[0], rotation, lineFormation));
+			
+			while (heroDestinations.Count < selectedHeros.Count) {
+				heroDestinations.Add (GetNavMeshSpot (heroDestinations [heroDestinations.Count - 1], rotation, lineFormation));
+			}
+
+//			Vector3 rowOriginPoint = heroDestinations [0];
+//			bool canPlaceRight = true;
+//			bool canPlaceLeft = true;
+//			while (heroDestinations.Count < selectedHeros.Count) {
+//				NavMeshHit navHit;
+//				if (canPlaceLeft && heroDestinations.Count % 2 == 0) {
+//					//attempt to place hero to the left
+//					if (NavMesh.SamplePosition (heroDestinations[heroDestinations.Count-2] + rotation * Vector3.left, out navHit, 0.5f, NavMesh.AllAreas)) {
+//						heroDestinations.Add(navHit.position);
+//					} else {
+//						canPlaceLeft = false;
+//					}
+//				} else if (canPlaceRight) {
+//					//attempt to place hero to the right
+//					if (NavMesh.SamplePosition (heroDestinations[heroDestinations.Count-2] + rotation * Vector3.right, out navHit, 0.5f, NavMesh.AllAreas)) {
+//						heroDestinations.Add(navHit.position);
+//					} else {
+//						canPlaceRight = false;
+//					}
+//				} else {
+//					//move back 1 row
+//					//this has the weakness of assuming you'll never have your back to a wall.
+//					if (NavMesh.SamplePosition (rowOriginPoint + rotation * Vector3.back, out navHit, 0.5f, NavMesh.AllAreas)) {
+//						heroDestinations.Add(navHit.position);
+//						rowOriginPoint = rowOriginPoint + rotation * Vector3.back;
+//						canPlaceLeft = true;
+//						canPlaceRight = true;
+//					}
+//				}
+//				//system for random spot selection
+////				bool foundSpot = false;
+////				while (!foundSpot) {
+////				}
+//			}
 			destinationGizmos = heroDestinations;
 
 
@@ -280,24 +305,52 @@ public class CameraController : MonoBehaviour {
 
 
 			if (hit.collider.gameObject.layer == 8) {
-//				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = hit.collider.gameObject;
-//				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
 				foreach (var hero in selectedHeros) {
 					hero.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
 				}
 			} else {
-//				cameraTarget.GetComponent<EntityTargetScript> ().targetEntity = null;
-//				cameraTarget.GetComponent<EntityTargetScript> ().targetedEntity = null;
 				foreach (var hero in selectedHeros) {
 					hero.GetComponent<EntityTargetScript> ().targetedEntity = null;
 				}
 			}
-//			cameraTarget.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
 			for (int i = 0; i < selectedHeros.Count; i++) {
 				selectedHeros[i].GetComponent<EntityNavigationScript> ().SetDestination (heroDestinations[i], this.gameObject);
 			}
 		}
 	}
+
+	private Vector3 GetNavMeshSpot(Vector3 parentPosition, Quaternion rotation, List<Vector3> targetDirections) {
+		NavMeshHit navHit;
+		foreach (var dir in targetDirections) {
+			if (NavMesh.SamplePosition (parentPosition + rotation * dir, out navHit, 0.5f, NavMesh.AllAreas)) {
+				return navHit.position;
+			}
+		}
+		//if this fails, time for random position, so we try a few times to get a random position
+		for (int i = 0; i < 10; i++) {
+			Vector3 randomPoint = parentPosition + Random.insideUnitSphere * 3.0f;
+			if (heroDestinations.TrueForAll (vec => vec.sqrMagnitude - randomPoint.sqrMagnitude > 1.0f)) {
+				if (NavMesh.SamplePosition (randomPoint, out navHit, 0.5f, NavMesh.AllAreas)) {
+					return navHit.position;
+				}
+			}
+//			foreach (var vec in heroDestinations) {
+//				if (vec.sqrMagnitude - randomPoint.sqrMagnitude < 1.0f^2) {
+//					break;
+//				}
+//			}
+		}
+		//That also failed??! Then all hope is lost, return a zero vector and hope for the best!
+		return Vector3.zero;
+
+//		if (NavMesh.SamplePosition (parentPosition + rotation * Vector3.left, out navHit, 0.5f, NavMesh.AllAreas)) {
+//			heroDestinations.Add(navHit.position);
+//		} else {
+//			canPlaceLeft = false;
+//		}
+	}
+
+//	private static bool SufficientDistance(
 
 	private void AddHeroToSelected(GameObject hero) {
 		selectedHeros.Add (hero);
