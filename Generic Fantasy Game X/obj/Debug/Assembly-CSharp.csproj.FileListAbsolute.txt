@@ -66,3 +66,141 @@ C:\Users\Ren\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp
 C:\Users\Ren\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\Ren\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.dll
 C:\Users\Ren\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.pdb
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\nunit.framework.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Advertisements.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Analytics.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Android.Extensions.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.GoogleAudioSpatializer.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Graphs.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.HoloLens.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.iOS.Extensions.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Networking.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Purchasing.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.SpatialTracking.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.TestRunner.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Timeline.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.TreeEditor.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.UI.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.UIAutomation.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.VR.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.WindowsStandalone.Extensions.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Advertisements.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Analytics.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.GoogleAudioSpatializer.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.HoloLens.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Purchasing.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.SpatialTracking.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.StandardEvents.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Timeline.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.UIAutomation.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.Cecil.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\ExCSS.Unity.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.Legacy.NRefactory.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.Cecil.Mdb.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.Cecil.Pdb.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.UI.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Networking.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.TestRunner.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\nunit.framework.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Timeline.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Timeline.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.TreeEditor.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.UIAutomation.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.UIAutomation.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.GoogleAudioSpatializer.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.HoloLens.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.HoloLens.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.SpatialTracking.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.VR.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.dll
+C:\Users\12039715\Documents\GitHub\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.pdb
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\nunit.framework.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Advertisements.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Analytics.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.GoogleAudioSpatializer.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Graphs.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.HoloLens.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.LinuxStandalone.Extensions.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Networking.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.OSXStandalone.Extensions.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Purchasing.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.SpatialTracking.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Timeline.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.TreeEditor.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.UI.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.UIAutomation.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.VR.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.WebGL.Extensions.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.WindowsStandalone.Extensions.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Advertisements.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Analytics.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.GoogleAudioSpatializer.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.HoloLens.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Purchasing.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.SpatialTracking.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.StandardEvents.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.TestRunner.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Timeline.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.UIAutomation.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.Cecil.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.DataContract.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\ExCSS.Unity.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.Legacy.NRefactory.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.Cecil.Pdb.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\Unity.Cecil.Mdb.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.UI.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Networking.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.TestRunner.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\nunit.framework.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.Timeline.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.Timeline.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.TreeEditor.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.UIAutomation.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.UIAutomation.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.GoogleAudioSpatializer.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.GoogleAudioSpatializer.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.HoloLens.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.HoloLens.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.SpatialTracking.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.VR.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.dll
+D:\Uni Work\Year_5\Term 1\31102 - Game Design Studio 1\Generic-Fantasy-Game-X\Generic Fantasy Game X\obj\Debug\Assembly-CSharp.pdb
