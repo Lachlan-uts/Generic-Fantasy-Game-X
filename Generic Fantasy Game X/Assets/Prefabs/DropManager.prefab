@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1745513842062154}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalPosition: {x: 1, y: 5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,5 +52,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemTemplates:
-  - {fileID: 1996900126613674, guid: c708ffc7e5ee25f47a0fc95eaa2adae3, type: 2}
+  - {fileID: 1155460705159512, guid: f3fc42f036c7a1843bcb149b48462d6a, type: 2}
   lootHolder: {fileID: 1253711686378362, guid: fdb8631988b492c40b4db7d02634d7a8, type: 2}
+  specificLootItem: {fileID: 0}
