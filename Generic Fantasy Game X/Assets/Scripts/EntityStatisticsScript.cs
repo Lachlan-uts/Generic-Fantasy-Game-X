@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PowerGridInventory;
+
 
 public class EntityStatisticsScript : MonoBehaviour {
 
@@ -18,31 +20,33 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public GameObject nameUI; // placeholder
 	public GameObject healthUI; // placeholder
 
-	public GameObject inventoryGO;
+	public PGIModel inventory;
+	//public GameObject inventoryGO;
+
 
 	// public properties
 	[SerializeField]
-	public int curHealth { get { 
+	public int curHealth { get {
 			return curHealth;
 		}
-		private set { 
+		private set {
 			curHealth = value;
 			//healthUI.GetComponent<Text> ().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
 		} }
 	[SerializeField]
-	public int maxHealth { get { 
-			return maxHealth; 
-		} 
-		private set { 
-			maxHealth = value; 
+	public int maxHealth { get {
+			return maxHealth;
+		}
+		private set {
+			maxHealth = value;
 		} }
 	[SerializeField]
 	public int level { get; private set; }
 	[SerializeField]
-	public int experience { get { 
+	public int experience { get {
 			return experience;
 		}
-		private set { 
+		private set {
 			experience = value;
 		} }
 
@@ -51,11 +55,19 @@ public class EntityStatisticsScript : MonoBehaviour {
 	[SerializeField]
 	public int statVitality { get; private set; }
 
-	public Dictionary<entityScripts, MonoBehaviour> e = new Dictionary<entityScripts, MonoBehaviour>();
+	// "Equipment Slots" for items - where they go when they are equipped
+	[SerializeField]
+	private GameObject rightHand;
+	[SerializeField]
+	private GameObject leftHand;
+	[SerializeField]
+	private GameObject chest;
+
+	public Dictionary<entityScripts, GameObject> e = new Dictionary<entityScripts, GameObject>();
 
 	public Dictionary<entitySlots, GameObject> equippedItems = new Dictionary<entitySlots, GameObject> ();
 
-	public List<GameObject> inventoryItems;
+	//public List<GameObject> inventoryItems;
 
 	public GameObject targetThing;
 	public string targetContext;
@@ -82,19 +94,25 @@ public class EntityStatisticsScript : MonoBehaviour {
 //			Debug.Log();
 //		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (targetThing != null) {
 			if (targetContext == "Item") {
 				if (Vector3.Distance (this.gameObject.transform.position, targetThing.transform.position) < 0.2f) {
-					Pickup (targetThing);
+					//Pickup (targetThing);
 				}
 			} else if (targetContext == "Furniture") {
 				if (Vector3.Distance (this.gameObject.transform.position, targetThing.transform.position) < 0.2f) {
 					Interact (targetThing);
 				}
 			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.P)) {
+			Debug.Log ("attempting to find item");
+			Pickup (GameObject.Find ("ExampleDrop(Clone)"));
+			Pickup (GameObject.Find ("Sword(x)"));
 		}
 	}
 
@@ -111,6 +129,12 @@ public class EntityStatisticsScript : MonoBehaviour {
 	}
 
 	public void Pickup (GameObject other) {
+		other.GetComponent<DropScript> ().Pickup (inventory.transform);
+		target = null;
+		this.gameObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
+	}
+
+	/*public void Pickup (GameObject other) {
 		other.transform.SetParent (inventoryGO.transform);
 		inventoryItems.Add (other);
 		targetThing = null;
@@ -120,13 +144,29 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public void Drop (GameObject other) {
 		inventoryItems.Remove (other);
 		other.transform.parent = null;
+	}*/
+
+	public void Equip(PGISlotItem item, PGIModel model, PGISlot slot) {
+		switch (item.GetComponent<ItemTypeScript> ().itemType) {
+		case entitySlots.RightHand:
+			item.gameObject.transform.position = rightHand.transform.position;
+			item.gameObject.transform.rotation = rightHand.transform.rotation;
+			item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
+			item.gameObject.transform.SetParent (rightHand.transform);
+			item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
+			break;
+		default:
+			break;
+		}
 	}
 
 	public void Quaff () {
-		GameObject equippedPotion;
-		if (equippedItems.TryGetValue (entitySlots.Potion, out equippedPotion)) {
-
-		}
+//		GameObject equippedPotion;
+//		if (equippedItems.TryGetValue (entitySlots.Potion, out equippedPotion)) {
+//
+//		}
+		int healAmount = inventory.Equipment[0].Item.GetComponent<PotionUsageScript>().Quaff(maxHealth - curHealth);
+		Heal (healAmount);
 	}
 
 	private void LevelUp () {
@@ -206,6 +246,12 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 			// Invoke "death" here
 
+		} else if (curHealth <= ((int) 0.3f * maxHealth)) {
+			if (inventory.Equipment [0].Item != null) {
+				if (inventory.Equipment [0].Item.GetComponent<PotionUsageScript> ().fluidAmount > 0) {
+					Quaff ();
+				}
+			}
 		}
 
 
