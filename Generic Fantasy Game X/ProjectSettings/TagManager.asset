@@ -24,6 +24,7 @@ TagManager:
   - KillScore
   - CollectableScore
   - MainMenu
+  - Items
   layers:
   - Default
   - TransparentFX

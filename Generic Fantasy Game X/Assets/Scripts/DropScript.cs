@@ -39,18 +39,24 @@ public class DropScript : MonoBehaviour {
 //	}
 
 	public void Drop() {
-		dropCollider.enabled = true;
-		this.gameObject.layer = 10;
-		this.gameObject.GetComponent<Rigidbody> ().isKinematic = false;
-		this.transform.position = owner.position;
-		owner = null;
+		if (!this.gameObject.tag.Equals ("Items")) {
+			dropCollider.enabled = true;
+			this.gameObject.layer = 10;
+			this.gameObject.GetComponent<Rigidbody> ().isKinematic = false;
+			this.transform.position = owner.position;
+			owner = null;
+			this.gameObject.tag = "Items";
+		}
 	}
 
 	public void Drop(Transform lootPosition) {
-		dropCollider.enabled = true;
-		this.gameObject.layer = 10;
-		this.gameObject.GetComponent<Rigidbody> ().isKinematic = false;
-		this.transform.position = lootPosition.position;
+		if (!this.gameObject.tag.Equals ("Items")) {
+			dropCollider.enabled = true;
+			this.gameObject.layer = 10;
+			this.gameObject.GetComponent<Rigidbody> ().isKinematic = false;
+			this.transform.position = lootPosition.position;
+			this.gameObject.tag = "Items";
+		}
 	}
 
 	public void Pickup(Transform inventory) {
@@ -59,6 +65,7 @@ public class DropScript : MonoBehaviour {
 		this.gameObject.GetComponent<Rigidbody> ().isKinematic = true;
 		this.gameObject.layer = 2;
 		owner = this.gameObject.transform.parent;
+		this.gameObject.tag = "Untagged";
 	}
 
 }
