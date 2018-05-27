@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour {
 
+	[SerializeField]
 	private Collider weaponCollider;
 	private Rigidbody weaponRGBDY;
 	private Mesh weaponM;
 	private MeshRenderer rend;
 	private GameObject equiper;
 
+	// public variables
+	public int damage { get; private set; }
+
 	// Use this for initialization
 	void Start () {
 		weaponRGBDY = GetComponent<Rigidbody> ();
 		rend = GetComponent<MeshRenderer> ();
-		weaponCollider = GetComponent<Collider> ();
+		if (!weaponCollider) {
+			weaponCollider = GetComponent<Collider> ();
+		}
 		equiper = null;
 		//SetState (this.transform.parent);
-
+		damage = 10;
 		//workaround for enabling the weapon collider until the setstate is updated.
 		weaponCollider.enabled = false;
 	}
@@ -49,6 +55,14 @@ public class WeaponScript : MonoBehaviour {
 			//Will use the navigation script for now, but in future will need to be updated to use the entity controller/statistics script as that makes more sense.
 			other.gameObject.GetComponent<EntityTargetScript> ().Die();
 		}
+	}
+
+	void DealDamage(GameObject target) {
+		target.GetComponent<EntityStatisticsScript> ().TakeDamage (damage);
+	}
+
+	public void SetStatistics(int floorNumber) {
+		damage = floorNumber * 4 + Random.Range (1, (int)(5 * (floorNumber / 2)));
 	}
 
 	private void SetState(Transform owner = null) {

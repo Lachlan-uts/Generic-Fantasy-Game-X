@@ -61,6 +61,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 	[SerializeField]
 	private GameObject leftHand;
 	[SerializeField]
+	private GameObject shieldPos;
+	[SerializeField]
 	private GameObject chest;
 
 	public Dictionary<entityScripts, GameObject> e = new Dictionary<entityScripts, GameObject>();
@@ -163,9 +165,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 		case entitySlots.RightHand:
 			item.gameObject.transform.position = rightHand.transform.position;
 			item.gameObject.transform.rotation = rightHand.transform.rotation;
-			item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
 			item.gameObject.transform.SetParent (rightHand.transform);
-			item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
+			//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
+			//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
 			break;
 		default:
 			break;
@@ -277,9 +279,16 @@ public class EntityStatisticsScript : MonoBehaviour {
 				foreach (GameObject hero in GameObject.FindGameObjectsWithTag("Hero")) {
 					hero.GetComponent<EntityStatisticsScript> ().GainExperience (10 * level);
 				}
+
+				int lootChance = 30;
+				if (Random.Range (0, 101) < lootChance) {
+					GameObject.Find ("DropManager").GetComponent<DropManagerScript> ().generateLoot (this.gameObject.transform);
+				}
+
 			}
 
 			// Invoke "death" here
+			this.gameObject.GetComponent<EntityTargetScript>().Die();
 
 		} else if (curHealth <= ((int) 0.3f * maxHealth)) {
 			if (inventory.Equipment [0].Item != null) {
