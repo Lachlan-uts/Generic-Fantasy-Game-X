@@ -113,7 +113,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 		// Equipping the starting weapon
 		GameObject initialWeapon = Instantiate(startingWeapon, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
 		Pickup (initialWeapon);
-		//inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
+//		inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
 
 		//the below is all garbage!
 
@@ -351,12 +351,14 @@ public class EntityStatisticsScript : MonoBehaviour {
 	 * 
 	 */
 	public void ToggleWeaponCollider(string state) {
-		GameObject weapon = inventory.Equipment [1].gameObject;
-		if (weapon != null) {
+//		GameObject weapon = inventory.Equipment [1].gameObject;
+//		GameObject weapon = inventory.Equipment [1].Item.gameObject;
+		WeaponScript weaponScript = GetComponentInChildren<WeaponScript> ();
+		if (weaponScript != null) {
 			if (state.Contains ("true")) {
-				weapon.GetComponent<WeaponScript> ().ToggleCollider (true);
+				weaponScript.ToggleCollider (true);
 			} else {
-				weapon.GetComponent<WeaponScript> ().ToggleCollider (false);
+				weaponScript.ToggleCollider (false);
 			}
 		}
 	}
