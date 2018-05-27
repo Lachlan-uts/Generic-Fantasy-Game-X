@@ -553,7 +553,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			    Quaternion.Euler (spawnRot)).Length == 0) {
 			GameObject newEnemy = Instantiate (enemyToSpawn, spawnPos, Quaternion.Euler (spawnRot)) as GameObject;
 			// Note: Here is where code would go to properly initialize enemy resources
-			newEnemy.GetComponent<EntityStatisticsScript>().GenerateStats(floorNumber, enemyCategory);
+			//newEnemy.GetComponent<EntityStatisticsScript>().GenerateStats(floorNumber, enemyCategory);
 			// Remove SpawnPoint from the list
 			enemySpawnPoints.Remove(enemySpawnPoints[enemySpawnNumber]);
 
