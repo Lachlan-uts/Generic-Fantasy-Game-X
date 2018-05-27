@@ -15,6 +15,6 @@ public class FloatingUIScript : MonoBehaviour {
 	void Update () {
 		camPos = Camera.main.transform.position;
 //		transform.LookAt (new Vector3 (-camPos.x, transform.position.y, -camPos.z));
-		transform.LookAt (new Vector3 (transform.position.x, transform.position.y, transform.position.z-4));
+		transform.LookAt (new Vector3 (transform.position.x, -camPos.y, -camPos.z));
 	}
 }

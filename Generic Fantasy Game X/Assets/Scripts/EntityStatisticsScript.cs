@@ -18,27 +18,32 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	// public variables
 	public GameObject nameUI; // placeholder
-	public GameObject healthUI; // placeholder
+	public Slider healthUI; // placeholder
 
 	public PGIModel inventory;
 	//public GameObject inventoryGO;
 
 
+	//private stuff
+	private int curHealth_, maxHealth_;
+
 	// public properties
 	[SerializeField]
 	public int curHealth { get {
-			return curHealth;
+			return curHealth_;
 		}
 		private set {
-			curHealth = value;
+			curHealth_ = value;
+			healthUI.value = value;
 			//healthUI.GetComponent<Text> ().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
 		} }
 	[SerializeField]
 	public int maxHealth { get {
-			return maxHealth;
+			return maxHealth_;
 		}
 		private set {
-			maxHealth = value;
+			maxHealth_ = value;
+			healthUI.maxValue = value;
 		} }
 	[SerializeField]
 	public int level { get; private set; }
@@ -80,10 +85,26 @@ public class EntityStatisticsScript : MonoBehaviour {
 		equippedItems.Add (entitySlots.RightHand, null);
 		equippedItems.Add (entitySlots.LeftHand, null);
 		equippedItems.Add (entitySlots.Potion, null);
+
+		//assign default graphics
+		healthUI = GetComponentInChildren<Slider> ();
+		healthUI.minValue = 0;
+
+		//A series of magic numbers
+		level = 1;
+		statVitality = 5;
+		statStrength = 3;
+
+		//set health
+		maxHealth = 0;
+		UpdateMaxHealth ();
+
 		//get the selection
 		target = GetComponent<EntityTargetScript> ();
 		navigation = GetComponent<EntityNavigationScript> ();
 		selected = GetComponentInChildren<EntitySelectedScript> ();
+
+
 		//the below is all garbage!
 
 //		isSelected
@@ -113,6 +134,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 			Debug.Log ("attempting to find item");
 			Pickup (GameObject.Find ("ExampleDrop(Clone)"));
 			Pickup (GameObject.Find ("Sword(x)"));
+		}
+
+		//used for testing the health UI.
+		if (Input.GetKeyDown (KeyCode.M)) {
+			TakeDamage (1);
 		}
 	}
 
