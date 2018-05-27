@@ -18,13 +18,17 @@ public class UIManager : MonoBehaviour {
     private GameObject[] heroes;
     private GameObject[] enemies;
 
-    [SerializeField]
-    private GameObject pauseMenu;
-	private GameObject scoreScreen;
+    //[SerializeField]
+    // private GameObject pauseMenu;
+    //private GameObject scoreScreen;
+    // private GameObject inventoryUI;
+    public GameObject pauseMenu;
+    public GameObject scoreScreen;
+    public GameObject inventoryUI;
 
-    
-	private bool pauseMenuStatus;
+    private bool pauseMenuStatus;
 	private bool scoreScreenStatus;
+    private bool inventoryStatus;
 
     private int level = 1;
     //public Text gameOverText;
@@ -58,21 +62,16 @@ public class UIManager : MonoBehaviour {
 
 		scoreScreen.SetActive (false);
 		scoreScreenStatus = false;
+
+        inventoryUI.SetActive(false);
+        inventoryStatus = false;
     }
 
     //TO DO: Replace Slot1 with "Current Player"
     void Start()
 	{
         playerManager = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<PlayerManager>();
-        canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
-
-        //Calling the variables from Player Stats
-        slot1 = GameObject.FindGameObjectWithTag("Slot1");
-        healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
-        HPText = healthBar.GetComponentInChildren<Text>();
-
-		MaxHP = playerManager.maxHP;
-		healthBar.maxValue += MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
+        
 
         heroes = GameObject.FindGameObjectsWithTag("Hero");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -80,13 +79,7 @@ public class UIManager : MonoBehaviour {
 
     void Update()
     {
-        CurrentHP = playerManager.currentHP;
-
-
-        healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
-
-        HPText.text = "HP " + CurrentHP + "/" + MaxHP;
-        Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
+      
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
@@ -139,4 +132,31 @@ public class UIManager : MonoBehaviour {
 		scoreScreenStatus = !scoreScreenStatus;
 	}
 
+    public void InventorySwitch()
+    {
+        audio.Play();
+        if (!inventoryStatus)
+        {
+            inventoryUI.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            inventoryUI.SetActive(false);
+            Time.timeScale = 1;
+        }
+
+        inventoryStatus = !inventoryStatus;
+
+        foreach (GameObject hero in heroes)
+        {
+            hero.GetComponent<EntityNavigationScript>().enabled =
+                !hero.GetComponent<EntityNavigationScript>().enabled;
+        }
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EntityNavigationScript>().enabled =
+                !enemy.GetComponent<EntityNavigationScript>().enabled;
+        }
+    }
 }

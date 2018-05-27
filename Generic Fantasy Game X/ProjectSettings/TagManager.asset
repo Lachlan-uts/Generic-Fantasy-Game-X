@@ -25,6 +25,8 @@ TagManager:
   - CollectableScore
   - MainMenu
   - Items
+  - InventoryUI
+  - HPSlider
   layers:
   - Default
   - TransparentFX

@@ -16,16 +16,23 @@ public class EntityStatisticsScript : MonoBehaviour {
 	private EntityNavigationScript navigation;
 	private EntitySelectedScript selected;
 
-	// public variables
+	// public variables - floats
 	public GameObject nameUI; // placeholder
 	public Slider healthUI; // placeholder
+
+    //set
+    public Slider staticHealthUI;
+    public Text staticHealthText;
+    public Text currentLevelText;
+
+
 
 	public PGIModel inventory;
 	//public GameObject inventoryGO;
 
 
 	//private stuff
-	private int curHealth_, maxHealth_;
+	private int curHealth_, maxHealth_, currentLevel_;
 
 	// public properties
 	[SerializeField]
@@ -35,6 +42,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 		private set {
 			curHealth_ = value;
 			healthUI.value = value;
+            staticHealthUI.value = value;
+
 			//healthUI.GetComponent<Text> ().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
 		} }
 	[SerializeField]
@@ -44,9 +53,17 @@ public class EntityStatisticsScript : MonoBehaviour {
 		private set {
 			maxHealth_ = value;
 			healthUI.maxValue = value;
-		} }
+            staticHealthUI.maxValue = value;
+
+        } }
 	[SerializeField]
-	public int level { get; private set; }
+    public int level
+    {
+        get;
+
+        private set;
+    }
+
 	[SerializeField]
 	public int experience { get {
 			return experience;
@@ -88,12 +105,22 @@ public class EntityStatisticsScript : MonoBehaviour {
 		equippedItems.Add (entitySlots.LeftHand, null);
 		equippedItems.Add (entitySlots.Potion, null);
 
-		//assign default graphics
+		//assign default graphics - floating
 		healthUI = GetComponentInChildren<Slider> ();
 		healthUI.minValue = 0;
 
-		//A series of magic numbers
-		level = 1;
+
+        //assign boxed ui value
+        staticHealthText = GameObject.FindGameObjectWithTag("HealthBar").GetComponentInChildren<Text>();
+        staticHealthUI = GameObject.FindGameObjectWithTag("HealthBar").GetComponentInChildren<Slider>();
+        staticHealthUI.minValue = 0;
+
+
+        currentLevelText = GameObject.FindGameObjectWithTag("ExpBar").GetComponentInChildren<Text>();
+
+
+    //A series of magic numbers
+    level = 1;
 		statVitality = 5;
 		statStrength = 3;
 
@@ -120,7 +147,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (targetThing != null) {
+      
+        if (targetThing != null) {
 			if (targetContext == "Item") {
 				if (Vector3.Distance (this.gameObject.transform.position, targetThing.transform.position) < 0.2f) {
 					//Pickup (targetThing);
@@ -149,7 +177,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.M)) {
 			TakeDamage (1);
 		}
-	}
+
+        staticHealthText.text = "HP: " + curHealth + "/" + maxHealth;
+
+        currentLevelText.text = "Level: " + level;
+    }
 
 	public void InstigateCommand (string context, GameObject other) {
 		targetContext = context;
@@ -235,6 +267,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 	private void LevelUp () {
 		statStrength++;
 		statVitality++;
+       
 		UpdateMaxHealth ();
 	}
 
