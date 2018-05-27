@@ -10,6 +10,10 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public enum entitySlots { Helmet, Chestplate, Greaves, RightHand, LeftHand, Potion };
 	public enum entityScripts { Navigation, Targeting, Selection };
 
+	//Starting Weapon
+	[SerializeField]
+	private GameObject startingWeapon;
+
 	//All the different components that the entity statisics script controls
 	[SerializeField]
 	private EntityTargetScript target;
@@ -133,14 +137,16 @@ public class EntityStatisticsScript : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown (KeyCode.P)) {
-			Debug.Log ("attempting to find nearest item");
-			//Pickup (GameObject.Find ("ExampleDrop(Clone)"));
-			//Pickup (GameObject.Find ("Sword(x)"));
-			List<GameObject> pickupItems = new List<GameObject>();
-			pickupItems.AddRange (GameObject.FindGameObjectsWithTag ("Items"));
+			if (this.gameObject.CompareTag("Hero")) {
+				Debug.Log ("attempting to find nearest item");
+				//Pickup (GameObject.Find ("ExampleDrop(Clone)"));
+				//Pickup (GameObject.Find ("Sword(x)"));
+				List<GameObject> pickupItems = new List<GameObject>();
+				pickupItems.AddRange (GameObject.FindGameObjectsWithTag ("Items"));
 
-			if (pickupItems.Count > 0) {
-				Pickup (GameObject.Find (pickupItems[0].name));
+				if (pickupItems.Count > 0) {
+					Pickup (GameObject.Find (pickupItems[0].name));
+				}
 			}
 
 		}
@@ -192,6 +198,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 			item.gameObject.transform.position = rightHand.transform.position;
 			item.gameObject.transform.rotation = rightHand.transform.rotation;
 			item.gameObject.transform.SetParent (rightHand.transform);
+//			equippedItems.Add (entitySlots.RightHand, item.gameObject);
 			//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
 			//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
 			break;
@@ -210,6 +217,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 		case entitySlots.RightHand:
 			item.gameObject.transform.position = inventory.gameObject.transform.position;
 			item.gameObject.transform.rotation = inventory.gameObject.transform.rotation;
+//			equippedItems.Remove (entitySlots.RightHand);
 			//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
 			//item.gameObject.transform.SetParent (rightHand.transform);
 			//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
@@ -333,4 +341,19 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 //	private IEnumerator IsSelected() {
 //	}
+
+	/*
+	 * This section will be all about getting the attack system to work with equiped weapons. 
+	 * 
+	 */
+	public void ToggleWeaponCollider(string state) {
+		GameObject weapon = inventory.Equipment [1].gameObject;
+		if (weapon != null) {
+			if (state.Contains ("true")) {
+				weapon.GetComponent<WeaponScript> ().ToggleCollider (true);
+			} else {
+				weapon.GetComponent<WeaponScript> ().ToggleCollider (false);
+			}
+		}
+	}
 }

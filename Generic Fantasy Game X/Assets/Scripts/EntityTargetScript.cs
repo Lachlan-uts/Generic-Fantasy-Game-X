@@ -138,7 +138,7 @@ public class EntityTargetScript : MonoBehaviour {
 	/*
 	 * Putting this here until I can think of a better place to toggle the weapon
 	 */
-	public void ToggleWeaponCollider(string state) {
+	public void ToggleWeaponColliderOld(string state) {
 		if (state.Contains ("true")) {
 			weaponScript.ToggleCollider (true);
 		} else {
