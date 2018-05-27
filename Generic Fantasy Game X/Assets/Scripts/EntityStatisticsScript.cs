@@ -25,11 +25,15 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public Slider healthUI; // placeholder
 
 	public PGIModel inventory;
-	//public GameObject inventoryGO;
+    //public GameObject inventoryGO;
+    //set
+    public Slider staticHealthUI;
+    public Text staticHealthText;
+    public Text currentLevelText;
 
 
-	//private stuff
-	private int curHealth_, maxHealth_,experience_;
+    //private stuff
+    private int curHealth_, maxHealth_,experience_;
 
 	// public properties
 	[SerializeField]
@@ -110,8 +114,17 @@ public class EntityStatisticsScript : MonoBehaviour {
 		navigation = GetComponent<EntityNavigationScript> ();
 		selected = GetComponentInChildren<EntitySelectedScript> ();
 
-		// Equipping the starting weapon
-		GameObject initialWeapon = Instantiate(startingWeapon, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+        //assign boxed ui value
+        staticHealthText = GameObject.FindGameObjectWithTag("HealthBar").GetComponentInChildren<Text>();
+        staticHealthUI = GameObject.FindGameObjectWithTag("HealthBar").GetComponentInChildren<Slider>();
+        staticHealthUI.minValue = 0;
+
+
+        currentLevelText = GameObject.FindGameObjectWithTag("ExpBar").GetComponentInChildren<Text>();
+
+
+        // Equipping the starting weapon
+        GameObject initialWeapon = Instantiate(startingWeapon, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
 		Pickup (initialWeapon);
 //		inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
 
@@ -159,7 +172,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.M)) {
 			TakeDamage (1);
 		}
-	}
+
+        staticHealthText.text = "HP: " + curHealth + "/" + maxHealth;
+
+        currentLevelText.text = "Level: " + level;
+    }
 
 	public void InstigateCommand (string context, GameObject other) {
 		targetContext = context;
