@@ -2399,6 +2399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc0517204fadf947a6eaadb86f74877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponCollider: {fileID: 0}
 --- !u!114 &114693575785182804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2413,6 +2414,7 @@ MonoBehaviour:
   targetableTags:
   - Hero
   - Enemy
+  targetedEntity_: {fileID: 0}
 --- !u!114 &114810375612487726
 MonoBehaviour:
   m_ObjectHideFlags: 1
