@@ -51,6 +51,9 @@ public class WeaponScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.layer == LayerMask.NameToLayer ("Units")) {
+			if (other.CompareTag ("Hero") && GetComponentInParent<EntityStatisticsScript> ().gameObject.CompareTag (other.tag)) {
+				return;
+			}
 			//Debug.Log ("Trigger the attack/kill!");
 			Debug.Log (this.gameObject.name + " Hit " + other.gameObject.name);
 //			other.gameObject.GetComponent<Collider>().enabled = false;

@@ -140,7 +140,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.P)) {
+		if (Input.GetKeyDown (KeyCode.G)) {
 			if (this.gameObject.CompareTag("Hero")) {
 				Debug.Log ("attempting to find nearest item");
 				//Pickup (GameObject.Find ("ExampleDrop(Clone)"));
@@ -327,6 +327,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 			// Invoke "death" here
 			this.gameObject.GetComponent<EntityTargetScript>().Die();
+			GetComponentInChildren<Canvas> ().enabled = false;
 
 		} else if (curHealth <= Mathf.RoundToInt(0.3f * maxHealth)) {
 			if (inventory.Equipment [0].Item != null) {
