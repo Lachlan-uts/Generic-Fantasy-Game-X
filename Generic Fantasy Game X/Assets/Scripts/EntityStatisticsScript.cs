@@ -328,15 +328,13 @@ public class EntityStatisticsScript : MonoBehaviour {
 			// Invoke "death" here
 			this.gameObject.GetComponent<EntityTargetScript>().Die();
 
-		} else if (curHealth <= ((int) 0.3f * maxHealth)) {
+		} else if (curHealth <= Mathf.RoundToInt(0.3f * maxHealth)) {
 			if (inventory.Equipment [0].Item != null) {
 				if (inventory.Equipment [0].Item.GetComponent<PotionUsageScript> ().fluidAmount > 0) {
 					Quaff ();
 				}
 			}
 		}
-
-
 	}
 
 	public void SelectionToggle() {
