@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -43,7 +43,7 @@ MonoBehaviour:
     y: 0
     width: 1680
     height: 968
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -106,8 +106,8 @@ MonoBehaviour:
     y: 30
     width: 1680
     height: 918
-  m_MinSize: {x: 885, y: 492}
-  m_MaxSize: {x: 16010, y: 14042}
+  m_MinSize: {x: 887, y: 492}
+  m_MaxSize: {x: 16012, y: 14042}
   vertical: 0
   controlID: 83
 --- !u!114 &6
@@ -228,8 +228,8 @@ MonoBehaviour:
     y: 0
     width: 468
     height: 516
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -280,8 +280,8 @@ MonoBehaviour:
     y: 0
     width: 382
     height: 918
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -395,9 +395,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs: e02b0000
     m_LastClickedID: 0
-    m_ExpandedIDs: 2402faff5a7bfcff3c8dfeff2c50ffffb0faffffb2faffffd6faffffd8faffffdafaffffe0faffffeafaffff58fbffff98fbffff9efbffff00000000243600003c370000da3a0000623b0000
+    m_ExpandedIDs: 0ae0fbff8a85feff7052fffff866ffff226fffff227bffffeaa0ffffa8bbffff9efbffff00000000105f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -453,9 +453,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.4493315, y: -0.07025933, z: -0.19315483}
+    m_Target: {x: 27.973621, y: -0.07025933, z: -5.7422223}
     speed: 2
-    m_Value: {x: -1.4493315, y: -0.07025933, z: -0.19315483}
+    m_Value: {x: 27.973621, y: -0.07025933, z: -5.7422223}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -479,13 +479,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.2943953, y: -0.6424521, z: 0.29386654, w: 0.6436064}
+    m_Target: {x: -0.29439527, y: 0.6424521, z: -0.29386654, w: -0.6436064}
     speed: 2
-    m_Value: {x: 0.2943953, y: -0.6424521, z: 0.29386654, w: 0.6436064}
+    m_Value: {x: -0.29439527, y: 0.6424521, z: -0.29386654, w: -0.6436064}
   m_Size:
-    m_Target: 4.7046714
+    m_Target: 19.156162
     speed: 2
-    m_Value: 4.7046714
+    m_Value: 19.156162
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -725,20 +725,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs/WeaponPrefabs
+    - Assets/Scenes
   m_ViewMode: 1
   m_StartGridSize: 83
   m_LastFolders:
-  - Assets/Prefabs/WeaponPrefabs
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Unity\GitHubRepository\GDS1SemesterProject\Generic-Fantasy-Game-X\Generic
     Fantasy Game X
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 360}
-    m_SelectedIDs: 00290000
-    m_LastClickedID: 10496
-    m_ExpandedIDs: 000000003e280000d8280000c4290000782a0000ae2a00004e2c0000942c0000b2320000ce32000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 504}
+    m_SelectedIDs: de280000
+    m_LastClickedID: 10462
+    m_ExpandedIDs: 000000003e280000dc280000c82900007c2a00008a2a0000b22a0000542c00009e2c0000ae320000c2320000de32000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -766,7 +766,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003e280000d8280000782a0000ae2a00004e2c0000942c0000ce320000
+    m_ExpandedIDs: 000000003e280000dc280000c82900007c2a0000b22a0000542c00009e2c0000c2320000de320000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
