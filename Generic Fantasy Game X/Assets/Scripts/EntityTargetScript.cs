@@ -152,7 +152,7 @@ public class EntityTargetScript : MonoBehaviour {
 		if (this.gameObject.CompareTag ("Hero")) {
 			Invoke ("PlayerDeath", 3.0f);
 		} else {
-			GameObject.Find ("SimpleExit").GetComponent<HatchScript> ().IncrementEnemyKills ();
+			GameObject.Find ("SampleExit").GetComponent<HatchScript> ().IncrementEnemyKills ();
 		}
         targetedEntity_ = null;
 		StopAllCoroutines ();
