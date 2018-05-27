@@ -53,5 +53,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemTemplates:
   - {fileID: 1155460705159512, guid: f3fc42f036c7a1843bcb149b48462d6a, type: 2}
+  - {fileID: 1569143809092138, guid: db60f5550c9189441b3501f957b4378e, type: 2}
+  - {fileID: 1036939233003888, guid: 854fdf0031f99944d95bc4e4c6588af5, type: 2}
+  - {fileID: 1546910928964968, guid: 11e217b3e6b089249bceca44ba7ba6c7, type: 2}
+  - {fileID: 1363411080651444, guid: a2a084ec1aea3e446a6e9d873b608cbf, type: 2}
+  - {fileID: 1226631556502664, guid: e4b92a46c6057854599dfc16f5b5b1a4, type: 2}
   lootHolder: {fileID: 1253711686378362, guid: fdb8631988b492c40b4db7d02634d7a8, type: 2}
   specificLootItem: {fileID: 0}

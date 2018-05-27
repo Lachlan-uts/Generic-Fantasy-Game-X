@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class HatchScript : MonoBehaviour {
 
@@ -12,6 +13,9 @@ public class HatchScript : MonoBehaviour {
     private bool obtainKeyCondition = false;
 
     private int enemyKills;
+
+	// Data Collection Setup
+	private static string filePath = "Assets/AcquiredData/SessionData.txt";
 
 	// Use this for initialization
 	void Start () {
@@ -93,6 +97,10 @@ public class HatchScript : MonoBehaviour {
         return canLeave;
     }
 
+	public void IncrementEnemyKills() {
+		enemyKills++;
+	}
+
     public void ExitLevel()
     {
         GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
@@ -101,6 +109,22 @@ public class HatchScript : MonoBehaviour {
             //At the moment if using this will increase one hero per scene load
             //DontDestroyOnLoad(hero);
         }
+
+		// Data Collection
+		StreamWriter writer = new StreamWriter(filePath, true);
+		string objectiveString = "";
+		if (enemyCondition) {
+			objectiveString += "Kill Enemies";
+		} else {
+			objectiveString += "Find Key";
+		}
+		writer.WriteLine ("Floor: " + GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().floorNumber 
+			+ " Objective: " + objectiveString 
+			+ " Enemy Kills: " + enemyKills
+			+ " Total Enemies: " + GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().GetEnemyCount());
+		writer.Close ();
+
+		// All done on Data Collection
 
         //Load Next Level
         GameObject gameManager = GameObject.Find("GameManagers");

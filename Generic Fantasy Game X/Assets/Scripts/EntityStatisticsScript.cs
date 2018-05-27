@@ -61,6 +61,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 	[SerializeField]
 	private GameObject leftHand;
 	[SerializeField]
+	private GameObject shieldPos;
+	[SerializeField]
 	private GameObject chest;
 
 	public Dictionary<entityScripts, GameObject> e = new Dictionary<entityScripts, GameObject>();
@@ -110,9 +112,16 @@ public class EntityStatisticsScript : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown (KeyCode.P)) {
-			Debug.Log ("attempting to find item");
-			Pickup (GameObject.Find ("ExampleDrop(Clone)"));
-			Pickup (GameObject.Find ("Sword(x)"));
+			Debug.Log ("attempting to find nearest item");
+			//Pickup (GameObject.Find ("ExampleDrop(Clone)"));
+			//Pickup (GameObject.Find ("Sword(x)"));
+			List<GameObject> pickupItems = new List<GameObject>();
+			pickupItems.AddRange (GameObject.FindGameObjectsWithTag ("Items"));
+
+			if (pickupItems.Count > 0) {
+				Pickup (GameObject.Find (pickupItems[0].name));
+			}
+
 		}
 	}
 
@@ -148,16 +157,44 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	public void Equip(PGISlotItem item, PGIModel model, PGISlot slot) {
 		switch (item.GetComponent<ItemTypeScript> ().itemType) {
+		case entitySlots.Potion:
+			item.gameObject.transform.position = leftHand.transform.position;
+			item.gameObject.transform.rotation = leftHand.transform.rotation;
+			item.gameObject.transform.SetParent (leftHand.transform);
+			break;
 		case entitySlots.RightHand:
 			item.gameObject.transform.position = rightHand.transform.position;
 			item.gameObject.transform.rotation = rightHand.transform.rotation;
-			item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
 			item.gameObject.transform.SetParent (rightHand.transform);
-			item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
+			//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
+			//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
 			break;
 		default:
 			break;
 		}
+	}
+
+	public void Dequip(PGISlotItem item, PGIModel model, PGISlot slot) {
+		switch (item.GetComponent<ItemTypeScript> ().itemType) {
+		case entitySlots.Potion:
+			item.gameObject.transform.position = inventory.gameObject.transform.position;
+			item.gameObject.transform.rotation = inventory.gameObject.transform.rotation;
+			//item.gameObject.transform.SetParent (leftHand.transform);
+			break;
+		case entitySlots.RightHand:
+			item.gameObject.transform.position = inventory.gameObject.transform.position;
+			item.gameObject.transform.rotation = inventory.gameObject.transform.rotation;
+			//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
+			//item.gameObject.transform.SetParent (rightHand.transform);
+			//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void DropItem(PGISlotItem item, PGIModel model) {
+		item.gameObject.GetComponent<DropScript> ().Drop ();
 	}
 
 	public void Quaff () {
@@ -242,9 +279,16 @@ public class EntityStatisticsScript : MonoBehaviour {
 				foreach (GameObject hero in GameObject.FindGameObjectsWithTag("Hero")) {
 					hero.GetComponent<EntityStatisticsScript> ().GainExperience (10 * level);
 				}
+
+				int lootChance = 30;
+				if (Random.Range (0, 101) < lootChance) {
+					GameObject.Find ("DropManager").GetComponent<DropManagerScript> ().generateLoot (this.gameObject.transform);
+				}
+
 			}
 
 			// Invoke "death" here
+			this.gameObject.GetComponent<EntityTargetScript>().Die();
 
 		} else if (curHealth <= ((int) 0.3f * maxHealth)) {
 			if (inventory.Equipment [0].Item != null) {
