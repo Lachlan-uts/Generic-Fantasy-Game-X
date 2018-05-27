@@ -1483,7 +1483,7 @@ Prefab:
     - target: {fileID: 224920092856163344, guid: 44ce953ae26cb504c95ae4d2bca1b692,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 44ce953ae26cb504c95ae4d2bca1b692, type: 2}
@@ -17219,13 +17219,13 @@ Prefab:
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
       propertyPath: numEnemies
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}
       propertyPath: validEnemiesLight.Array.data[0]
       value: 
-      objectReference: {fileID: 1651749121288684, guid: adeac157a04f86a4e9ea73d56d1dcfde,
+      objectReference: {fileID: 1031370533829100, guid: 35f931d634ecd434b93f11da57ceebfe,
         type: 2}
     - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
         type: 2}

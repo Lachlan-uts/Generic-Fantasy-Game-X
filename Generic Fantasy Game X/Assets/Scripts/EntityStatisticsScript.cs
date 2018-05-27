@@ -110,6 +110,10 @@ public class EntityStatisticsScript : MonoBehaviour {
 		navigation = GetComponent<EntityNavigationScript> ();
 		selected = GetComponentInChildren<EntitySelectedScript> ();
 
+		// Equipping the starting weapon
+		GameObject initialWeapon = Instantiate(startingWeapon, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+		Pickup (initialWeapon);
+		//inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
 
 		//the below is all garbage!
 
