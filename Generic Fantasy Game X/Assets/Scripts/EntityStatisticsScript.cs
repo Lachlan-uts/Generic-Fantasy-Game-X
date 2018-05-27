@@ -10,6 +10,10 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public enum entitySlots { Helmet, Chestplate, Greaves, RightHand, LeftHand, Potion };
 	public enum entityScripts { Navigation, Targeting, Selection };
 
+	//Starting Weapon
+	[SerializeField]
+	private GameObject startingWeapon;
+
 	//All the different components that the entity statisics script controls
 	[SerializeField]
 	private EntityTargetScript target;
@@ -25,7 +29,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 
 	//private stuff
-	private int curHealth_, maxHealth_;
+	private int curHealth_, maxHealth_,experience_;
 
 	// public properties
 	[SerializeField]
@@ -49,10 +53,10 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public int level { get; private set; }
 	[SerializeField]
 	public int experience { get {
-			return experience;
+			return experience_;
 		}
 		private set {
-			experience = value;
+			experience_ = value;
 		} }
 
 	[SerializeField]
@@ -106,6 +110,10 @@ public class EntityStatisticsScript : MonoBehaviour {
 		navigation = GetComponent<EntityNavigationScript> ();
 		selected = GetComponentInChildren<EntitySelectedScript> ();
 
+		// Equipping the starting weapon
+		GameObject initialWeapon = Instantiate(startingWeapon, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+		Pickup (initialWeapon);
+//		inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
 
 		//the below is all garbage!
 
@@ -132,15 +140,17 @@ public class EntityStatisticsScript : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.P)) {
-			Debug.Log ("attempting to find nearest item");
-			//Pickup (GameObject.Find ("ExampleDrop(Clone)"));
-			//Pickup (GameObject.Find ("Sword(x)"));
-			List<GameObject> pickupItems = new List<GameObject>();
-			pickupItems.AddRange (GameObject.FindGameObjectsWithTag ("Items"));
+		if (Input.GetKeyDown (KeyCode.G)) {
+			if (this.gameObject.CompareTag("Hero")) {
+				Debug.Log ("attempting to find nearest item");
+				//Pickup (GameObject.Find ("ExampleDrop(Clone)"));
+				//Pickup (GameObject.Find ("Sword(x)"));
+				List<GameObject> pickupItems = new List<GameObject>();
+				pickupItems.AddRange (GameObject.FindGameObjectsWithTag ("Items"));
 
-			if (pickupItems.Count > 0) {
-				Pickup (GameObject.Find (pickupItems[0].name));
+				if (pickupItems.Count > 0) {
+					Pickup (GameObject.Find (pickupItems[0].name));
+				}
 			}
 
 		}
@@ -192,6 +202,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 			item.gameObject.transform.position = rightHand.transform.position;
 			item.gameObject.transform.rotation = rightHand.transform.rotation;
 			item.gameObject.transform.SetParent (rightHand.transform);
+//			equippedItems.Add (entitySlots.RightHand, item.gameObject);
 			//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
 			//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
 			break;
@@ -210,6 +221,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 		case entitySlots.RightHand:
 			item.gameObject.transform.position = inventory.gameObject.transform.position;
 			item.gameObject.transform.rotation = inventory.gameObject.transform.rotation;
+//			equippedItems.Remove (entitySlots.RightHand);
 			//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
 			//item.gameObject.transform.SetParent (rightHand.transform);
 			//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
@@ -315,16 +327,15 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 			// Invoke "death" here
 			this.gameObject.GetComponent<EntityTargetScript>().Die();
+			GetComponentInChildren<Canvas> ().enabled = false;
 
-		} else if (curHealth <= ((int) 0.3f * maxHealth)) {
+		} else if (curHealth <= Mathf.RoundToInt(0.3f * maxHealth)) {
 			if (inventory.Equipment [0].Item != null) {
 				if (inventory.Equipment [0].Item.GetComponent<PotionUsageScript> ().fluidAmount > 0) {
 					Quaff ();
 				}
 			}
 		}
-
-
 	}
 
 	public void SelectionToggle() {
@@ -333,4 +344,21 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 //	private IEnumerator IsSelected() {
 //	}
+
+	/*
+	 * This section will be all about getting the attack system to work with equiped weapons. 
+	 * 
+	 */
+	public void ToggleWeaponCollider(string state) {
+//		GameObject weapon = inventory.Equipment [1].gameObject;
+//		GameObject weapon = inventory.Equipment [1].Item.gameObject;
+		WeaponScript weaponScript = GetComponentInChildren<WeaponScript> ();
+		if (weaponScript != null) {
+			if (state.Contains ("true")) {
+				weaponScript.ToggleCollider (true);
+			} else {
+				weaponScript.ToggleCollider (false);
+			}
+		}
+	}
 }

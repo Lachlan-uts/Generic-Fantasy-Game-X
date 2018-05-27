@@ -66,6 +66,12 @@ public class EntityTargetScript : MonoBehaviour {
 		yield return null;
 	}
 
+	private IEnumerator EnemyHealthCheck() {
+		yield return new WaitUntil (() => targetedEntity_.GetComponent<EntityStatisticsScript> ().curHealth <= 0);
+		targetedEntity = null;
+		yield return null;
+	}
+
 	private bool SightCheck() {
 		RaycastHit hit;
 		Ray entityRay = new Ray(transform.position, targetedEntity.transform.position - transform.position);
@@ -87,6 +93,11 @@ public class EntityTargetScript : MonoBehaviour {
 
 	private IEnumerator Attack() {
 		Debug.Log ("Prepared to attack");
+		Debug.Log (targetedEntity_.name + " is at " + targetedEntity_.GetComponent<EntityStatisticsScript> ().curHealth);
+		if (targetedEntity_.GetComponent<EntityStatisticsScript> ().curHealth == 0) {
+			targetedEntity = null;
+			yield return null;
+		}
 		yield return new WaitUntil (() => targetProximity <= 1.4f);
 		Debug.Log (this.gameObject.name + " is within striking distance!");
 		targetProximity = Mathf.Infinity;
@@ -100,6 +111,7 @@ public class EntityTargetScript : MonoBehaviour {
 		} else {
 			yield return null;
 		}
+		yield return null;
 	}
 
 	private IEnumerator EntityChecker() {
@@ -116,14 +128,15 @@ public class EntityTargetScript : MonoBehaviour {
 			Debug.Log ("The target is null now");
 			yield return StartCoroutine (AquireEnemy());
 			yield return new WaitUntil (() => targetedEntity_);
+//			yield return StartCoroutine (EnemyHealthCheck ());
 			Debug.Log ("Have a target again!");
+			StartCoroutine ("Attack");
 		}
 //		yield break;
 		yield return StartCoroutine (SightCheckTarget ());
 	}
 
 	private IEnumerator SightCheckTarget() {
-		StartCoroutine ("Attack");
 		while (targetedEntity_) {
 			if (SightCheck ()) {
 				ProximityCheck ();
@@ -138,7 +151,7 @@ public class EntityTargetScript : MonoBehaviour {
 	/*
 	 * Putting this here until I can think of a better place to toggle the weapon
 	 */
-	public void ToggleWeaponCollider(string state) {
+	public void ToggleWeaponColliderOld(string state) {
 		if (state.Contains ("true")) {
 			weaponScript.ToggleCollider (true);
 		} else {
@@ -152,7 +165,7 @@ public class EntityTargetScript : MonoBehaviour {
 		if (this.gameObject.CompareTag ("Hero")) {
 			Invoke ("PlayerDeath", 3.0f);
 		} else {
-			GameObject.Find ("SimpleExit").GetComponent<HatchScript> ().IncrementEnemyKills ();
+			GameObject.Find ("SampleExit(Clone)").GetComponent<HatchScript> ().IncrementEnemyKills ();
 		}
         targetedEntity_ = null;
 		StopAllCoroutines ();

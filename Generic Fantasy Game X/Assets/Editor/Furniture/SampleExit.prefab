@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114318394801481222}
   - component: {fileID: 114624538762834686}
   - component: {fileID: 65481820487545878}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: SampleExit
   m_TagString: Exit
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33880235920449168}
   - component: {fileID: 65454696464975038}
   - component: {fileID: 23648741267758090}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: HatchTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

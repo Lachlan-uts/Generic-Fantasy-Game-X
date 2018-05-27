@@ -63,8 +63,10 @@ public class HatchScript : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
+					GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ().ScoreScreen ();
                     Debug.Log("Level Complete");
-                    ExitLevel();
+					StartCoroutine (ScoreScreenExit ());
+//                    ExitLevel();
                 }
             }
             else
@@ -101,6 +103,13 @@ public class HatchScript : MonoBehaviour {
 		enemyKills++;
 	}
 
+	private IEnumerator ScoreScreenExit() {
+		yield return new WaitForSeconds (2.0f);
+		yield return new WaitUntil (() => !GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ().scoreScreenStatus);
+		ExitLevel();
+		yield return null;
+	}
+
     public void ExitLevel()
     {
         GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
@@ -128,7 +137,7 @@ public class HatchScript : MonoBehaviour {
 
         //Load Next Level
         GameObject gameManager = GameObject.Find("GameManagers");
-        LevelManager sceneLoader = gameManager.GetComponent<LevelManager>();
+		SceneController sceneLoader = gameManager.GetComponent<SceneController>();
         Debug.Log(sceneLoader);
         sceneLoader.LoadNextLevel();
         //Create End Screen

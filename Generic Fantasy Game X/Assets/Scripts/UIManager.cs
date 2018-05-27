@@ -20,11 +20,12 @@ public class UIManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject pauseMenu;
+	[SerializeField]
 	private GameObject scoreScreen;
 
     
 	private bool pauseMenuStatus;
-	private bool scoreScreenStatus;
+	public bool scoreScreenStatus { get; private set; }
 
     private int level = 1;
     //public Text gameOverText;
@@ -93,6 +94,13 @@ public class UIManager : MonoBehaviour {
             PauseMenu();
         }
 
+		if (scoreScreenStatus) {
+			if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+			{
+				ScoreScreen();
+			}
+		}
+
     }
 
 
@@ -125,7 +133,7 @@ public class UIManager : MonoBehaviour {
 
 	public void ScoreScreen()
 	{
-		if (!scoreScreen)
+		if (!scoreScreenStatus)
 		{
 			scoreScreen.SetActive(true);
 			Time.timeScale = 0;

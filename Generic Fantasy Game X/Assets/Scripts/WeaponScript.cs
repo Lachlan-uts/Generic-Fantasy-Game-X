@@ -12,6 +12,9 @@ public class WeaponScript : MonoBehaviour {
 	private GameObject equiper;
 
 	// public variables
+	[SerializeField]
+	private int weaponModifier;
+
 	public int damage { get; private set; }
 
 	// Use this for initialization
@@ -23,7 +26,7 @@ public class WeaponScript : MonoBehaviour {
 		}
 		equiper = null;
 		//SetState (this.transform.parent);
-		damage = 10;
+		damage = 10 * weaponModifier;
 		//workaround for enabling the weapon collider until the setstate is updated.
 		weaponCollider.enabled = false;
 	}
@@ -48,12 +51,16 @@ public class WeaponScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.layer == LayerMask.NameToLayer ("Units")) {
+			if (other.CompareTag ("Hero") && GetComponentInParent<EntityStatisticsScript> ().gameObject.CompareTag (other.tag)) {
+				return;
+			}
 			//Debug.Log ("Trigger the attack/kill!");
 			Debug.Log (this.gameObject.name + " Hit " + other.gameObject.name);
-			other.gameObject.GetComponent<Collider>().enabled = false;
-			GetComponentInParent<EntityTargetScript> ().targetedEntity = null;
+//			other.gameObject.GetComponent<Collider>().enabled = false;
+//			GetComponentInParent<EntityTargetScript> ().targetedEntity = null;
 			//Will use the navigation script for now, but in future will need to be updated to use the entity controller/statistics script as that makes more sense.
-			other.gameObject.GetComponent<EntityTargetScript> ().Die();
+			DealDamage(other.gameObject);
+			//other.gameObject.GetComponent<EntityTargetScript> ().Die();
 		}
 	}
 
