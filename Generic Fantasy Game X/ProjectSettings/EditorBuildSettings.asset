@@ -8,15 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartMenu.unity
     guid: 4bb254f3f9454624eb51bd363adef267
-  - enabled: 0
-    path: Assets/Scenes/Main Scene.unity
-    guid: 14252a8485b88364aae5dc18ed14babb
   - enabled: 1
-    path: Assets/Scenes/UI - Test Scene.unity
-    guid: a6e7aaa238733bc4cbd6cb769020987a
+    path: Assets/Scenes/UI - Inventory.unity
+    guid: 3165d7b508020b84ea46e4735efa319d
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 91fe0831b415e8745b88860efbbba852
   - enabled: 0
-    path: Assets/Scenes/UI - Inventory.unity
-    guid: 3165d7b508020b84ea46e4735efa319d
+    path: Assets/Scenes/Main Scene.unity
+    guid: 14252a8485b88364aae5dc18ed14babb
+  - enabled: 0
+    path: Assets/Scenes/UI - Test Scene.unity
+    guid: a6e7aaa238733bc4cbd6cb769020987a

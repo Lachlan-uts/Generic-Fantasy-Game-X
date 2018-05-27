@@ -13,6 +13,10 @@ public class SceneController : MonoBehaviour {
 	private static bool hasWritten = false;
 	private static string filePath = "Assets/AcquiredData/SessionData.txt";
 
+	[SerializeField]
+	private string gameScene = "UI - Inventory"; //This is where we set the game scene from
+//	private string mainScene = "UI - Test Scene"; //old value
+
 	// Use this for initialization
 	void Start () {
         currentScene = SceneManager.GetActiveScene();
@@ -37,7 +41,7 @@ public class SceneController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "UI - Test Scene")
+		if (currentScene.name == gameScene)
         {
             restart = GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>();
         }
@@ -53,7 +57,7 @@ public class SceneController : MonoBehaviour {
         {
             restart.Restart();
         }
-        SceneManager.LoadScene("UI - Test Scene");
+		SceneManager.LoadScene(gameScene);
     }
 
     public void ExitGame()
@@ -74,4 +78,11 @@ public class SceneController : MonoBehaviour {
         if(gameObject.name == "Hero")
         SceneManager.LoadScene("GameOver");
     }
+
+	public void LoadNextLevel()
+	{
+		SceneManager.LoadScene(gameScene);
+		//When Combining
+		//SceneManager.LoadScene("Main Scene");
+	}
 }

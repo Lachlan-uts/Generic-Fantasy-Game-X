@@ -137,7 +137,7 @@ public class HatchScript : MonoBehaviour {
 
         //Load Next Level
         GameObject gameManager = GameObject.Find("GameManagers");
-        LevelManager sceneLoader = gameManager.GetComponent<LevelManager>();
+		SceneController sceneLoader = gameManager.GetComponent<SceneController>();
         Debug.Log(sceneLoader);
         sceneLoader.LoadNextLevel();
         //Create End Screen

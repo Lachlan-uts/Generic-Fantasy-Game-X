@@ -95,3 +95,33 @@ Floor: 0 Objective: Kill Enemies Enemy Kills: 0 Total Enemies: 4
 Floor: 0 Objective: Kill Enemies Enemy Kills: 0 Total Enemies: 4
 Floor: 0 Objective: Kill Enemies Enemy Kills: 0 Total Enemies: 4
 Floor: 0 Objective: Kill Enemies Enemy Kills: 0 Total Enemies: 4
+Date/Time of Play session: 28/5/2018 4:18:34.
+Date/Time of Play session: 28/5/2018 4:21:8.
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 11 Total Enemies: 15
+Date/Time of Play session: 28/5/2018 4:25:11.
+Floor: 0 Objective: Kill Enemies Enemy Kills: 0 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 0 Total Enemies: 15
+Date/Time of Play session: 28/5/2018 4:32:6.
