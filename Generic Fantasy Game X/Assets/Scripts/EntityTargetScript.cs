@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+
 
 public class EntityTargetScript : MonoBehaviour {
 
@@ -11,6 +13,8 @@ public class EntityTargetScript : MonoBehaviour {
 	//settable, important fields
 	[SerializeField]
 	private List<string> targetableTags = new List<string> () {"Hero", "Enemy"}; //<--- Make sure this always has atleast 2 elements or bad times will occour
+
+
 
 //	private string[] targetableTags = new string[] {"Hero", "Enemy"};
 
@@ -48,6 +52,7 @@ public class EntityTargetScript : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		targetedEntity = null;
 		StartCoroutine ("WatchForTarget");
+
 	}
 
 	/*
@@ -143,12 +148,24 @@ public class EntityTargetScript : MonoBehaviour {
 
 
 	public void Die() {
-		targetedEntity_ = null;
+        
+		if (this.gameObject.CompareTag ("Hero")) {
+			Invoke ("PlayerDeath", 3.0f);
+		} else {
+			GameObject.Find ("SimpleExit").GetComponent<HatchScript> ().IncrementEnemyKills ();
+		}
+        targetedEntity_ = null;
 		StopAllCoroutines ();
 		anim.enabled = false;
 		entityNavigationScript.enabled = false;
 		GetComponent<NavMeshAgent>().enabled = false;
 		GetComponentInChildren<WeaponScript> ().enabled = false;
 		this.enabled = false;
+
+
+    }
+
+	private void PlayerDeath() {
+		SceneManager.LoadScene(2); //Temp
 	}
 }

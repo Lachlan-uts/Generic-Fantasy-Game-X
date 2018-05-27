@@ -2,14 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class SceneController : MonoBehaviour {
 
     private LevelGenerationScript restart;
     private Scene currentScene;
+
+	// Session Data Collection Setup
+	private static bool hasWritten = false;
+	private static string filePath = "Assets/AcquiredData/SessionData.txt";
+
 	// Use this for initialization
 	void Start () {
         currentScene = SceneManager.GetActiveScene();
+
+		// Record date and time of the test session
+		if (!hasWritten) {
+			hasWritten = true;
+
+			StreamWriter writer = new StreamWriter (filePath, true);
+			writer.WriteLine("Date/Time of Play session: " 
+				+ System.DateTime.Now.Date.Day + "/" 
+				+ System.DateTime.Now.Date.Month + "/" 
+				+ System.DateTime.Now.Date.Year + " "
+				+ System.DateTime.Now.TimeOfDay.Hours + ":" 
+				+ System.DateTime.Now.TimeOfDay.Minutes + ":"
+				+ System.DateTime.Now.TimeOfDay.Seconds + ".");
+			writer.Close ();
+		}
+		// All done with setup
     }
 	
 	// Update is called once per frame
@@ -42,5 +64,14 @@ public class SceneController : MonoBehaviour {
     public void CloseApp()
     {
         Application.Quit();
+    }
+
+
+    //GameOverTrigger
+
+    public void GameOverTrigger()
+    {
+        if(gameObject.name == "Hero")
+        SceneManager.LoadScene("GameOver");
     }
 }

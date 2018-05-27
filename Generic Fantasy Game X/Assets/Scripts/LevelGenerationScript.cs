@@ -597,4 +597,8 @@ public class LevelGenerationScript : MonoBehaviour {
     {
         genStage = -2;
     }
+
+	public int GetEnemyCount() {
+		return numEnemies;
+	}
 }

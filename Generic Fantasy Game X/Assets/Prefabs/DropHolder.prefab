@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65174825133575386}
   - component: {fileID: 23147490563360438}
   - component: {fileID: 54647969157511326}
-  - component: {fileID: 114335069148063350}
+  - component: {fileID: 114855641462323144}
   m_Layer: 0
   m_Name: DropHolder
   m_TagString: Untagged
@@ -112,7 +112,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114335069148063350
+--- !u!114 &114855641462323144
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1253711686378362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55f3e5e4f17fa044c9ac13891a68522e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ba1374dff4c4044fa31408cf9076d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lootItem: {fileID: 0}
