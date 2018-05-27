@@ -29,7 +29,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 
 	//private stuff
-	private int curHealth_, maxHealth_;
+	private int curHealth_, maxHealth_,experience_;
 
 	// public properties
 	[SerializeField]
@@ -53,10 +53,10 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public int level { get; private set; }
 	[SerializeField]
 	public int experience { get {
-			return experience;
+			return experience_;
 		}
 		private set {
-			experience = value;
+			experience_ = value;
 		} }
 
 	[SerializeField]

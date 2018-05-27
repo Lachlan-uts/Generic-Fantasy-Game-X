@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 65627833210468598}
+  weaponModifier: 1
 --- !u!114 &114359944952727520
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -33,7 +33,10 @@ public class EntityNavigationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//extraRotation ();
+		if (agent.isStopped) {
+			extraRotation ();
+		}
+//		extraRotation ();
 		if (goal != null) {
 			agent.destination = goal.position;
 			Debug.Log ("has goal");

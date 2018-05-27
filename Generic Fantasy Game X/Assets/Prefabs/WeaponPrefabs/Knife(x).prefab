@@ -336,3 +336,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 65016714199957298}
+  weaponModifier: 1
