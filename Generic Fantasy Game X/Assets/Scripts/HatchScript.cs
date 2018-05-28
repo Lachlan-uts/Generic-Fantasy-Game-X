@@ -43,10 +43,6 @@ public class HatchScript : MonoBehaviour {
         {
             SetKeyObjective();
         }
-
-        Debug.Log(missionObjective);
-        Debug.Log(enemyCondition);
-        Debug.Log(obtainKeyCondition);
 	}
 	
 	// Update is called once per frame

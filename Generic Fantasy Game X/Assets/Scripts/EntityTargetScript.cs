@@ -29,6 +29,7 @@ public class EntityTargetScript : MonoBehaviour {
 		}
 		set {
 			targetedEntity_ = value;
+//			StartCoroutine (EntityTargetCheck ());
 		}
 	}
 	//The move system for this entity
@@ -55,24 +56,28 @@ public class EntityTargetScript : MonoBehaviour {
 
 	}
 
+	private IEnumerator EntityTargetCheck() {
+		//check if it's not a null
+		if (targetedEntity_ == null)
+			yield return null;
+		
+		yield return new WaitUntil (() => !targetedEntity_.GetComponent<EntityTargetScript>().enabled);
+		targetedEntity = null;
+		yield return null;
+	}
+
 	/*
 	 * In future I'd like this to be a field of view sort of system
 	 */
 	private IEnumerator AquireEnemy() {
 		if (targetedEntity_) {
-			yield return new WaitUntil (() => !targetedEntity_);
+			yield return new WaitUntil (() => targetedEntity_ == null);
 		}
 		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
 		yield return null;
 	}
-
-	private IEnumerator EnemyHealthCheck() {
-		yield return new WaitUntil (() => targetedEntity_.GetComponent<EntityStatisticsScript> ().curHealth <= 0);
-		targetedEntity = null;
-		yield return null;
-	}
-
-	private bool SightCheck() {
+		
+	private bool CheckSight() {
 		RaycastHit hit;
 		Ray entityRay = new Ray(transform.position, targetedEntity.transform.position - transform.position);
 		//Debug.DrawRay (transform.position, targetedEntity.transform.position - transform.position, Color.black, 1.0f, true);
@@ -138,7 +143,7 @@ public class EntityTargetScript : MonoBehaviour {
 
 	private IEnumerator SightCheckTarget() {
 		while (targetedEntity_) {
-			if (SightCheck ()) {
+			if (CheckSight ()) {
 				ProximityCheck ();
 				entityNavigationScript.SetDestination (targetedEntity.transform.position, this.gameObject);
 				entityNavigationScript.StoppedMovementCheck ();
