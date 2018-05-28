@@ -29,7 +29,7 @@ public class EntityTargetScript : MonoBehaviour {
 		}
 		set {
 			targetedEntity_ = value;
-//			StartCoroutine (EntityTargetCheck ());
+			StartCoroutine (CheckTargetEntity ());
 		}
 	}
 	//The move system for this entity
@@ -56,10 +56,10 @@ public class EntityTargetScript : MonoBehaviour {
 
 	}
 
-	private IEnumerator EntityTargetCheck() {
+	private IEnumerator CheckTargetEntity() {
 		//check if it's not a null
 		if (targetedEntity_ == null)
-			yield return null;
+			yield break;
 		
 		yield return new WaitUntil (() => !targetedEntity_.GetComponent<EntityTargetScript>().enabled);
 		targetedEntity = null;
@@ -70,7 +70,7 @@ public class EntityTargetScript : MonoBehaviour {
 	 * In future I'd like this to be a field of view sort of system
 	 */
 	private IEnumerator AquireEnemy() {
-		if (targetedEntity_) {
+		if (targetedEntity_ != null) {
 			yield return new WaitUntil (() => targetedEntity_ == null);
 		}
 		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
@@ -111,7 +111,7 @@ public class EntityTargetScript : MonoBehaviour {
 		yield return new WaitForFixedUpdate ();
 		Debug.Log (entityNavigationScript.GetAgentIsStopped ());
 		yield return new WaitUntil (() => entityNavigationScript.GetAgentIsStopped() == false);
-		if (targetedEntity_) {
+		if (targetedEntity_ != null) {
 			yield return StartCoroutine ("Attack");
 		} else {
 			yield return null;
@@ -121,7 +121,7 @@ public class EntityTargetScript : MonoBehaviour {
 
 	private IEnumerator EntityChecker() {
 		Debug.Log ("In the ent checker");
-		if (targetedEntity_) {
+		if (targetedEntity_ != null) {
 			Debug.Log ("null no longer");
 			yield return WatchForTarget ();
 		} yield return null;
@@ -129,7 +129,7 @@ public class EntityTargetScript : MonoBehaviour {
 
 	private IEnumerator WatchForTarget() {
 		Debug.Log ("attempting to watch for target");
-		if (!targetedEntity_) {
+		if (targetedEntity_ == null) {
 			Debug.Log ("The target is null now");
 			yield return StartCoroutine (AquireEnemy());
 			yield return new WaitUntil (() => targetedEntity_);
@@ -142,7 +142,7 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 	private IEnumerator SightCheckTarget() {
-		while (targetedEntity_) {
+		while (targetedEntity_ != null) {
 			if (CheckSight ()) {
 				ProximityCheck ();
 				entityNavigationScript.SetDestination (targetedEntity.transform.position, this.gameObject);
