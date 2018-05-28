@@ -163,7 +163,7 @@ public class EntityTargetScript : MonoBehaviour {
 	public void Die() {
         
 		if (this.gameObject.CompareTag ("Hero")) {
-			Invoke ("PlayerDeath", 3.0f);
+//			Invoke ("PlayerDeath", 3.0f);
 		} else {
 			GameObject.Find ("SampleExit(Clone)").GetComponent<HatchScript> ().IncrementEnemyKills ();
 		}
@@ -173,6 +173,20 @@ public class EntityTargetScript : MonoBehaviour {
 		entityNavigationScript.enabled = false;
 		GetComponent<NavMeshAgent>().enabled = false;
 		GetComponentInChildren<WeaponScript> ().enabled = false;
+
+		//all heros are dead
+		bool allDead = true;
+
+		foreach (var hero in GameObject.FindGameObjectsWithTag("Hero")) {
+			if (hero != this.gameObject && !hero.GetComponent<EntityTargetScript>().enabled) {
+				
+			} else
+				allDead = false;
+		}
+
+		if (allDead)
+			Invoke ("PlayerDeath", 3.0f);
+
 		this.enabled = false;
 
 

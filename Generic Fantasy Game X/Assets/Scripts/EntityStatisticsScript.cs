@@ -83,6 +83,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public GameObject targetThing;
 	public string targetContext;
 
+	//UI Stuff
+	public Slider staticHealthUI;
+	public Text staticHealthText;
+	public Text currentLevelText;
+
 	// Use this for initialization
 	void Start () {
 		equippedItems.Add (entitySlots.Helmet, null);
@@ -158,6 +163,10 @@ public class EntityStatisticsScript : MonoBehaviour {
 		//used for testing the health UI.
 		if (Input.GetKeyDown (KeyCode.M)) {
 			TakeDamage (1);
+		}
+		if (staticHealthText != null && currentLevelText != null) {
+			staticHealthText.text = "HP: " + curHealth + "/" + maxHealth;
+			currentLevelText.text = "Level: " + level;
 		}
 	}
 
