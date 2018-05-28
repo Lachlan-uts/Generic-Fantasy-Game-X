@@ -5,43 +5,18 @@ using UnityEngine;
 public class Lighting : MonoBehaviour {
 
 	public Light[] lights;
-	private bool on = true;
-	
-	void Awake()
-	{
-		for(int i = 0; i < lights.Length; i++)
-		{
-			lights[i].enabled = false;
-			on = false;
+
+	//set lights to disabled on generation
+	void Awake() {
+		foreach (var light in lights) {
+			light.enabled = false;
 		}
 	}
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-		// if(Input.GetKeyDown(KeyCode.Space) && on){
-		// 	for(int i = 0; i < lights.Length; i++){
-		// 		lights[i].enabled = false;
-		// 		on = false;
-		// 	}
-		// if(Input.GetKeyDown(KeyCode.Space) && !on) {
-		// 	for(int i = 0; i < lights.Length; i++){
-		// 		lights[i].enabled = true;
-		// 		on = true;
-		// 	}
-		// }
-	}
+	//set lights to enable on encountering a hero for the first time.
 	void OnTriggerEnter(Collider other){
-
-		if(other.tag == "Hero"){
-			Debug.Log("hero has entered: "+ this.name);
-			for(int i = 0; i < lights.Length; i++){
-				lights[i].enabled = true;
-				on = true;
+		if(other.CompareTag("Hero")){
+			foreach (var light in lights) {
+				light.enabled = true;
 			}
 		}
 	}
