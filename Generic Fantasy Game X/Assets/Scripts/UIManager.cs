@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour {
     //Health UI
 	private Slider healthBar;
 	private Text HPText;
-	private PlayerManager playerManager;
 	private GameObject slot1;
     private int MaxHP;
     private int CurrentHP;
@@ -64,7 +63,6 @@ public class UIManager : MonoBehaviour {
     //TO DO: Replace Slot1 with "Current Player"
     void Start()
 	{
-        playerManager = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<PlayerManager>();
         canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
 
         //Calling the variables from Player Stats
