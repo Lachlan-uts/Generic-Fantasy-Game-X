@@ -33,7 +33,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (agent.isStopped) {
+		if (agent.isOnNavMesh && agent.isStopped) {
 			extraRotation ();
 		}
 //		extraRotation ();
@@ -123,8 +123,10 @@ public class EntityNavigationScript : MonoBehaviour {
 	}
 
 	public void CancelMovement() {
-		agent.ResetPath ();
-		anim.SetBool ("Moving", false);
+		if (agent.isOnNavMesh) {
+			agent.ResetPath ();
+			anim.SetBool ("Moving", false);
+		}
 	}
 
 	public void PauseMovement(string state) {

@@ -100,13 +100,11 @@ public class LevelGenerationScript : MonoBehaviour {
             {
                 rooms[curRooms].GetComponent<RoomValueStore>().spawnFurniture();
                 curRooms++;
-                Debug.Log("Furniture in 'incomplete' rooms.");
             }
             else if (curRooms < (rooms.Count + completedRooms.Count))
             {
                 completedRooms[curRooms - rooms.Count].GetComponent<RoomValueStore>().spawnFurniture();
                 curRooms++;
-                Debug.Log("Furniture in 'complete' rooms.");
             }
             else
             {
@@ -140,7 +138,6 @@ public class LevelGenerationScript : MonoBehaviour {
         else if (genStage == 6)
         {
             // Spawn Enemies
-            Debug.Log("Spawning Enemy");
             if (curEnemies < numEnemies)
             {
                 SpawnEnemy();
@@ -203,51 +200,22 @@ public class LevelGenerationScript : MonoBehaviour {
 	void generateAdditionalRoom() {
 		// Select an existing room and node within said room
 		GameObject room = rooms [Random.Range (0, rooms.Count)];
-		Debug.Log ("Room Selected: " + room.name);
 		GameObject selectedNodeA = room.GetComponent<RoomValueStore> ().roomInternodes [Random.Range (0, room.GetComponent<RoomValueStore> ().roomInternodes.Count)];
-		Debug.Log (room.name + " Node A: " + selectedNodeA.name);
 
 		// Select a random room to attempt to build, as well as connecting node
 		GameObject newRoom = validRooms [Random.Range (0, validRooms.Length)];
 		GameObject selectedNodeB = newRoom.GetComponent<RoomValueStore> ().roomInternodes [Random.Range (0, newRoom.GetComponent<RoomValueStore> ().roomInternodes.Count)];
-		Debug.Log (newRoom.name + " Node B: " + selectedNodeB.name);
 
 		// Offset the would-be position by matching position to the node with rotation
-
-		//gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f));
-
-		//Debug.Log ("Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
-		//	+ "\nRotation x/y/z: " + gameObject.transform.rotation.x + "/" + gameObject.transform.rotation.y + "/" + gameObject.transform.rotation.z);
-		
-
-
-		Debug.Log ("Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
-			+ "\nRotation x/y/z: " + gameObject.transform.rotation.x + "/" + gameObject.transform.rotation.y + "/" + gameObject.transform.rotation.z);
 
 
 		// Offset again by the distance between node and room origin, along with rotation
 
-		//Debug.Log ("as euler: " + selectedNodeB.transform.rotation.eulerAngles.y);
-		//Debug.Log ("roation is " + selectedNodeB.transform.rotation);
-		//Debug.Log ("local roation is " + selectedNodeB.transform.localRotation);
 
-		//Debug.Log ("Step 1: Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
-		//	+ "\nRotation x/y/z: " + gameObject.transform.rotation.x + "/" + gameObject.transform.rotation.y + "/" + gameObject.transform.rotation.z);
 		gameObject.transform.rotation = Quaternion.Euler(new Vector3 (0.0f, room.transform.rotation.eulerAngles.y + selectedNodeA.transform.localRotation.eulerAngles.y, 0.0f));
-		// Old Method
 		gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, (gameObject.transform.rotation.eulerAngles.y - selectedNodeB.transform.localRotation.eulerAngles.y + 180), 0.0f));
-		// Old Method
-
-		//Vector3 vRotation = new Vector3(0.0f, 0.0f, 0.0f);
-		//vRotation.y = 180 + selectedNodeB.transform.rotation.eulerAngles.y - selectedNodeA.transform.rotation.eulerAngles.y;
-		//Debug.Log ("SNA LEuler: " + selectedNodeA.transform.localRotation.eulerAngles.y + " : SNA Euler: " + selectedNodeA.transform.rotation.eulerAngles.y + 
-		//	"\nSNB LEuler: " + selectedNodeB.transform.localRotation.eulerAngles.y + " : SNB Euler: " + selectedNodeB.transform.rotation.eulerAngles.y);
-		//gameObject.transform.Rotate (vRotation, Space.World);
-		//gameObject.transform.Translate (selectedNodeA.transform.position - selectedNodeB.transform.position, Space.World); // New Method
-		//gameObject.transform.position = Vector3.zero; // New Method
 
 		gameObject.transform.position = selectedNodeA.transform.position; // Old Method
-		//gameObject.transform.position = (gameObject.transform.position + selectedNodeB.transform.localPosition); // Old Method
 
 		// Possible new methodology
 		/* 
@@ -262,16 +230,8 @@ public class LevelGenerationScript : MonoBehaviour {
 			(Mathf.Round(gameObject.transform.position.y * 100.0f) / 100.0f),
 			(Mathf.Round(gameObject.transform.position.z * 100.0f) / 100.0f));
 
-		//gameObject.transform.position = new Vector3 (0.0f, 0.0f, 0.0f);
-		//Vector3 correctiveTranslation = selectedNodeA.transform.position - selectedNodeB.transform.position;
-		//gameObject.transform.position += correctiveTranslation;
 
-
-		Debug.Log ("Result: Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
-			+ "\nRotation x/y/z: " + gameObject.transform.rotation.x + "/" + gameObject.transform.rotation.y + "/" + gameObject.transform.rotation.z);
-		//gameObject.transform.rotation = Quaternion.Euler(new Vector3(0.0f, (gameObject.transform.rotation.y - selectedNodeB.transform.localRotation.y + 180), 0.0f));
-		//Debug.Log ("Position x/y/z: " + gameObject.transform.position.x + "/" + gameObject.transform.position.y + "/" + gameObject.transform.position.z
-		//	+ "\nRotation x/y/z: " + gameObject.transform.rotation.x + "/" + gameObject.transform.rotation.y + "/" + gameObject.transform.rotation.z);
+	
 
 		// Check for intersection by another pre-existing room
 		// Raycast forward, backward, left and right to determine collisions
@@ -281,36 +241,17 @@ public class LevelGenerationScript : MonoBehaviour {
 		// Warning: Make sure you reset the rotation and position of the room itself, otherwise catastrophe awaits
 		Vector3 origCoords = newRoom.transform.position;
 		Vector3 origRotate = newRoom.transform.rotation.eulerAngles;
-		Debug.Log ("Room Params Noted");
 
 		newRoom.transform.position = gameObject.transform.position;
 		newRoom.transform.rotation = gameObject.transform.rotation;
-		Debug.Log ("Room Params Modified");
 
 		List<Bounds> newFloorPlan = new List<Bounds> ();
 		foreach (GameObject floorPiece in newRoom.GetComponent<RoomValueStore>().floorPlanObjects) {
 			newFloorPlan.Add (floorPiece.GetComponent<MeshRenderer> ().bounds);
-			Debug.Log ("Item Added: " + floorPiece.name);
 		}
-		Debug.Log ("Bounds Data Created For New Room");
-
-		/*
-		foreach (Bounds floorPiece in newFloorPlan) {
-			Debug.Log ("Old Extents: " + floorPiece.extents);
-			floorPiece.Expand (-0.1f); // Cut a small amount off the bounds for each new floor piece a tiny bit to avoid detecting "touches"
-			Debug.Log ("New Extents: " + floorPiece.extents); 
-		}
-		*/
-
-		string debugString = "";
-		foreach (Bounds floorPiece in newFloorPlan) {
-			debugString = debugString + "/Center:/" + floorPiece.center + "/Min:/" + floorPiece.min + "/Max:/" + floorPiece.max + "\n";
-		}
-		Debug.Log (debugString);
 
 		newRoom.transform.position = origCoords;
 		newRoom.transform.rotation = Quaternion.Euler(origRotate);
-		Debug.Log ("Room Params Reset");
 
 		// Assemble a bounds for the floor plan of every room in existance to check against. This is the point where it may have been a good idea to write a co-routine for this.
 
@@ -328,29 +269,17 @@ public class LevelGenerationScript : MonoBehaviour {
 				oldFloorPlan.Add (oldFloorPiece.GetComponent<MeshRenderer> ().bounds);
 			}
 		}
-		Debug.Log ("Bounds Data Recreated for Old Rooms");
-
-		debugString = "";
-		foreach (Bounds floorPiece in oldFloorPlan) {
-			debugString = debugString + "/Center:/" + floorPiece.center + "/Min:/" + floorPiece.min + "/Max:/" + floorPiece.max + "\n";
-		}
-		Debug.Log (debugString);
 
 		// Check for bounds intersection. If any bounds intersection occurs, not possible to place the room.
 		foreach (Bounds floorPiece in newFloorPlan) {
 			foreach (Bounds oldFloorPiece in oldFloorPlan) {
 				if (oldFloorPiece.Intersects (floorPiece)) {
-					//Debug.Log ("OFPCP: " + oldFloorPiece.ClosestPoint(floorPiece.center) + "\nNFPCP: " + floorPiece.ClosestPoint(oldFloorPiece.center));
-					//Debug.Log ("Z outcome: " + (oldFloorPiece.ClosestPoint(floorPiece.center).z.ToString("F2") == floorPiece.ClosestPoint(oldFloorPiece.center).z.ToString("F2")));
 					if (oldFloorPiece.ClosestPoint(floorPiece.center).x.ToString("F2") == floorPiece.ClosestPoint(oldFloorPiece.center).x.ToString("F2")
 						&& oldFloorPiece.ClosestPoint(floorPiece.center).y.ToString("F2") == floorPiece.ClosestPoint(oldFloorPiece.center).y.ToString("F2")
 						&& oldFloorPiece.ClosestPoint(floorPiece.center).z.ToString("F2") == floorPiece.ClosestPoint(oldFloorPiece.center).z.ToString("F2")
 						&& oldFloorPiece.ClosestPoint(floorPiece.center) != floorPiece.center) {
-						Debug.Log ("Test Concluded: Floor pieces \"touching\"");
 					} else {
 						possible = false;
-						Debug.Log ("Test Concluded: No Placement Possible");
-						//curRooms = numRooms;
 						break;
 					}
 				}
@@ -397,14 +326,12 @@ public class LevelGenerationScript : MonoBehaviour {
 							instantRoom.GetComponent<RoomValueStore> ().removeNodeAvailability (instantRoom.GetComponent<RoomValueStore> ().roomInternodes [countB]);
 							countB--;
 							countA--;
-							Debug.Log ("Nodes Cancelled");
 							if (instantRoom.GetComponent<RoomValueStore> ().roomInternodes.Count < 1) {
 								break;
 							}
 						}
 						countB++;
 					}
-
 					countA++;
 				}
 			}
@@ -423,14 +350,11 @@ public class LevelGenerationScript : MonoBehaviour {
 				completedRooms.Add (instantRoom);
 				rooms.Remove (instantRoom);
 			}
-
-			Debug.Log (instantRoom.name + " Done!");
 		}
 	}
 
 	void SpawnDoor() {
 		GameObject newDoor = Instantiate (roomDoor, doorNodes [0].transform.position, Quaternion.Euler (doorNodes [0].transform.rotation.eulerAngles)) as GameObject;
-		Debug.Log("Door Spawned");
 		doorNodes.Remove (doorNodes [0]);
 	}
 
@@ -441,37 +365,15 @@ public class LevelGenerationScript : MonoBehaviour {
 				rubbleLocations.Add (node);
 			}
 		}
-
 		return rubbleLocations;
 	}
 
 	void SpawnRubble() {
 		GameObject newRubble = Instantiate (roomRubble, rubbleNodes [0].transform.position, Quaternion.Euler (rubbleNodes [0].transform.rotation.eulerAngles)) as GameObject;
-		Debug.Log("Rubble Spawned");
 		rubbleNodes.Remove (rubbleNodes [0]);
 	}
 
-	//void GenerateFurniture() {
-	//
-	//}
-
 	void GenerateNavMesh() {
-		
-		/*
-		foreach (GameObject room in rooms) {
-			foreach (GameObject floorPiece in room.GetComponent<RoomValueStore>().floorPlanObjects) {
-				floorPiece.GetComponent<NavMeshSurface> ().BuildNavMesh ();
-			}
-		}
-
-		foreach (GameObject room in completedRooms) {
-			foreach (GameObject floorPiece in room.GetComponent<RoomValueStore>().floorPlanObjects) {
-				floorPiece.GetComponent<NavMeshSurface> ().BuildNavMesh ();
-			}
-		}
-
-		*/
-		Debug.Log ("Room Count: " + rooms.Count);
 		if (rooms.Count > 0) {
 			rooms [0].GetComponent<RoomValueStore> ().floorPlanObjects [0].GetComponent<NavMeshSurface> ().BuildNavMesh ();
 		} else {
@@ -496,7 +398,6 @@ public class LevelGenerationScript : MonoBehaviour {
 				}
 			}
 		}
-
 		return enemySpawnPoints;
 	}
 
@@ -543,11 +444,6 @@ public class LevelGenerationScript : MonoBehaviour {
 
 		Vector3 spawnPosTest = new Vector3 (spawnPos.x, spawnPos.y + 0.2f, spawnPos.z);
 
-		//Debug.Log ("Spawn Position: " + spawnPosTest);
-		//Debug.Log ("Spawn Collisions Length: " + Physics.OverlapBox (spawnPosTest, 
-		//	new Vector3 (enemyToSpawn.transform.localScale.x / 2, 0.05f, enemyToSpawn.transform.localScale.z / 2), 
-		//	Quaternion.Euler (spawnRot)).Length);
-
 		if (Physics.OverlapBox (spawnPosTest, 
 			    new Vector3 (enemyToSpawn.transform.localScale.x/2, 0.05f, enemyToSpawn.transform.localScale.z/2), 
 			    Quaternion.Euler (spawnRot)).Length == 0) {
@@ -559,9 +455,6 @@ public class LevelGenerationScript : MonoBehaviour {
 
 			curEnemies++;
 		}
-
-
-		//curEnemies++;
 	}
 
 	void SpawnExit() {
@@ -584,13 +477,11 @@ public class LevelGenerationScript : MonoBehaviour {
 		}
 
 		int exitNumber = Random.Range (0, potentialExits.Count);
-		Debug.Log ("exitNumber: " + exitNumber + ": potentialExitCount: " + potentialExits.Count);
 		Vector3 exitPos = potentialExits [exitNumber].transform.position;
 		Vector3 exitRot = potentialExits [exitNumber].transform.rotation.eulerAngles;
 
 		// Spawn the Exit Stairs
 		GameObject exitLocation = Instantiate(exitStairs, exitPos, Quaternion.Euler(exitRot)) as GameObject;
-		Debug.Log("Exit Spawned.");
 	}
 
     public void Restart()

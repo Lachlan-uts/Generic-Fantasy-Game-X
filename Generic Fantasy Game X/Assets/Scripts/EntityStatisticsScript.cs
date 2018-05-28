@@ -162,7 +162,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 		//used for testing the health UI.
 		if (Input.GetKeyDown (KeyCode.M)) {
-			TakeDamage (1);
+			TakeDamage (20);
 		}
 		if (staticHealthText != null && currentLevelText != null) {
 			staticHealthText.text = "HP: " + curHealth + "/" + maxHealth;

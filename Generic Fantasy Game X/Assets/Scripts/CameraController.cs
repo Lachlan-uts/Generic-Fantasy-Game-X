@@ -142,8 +142,6 @@ public class CameraController : MonoBehaviour {
 	}
 
 	private void GetDudes(bool shiftSelect = false) {
-		Vector2 screenBoxMin = GUIUtility.ScreenToGUIPoint (metalBawx.min);
-		Vector2 screenBoxMax = GUIUtility.ScreenToGUIPoint (boxPosEnd);
 		if (!shiftSelect)
 			selectedHeros = new List<GameObject> ();
 //		metalBawx = new Rect (boxPosOrg.x, Screen.height - boxPosOrg.y, boxPosEnd.x - boxPosOrg.x, -1 * (boxPosEnd.y - boxPosOrg.y));
