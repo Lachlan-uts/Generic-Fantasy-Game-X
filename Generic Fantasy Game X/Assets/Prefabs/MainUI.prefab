@@ -457,7 +457,6 @@ GameObject:
   - component: {fileID: 223999087944166828}
   - component: {fileID: 114148904610613450}
   - component: {fileID: 114941602641588546}
-  - component: {fileID: 114524136709162828}
   m_Layer: 5
   m_Name: MainUI
   m_TagString: GameUI
@@ -1690,7 +1689,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114524136709162828}
+      - m_Target: {fileID: 0}
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -1958,19 +1957,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Quit
---- !u!114 &114524136709162828
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1442912592535184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d48fc1b0341cf4bae21aa00d9b3c48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1264770332597566}
-  mainMenu: {fileID: 1948351612474432}
 --- !u!114 &114528493491794498
 MonoBehaviour:
   m_ObjectHideFlags: 1

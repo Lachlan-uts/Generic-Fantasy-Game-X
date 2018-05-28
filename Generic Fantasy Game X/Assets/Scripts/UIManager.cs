@@ -69,11 +69,6 @@ public class UIManager : MonoBehaviour {
 
         //Calling the variables from Player Stats
         slot1 = GameObject.FindGameObjectWithTag("Slot1");
-        healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
-        HPText = healthBar.GetComponentInChildren<Text>();
-
-		MaxHP = playerManager.maxHP;
-		healthBar.maxValue += MaxHP;//getMaxHP(); //playerStat.playerMaxHealth;
 
         heroes = GameObject.FindGameObjectsWithTag("Hero");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -81,14 +76,6 @@ public class UIManager : MonoBehaviour {
 
     void Update()
     {
-        CurrentHP = playerManager.currentHP;
-
-
-        healthBar.value = CurrentHP;  //playerStat.playerCurrentHealth;
-
-        HPText.text = "HP " + CurrentHP + "/" + MaxHP;
-        Debug.Log("UI MANAGER: " + CurrentHP + "/" + MaxHP);
-
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
             PauseMenu();
@@ -100,7 +87,6 @@ public class UIManager : MonoBehaviour {
 				ScoreScreen();
 			}
 		}
-
     }
 
 
