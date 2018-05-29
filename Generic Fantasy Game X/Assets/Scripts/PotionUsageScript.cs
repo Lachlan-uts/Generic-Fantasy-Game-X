@@ -5,35 +5,18 @@ using UnityEngine;
 public class PotionUsageScript : MonoBehaviour {
 
 	// public properties
-	public enum potionSize { Tiny, Small, Medium, Large };
+	public enum potionSize { Empty, Tiny = 25, Small = 120, Medium = 500, Large = 1400 };
 
 	[SerializeField]
 	private potionSize size;
 
 	public int fluidAmount { get; private set; }
-	public int fluidLimit { get; private set; }
 
 	// Use this for initialization
 	void Start () {
-		if (size == null) {
+		if (size == potionSize.Empty)
 			size = potionSize.Tiny;
-			fluidAmount = 5;
-			fluidLimit = 25;
-		} else {
-			if (size.Equals (potionSize.Small)) {
-				fluidLimit = 120;
-			} else if (size.Equals (potionSize.Medium)) {
-				fluidLimit = 500;
-			} else {
-				fluidLimit = 1400;
-			}
-			fluidAmount = fluidLimit;
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		fluidAmount = (int) size;
 	}
 
 	public void GenerateStatistics(int floorNumber) {
@@ -56,17 +39,12 @@ public class PotionUsageScript : MonoBehaviour {
 
 		if (potionSelect < chanceSmall) {
 			size = potionSize.Small;
-			fluidLimit = 120;
 		} else if (potionSelect < chanceMed) {
 			size = potionSize.Medium;
-			fluidLimit = 500;
 		} else {
 			size = potionSize.Large;
-			fluidLimit = 1400;
 		}
-
-		fluidAmount = fluidLimit;
-
+		fluidAmount = (int) size;
 	}
 
 	public int Quaff(int amountNeeded) { // 'Quaff' an amount needed, so can conserve potions. Integer returned is the amount healed
@@ -78,16 +56,15 @@ public class PotionUsageScript : MonoBehaviour {
 			fluidConsumed = amountNeeded;
 			fluidAmount -= amountNeeded;
 		}
-
 		return fluidConsumed;
 	}
 
 	public int Refill(int amountRefilled) { // 'Refills' the amount poured in. Integer returned is the amount leftover.
 		int fluidRefilled = 0;
 		int fluidLeft = 0;
-		if (amountRefilled > (fluidLimit - fluidAmount)) {
-			fluidRefilled = fluidLimit - fluidAmount;
-			fluidAmount = fluidLimit;
+		if (amountRefilled > ((int) size - fluidAmount)) {
+			fluidRefilled = (int) size - fluidAmount;
+			fluidAmount = (int)size;
 			fluidLeft = amountRefilled - fluidRefilled;
 		} else {
 			fluidRefilled = amountRefilled;
@@ -99,7 +76,7 @@ public class PotionUsageScript : MonoBehaviour {
 	}
 
 	public void Refill() { // The simpler version, which returns nothing
-		fluidAmount = fluidLimit;
+		fluidAmount = (int) size;
 	}
 
 }
