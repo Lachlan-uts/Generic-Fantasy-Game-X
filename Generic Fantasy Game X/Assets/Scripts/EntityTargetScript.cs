@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-
 public class EntityTargetScript : MonoBehaviour {
 
 	//various values that need tracking
@@ -41,6 +40,11 @@ public class EntityTargetScript : MonoBehaviour {
 	//to trigger the attack
 	private Animator anim;
 
+	//list of targets
+	//Dictionary<GameObject,float> TargetProximities = new Dictionary<GameObject, float> ();
+
+	private List<Transform> enemies = new List<Transform>();
+
 	// Use this for initialization
 	void Start () {
         Time.timeScale = 1;
@@ -52,15 +56,42 @@ public class EntityTargetScript : MonoBehaviour {
 		entityNavigationScript = GetComponent<EntityNavigationScript> ();
 		anim = GetComponent<Animator> ();
 		targetedEntity = null;
-		StartCoroutine ("WatchForTarget");
 
+		StartCoroutine (PopulateEnemyList ());
+	}
+
+	private IEnumerator PopulateEnemyList () {
+		foreach (var enemy in GameObject.FindGameObjectsWithTag(targetableTags [0])) {
+			enemies.Add (enemy.transform);
+			//TargetProximities.Add (enemy, Vector3.Distance (enemy.transform.position, this.transform.position));
+		}
+		yield return StartCoroutine ("WatchForTarget");
+	}
+
+	private IEnumerator FindNearbyEnemy() {
+		GameObject enemy = enemies [0].gameObject;
+		float enemyDistance = Vector3.Distance (this.transform.position, enemies [0].position);
+
+		targetedEntity = enemy;
+		yield return new WaitForEndOfFrame ();
+
+		for (int i = 1; i < enemies.Count; i++) {
+			float testDist = Vector3.Distance (this.transform.position, enemies [i].position);
+			if (testDist < enemyDistance) {
+				enemyDistance = testDist;
+				enemy = enemies [i].gameObject;
+			}
+			targetedEntity = enemy;
+			yield return new WaitForEndOfFrame ();
+		}
+		yield return null;
 	}
 
 	private IEnumerator CheckTargetEntity() {
 		//check if it's not a null
-		if (targetedEntity_ == null)
-			yield break;
-		
+		if (targetedEntity_ == null) {
+			yield return StartCoroutine (FindNearbyEnemy ());
+		}		
 		yield return new WaitUntil (() => !targetedEntity_.GetComponent<EntityTargetScript>().enabled);
 		targetedEntity = null;
 		yield return null;
@@ -73,8 +104,9 @@ public class EntityTargetScript : MonoBehaviour {
 		if (targetedEntity_ != null) {
 			yield return new WaitUntil (() => targetedEntity_ == null);
 		}
-		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
-		yield return null;
+		yield return StartCoroutine (FindNearbyEnemy ());
+//		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
+//		yield return null;
 	}
 		
 	private bool CheckSight() {
