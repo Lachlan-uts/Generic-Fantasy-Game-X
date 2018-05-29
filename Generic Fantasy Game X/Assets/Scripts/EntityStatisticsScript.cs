@@ -10,6 +10,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public enum entitySlots { Helmet, Chestplate, Greaves, RightHand, LeftHand, Potion };
 	public enum entityScripts { Navigation, Targeting, Selection };
 
+	public enum entityTargetContexts { None, Item, Furniture, Enemy };
+
 	//Starting Weapon
 	[SerializeField]
 	private GameObject startingWeapon;
@@ -81,7 +83,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 	//public List<GameObject> inventoryItems;
 
 	public GameObject targetThing;
-	public string targetContext;
+	public entityTargetContexts targetContext;
 
 	//UI Stuff
 	public Slider staticHealthUI;
@@ -134,31 +136,31 @@ public class EntityStatisticsScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (targetThing != null) {
-			if (targetContext == "Item") {
+			if (targetContext == entityTargetContexts.Item) {
 				if (Vector3.Distance (this.gameObject.transform.position, targetThing.transform.position) < 0.2f) {
-					//Pickup (targetThing);
+					Pickup (targetThing);
 				}
-			} else if (targetContext == "Furniture") {
+			} else if (targetContext == entityTargetContexts.Furniture) {
 				if (Vector3.Distance (this.gameObject.transform.position, targetThing.transform.position) < 0.2f) {
 					Interact (targetThing);
 				}
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.G)) {
-			if (this.gameObject.CompareTag("Hero")) {
-				Debug.Log ("attempting to find nearest item");
-				//Pickup (GameObject.Find ("ExampleDrop(Clone)"));
-				//Pickup (GameObject.Find ("Sword(x)"));
-				List<GameObject> pickupItems = new List<GameObject>();
-				pickupItems.AddRange (GameObject.FindGameObjectsWithTag ("Items"));
-
-				if (pickupItems.Count > 0) {
-					Pickup (GameObject.Find (pickupItems[0].name));
-				}
-			}
-
-		}
+//		if (Input.GetKeyDown (KeyCode.G)) {
+//			if (this.gameObject.CompareTag("Hero")) {
+//				Debug.Log ("attempting to find nearest item");
+//				//Pickup (GameObject.Find ("ExampleDrop(Clone)"));
+//				//Pickup (GameObject.Find ("Sword(x)"));
+//				List<GameObject> pickupItems = new List<GameObject>();
+//				pickupItems.AddRange (GameObject.FindGameObjectsWithTag ("Items"));
+//
+//				if (pickupItems.Count > 0) {
+//					Pickup (GameObject.Find (pickupItems[0].name));
+//				}
+//			}
+//
+//		}
 
 		//used for testing the health UI.
 		if (Input.GetKeyDown (KeyCode.M)) {
@@ -170,7 +172,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 		}
 	}
 
-	public void InstigateCommand (string context, GameObject other) {
+	public void InstigateCommand (entityTargetContexts context, GameObject other) {
 		targetContext = context;
 		targetThing = other;
 		this.gameObject.GetComponent<EntityNavigationScript> ().SetDestination (targetThing.transform.position, this.gameObject);
@@ -179,12 +181,14 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public void Interact (GameObject other) {
 		other.GetComponent<FurnitureScript> ().Interact ();
 		targetThing = null;
+		targetContext = entityTargetContexts.None;
 		this.gameObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
 	}
 
 	public void Pickup (GameObject other) {
 		other.GetComponent<DropScript> ().Pickup (inventory.transform);
 		target = null;
+		targetContext = entityTargetContexts.None;
 		this.gameObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
 	}
 
@@ -303,6 +307,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	public void GainExperience(int gainedExp) {
 		experience += gainedExp;
+		if (experience > ExperienceNeeded ()) {
+			LevelUp ();
+		}
 	}
 
 	public int ExperienceNeeded() { // Determines how much experience is needed in order to level up
@@ -325,6 +332,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 			if (this.gameObject.tag.Equals ("Enemy")) {
 				foreach (GameObject hero in GameObject.FindGameObjectsWithTag("Hero")) {
 					hero.GetComponent<EntityStatisticsScript> ().GainExperience (10 * level);
+					Debug.Log ("Gain experience...?");
 				}
 
 				int lootChance = 30;

@@ -105,7 +105,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	 */
 	public void SetDestination(Vector3 goal, GameObject invoker) {
 
-		if (invoker.CompareTag (Camera.main.tag)) {
+		if (invoker.CompareTag (Camera.main.tag) || invoker.CompareTag(this.gameObject.tag)) {
 			line.SetPosition (0, transform.position);
 			agent.destination = goal;
 		}
