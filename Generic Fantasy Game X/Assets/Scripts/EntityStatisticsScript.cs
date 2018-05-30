@@ -308,6 +308,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public void GainExperience(int gainedExp) {
 		experience += gainedExp;
 		if (experience > ExperienceNeeded ()) {
+			experience -= ExperienceNeeded ();
 			LevelUp ();
 		}
 	}
