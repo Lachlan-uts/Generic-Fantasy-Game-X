@@ -64,7 +64,7 @@ public class DropManagerScript : MonoBehaviour {
 //	}
 
 	public void generateLoot(Transform lootPosition) {
-		GameObject newItem = Instantiate (itemTemplates [Random.Range (0, itemTemplates.Count)]) as GameObject;
+		GameObject newItem = Instantiate (itemTemplates [Random.Range (0, itemTemplates.Count)], lootPosition.position, lootPosition.rotation) as GameObject;
 		// Insert code to randomly generate the item's properties
 		switch (newItem.GetComponent<ItemTypeScript> ().itemType) {
 		case EntityStatisticsScript.entitySlots.Potion:

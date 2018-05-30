@@ -83,6 +83,10 @@ public class CameraController : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire2")) {
 			GetTarget ();
 		}
+		if (Input.GetKeyDown (KeyCode.G)) {
+			Debug.Log ("Attempting to assign loot");
+			AssignLootToAcquire ();
+		}
 
 		//Getting player inputs
 		playerMoveInput = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
@@ -223,7 +227,7 @@ public class CameraController : MonoBehaviour {
 		if (selectedHeros.Count == 0) {
 			return;
 		}
-		int layerMask = (1 << 8) | (1 << 9);
+		int layerMask = (1 << 8) | (1 << 9) | (1 << 10);
 		RaycastHit hit;
 		Ray cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (cameraRay, out hit, 200f, layerMask)) {
@@ -233,10 +237,16 @@ public class CameraController : MonoBehaviour {
 			if (hit.collider.gameObject.layer == 8) {
 				foreach (var hero in selectedHeros) {
 					hero.GetComponent<EntityTargetScript> ().targetedEntity = hit.collider.gameObject;
-					hero.GetComponent<EntityNavigationScript>().SetDestination (hit.point, this.gameObject);
+					hero.GetComponent<EntityNavigationScript> ().SetDestination (hit.point, this.gameObject);
 				}
 				destinationGizmos = new List<Vector3> ();
 				destinationGizmos.Add (hit.point);
+			} else if (hit.collider.gameObject.layer == 10) {
+				foreach (var hero in selectedHeros) {
+					hero.GetComponent<EntityTargetScript> ().targetedEntity = null;
+				}
+				selectedHeros [0].GetComponent<EntityStatisticsScript> ().InstigateCommand (EntityStatisticsScript.entityTargetContexts.Item, hit.collider.gameObject);
+
 			} else {
 				foreach (var hero in selectedHeros) {
 					hero.GetComponent<EntityTargetScript> ().targetedEntity = null;
@@ -269,6 +279,37 @@ public class CameraController : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	private void AssignLootToAcquire() {
+		if (selectedHeros.Count < 1) {
+			return;
+		}
+		List<GameObject> itemsOnFloor = new List<GameObject> ();
+		itemsOnFloor.AddRange(GameObject.FindGameObjectsWithTag("Items"));
+
+		Debug.Log ("SHC: " + selectedHeros.Count + " : IFC: " + itemsOnFloor.Count);
+
+		if (selectedHeros.Count <= itemsOnFloor.Count) {
+			foreach (var hero in selectedHeros) {
+				Debug.Log("Assigning " + hero.name + " to pick up " + itemsOnFloor[0].name + " at " + itemsOnFloor[0].transform.position);
+				hero.GetComponent<EntityStatisticsScript> ().InstigateCommand (EntityStatisticsScript.entityTargetContexts.Item, itemsOnFloor [0]);
+				itemsOnFloor.Remove (itemsOnFloor [0]);
+			}
+		} else {
+			int lootCount = 0;
+			int lootMax = itemsOnFloor.Count;
+			while (lootCount < lootMax) {
+				Debug.Log("Assigning " + selectedHeros[lootCount].name + " to pick up " + itemsOnFloor[0].name + " at " + itemsOnFloor[0].transform.position);
+				selectedHeros [lootCount].GetComponent<EntityStatisticsScript> ().InstigateCommand (EntityStatisticsScript.entityTargetContexts.Item, itemsOnFloor [0]);
+				itemsOnFloor.Remove (itemsOnFloor [0]);
+
+				lootCount++;
+			}
+		}
+
+
+
 	}
 
 	private Vector3 GetNavMeshSpot(Vector3 parentPosition, Quaternion rotation, List<Vector3> targetDirections) {
