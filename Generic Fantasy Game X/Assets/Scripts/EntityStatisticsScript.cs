@@ -253,6 +253,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 		item.gameObject.transform.rotation = inventory.gameObject.transform.rotation;
 	}
 
+
+
 	public void DropItem(PGISlotItem item, PGIModel model) {
 		item.gameObject.GetComponent<DropScript> ().Drop ();
 	}
