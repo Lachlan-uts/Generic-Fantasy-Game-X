@@ -147,69 +147,23 @@ MonoBehaviour:
   CellWidth: 1
   CellHeight: 1
   Highlight: {r: 0, g: 0, b: 0, a: 0}
-  ItemTypeId: 0
+  ItemTypeId:
+    _Value: 
   MaxStack: 1
   StackCount: 1
   References: []
-  _Equipped: -1
-  _xInvPos: -1
-  _yInvPos: -1
-  _Container: {fileID: 0}
-  PreviousParent: {fileID: 0}
   _RotatedDir: 0
-  OnClick:
+  OnCanRemoveItemModel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlot+SlotTrigger, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: PowerGridInventory.ModelFailableEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  OnCanStore:
+  OnCanStoreItemModel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlotItem+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: PowerGridInventory.ModelFailableEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  OnCanEquip:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlotItem+InventorySlotEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnCanRemove:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlotItem+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnCanUnequip:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlotItem+InventorySlotEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnStoreInInventory:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1226631556502664}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 114265519479182606}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: PowerGridInventory.PGISlotItem+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnRemoveFromInventory:
+  OnRemoveItemModel:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1226631556502664}
@@ -245,25 +199,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-    m_TypeName: PowerGridInventory.PGISlotItem+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: PowerGridInventory.ModelUpdateEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  OnEquip:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1226631556502664}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: PowerGridInventory.PGISlotItem+InventorySlotEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnUnequip:
+  OnStoreItemModel:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1226631556502664}
@@ -277,28 +215,84 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: PowerGridInventory.PGISlotItem+InventorySlotEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnStoreInInventoryFailed:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlotItem+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
+      - m_Target: {fileID: 114265519479182606}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: PowerGridInventory.ModelUpdateEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  OnEquipFailed:
+  OnStoreItemModelFailed:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlotItem+InventorySlotEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: PowerGridInventory.ModelUpdateEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnEnterModel:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.ModelEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnExitModel:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.ModelEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnCanRemoveItemView:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.ViewFailableEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnCanStoreItemView:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.ViewFailableEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnRemoveItemView:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.ViewUpdateEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStoreItemView:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.ViewTransferEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnStoreItemViewFailed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.ViewTransferEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.PGISlot+SlotTrigger, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPointerPressed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.PGISlot+SlotTrigger, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPointerReleased:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PowerGridInventory.PGISlot+SlotTrigger, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   OnDragBegin:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlotItem+InventorySlotEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: PowerGridInventory.ViewUpdateEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   OnDragEnd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: PowerGridInventory.PGISlotItem+InventorySlotEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_TypeName: PowerGridInventory.ViewUpdateEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   FoldedEvents: 1
 --- !u!114 &114265519479182606
 MonoBehaviour:
