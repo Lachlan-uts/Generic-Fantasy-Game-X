@@ -89,7 +89,7 @@ public class CameraController : MonoBehaviour {
 		}
 
 		//Getting player inputs
-		playerMoveInput = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
+		playerMoveInput = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical")) * 10;
 		MouseInput ();
 
 		//Getting the camera target
@@ -103,10 +103,10 @@ public class CameraController : MonoBehaviour {
 		//Performing rotation
 		if (Input.GetKey (KeyCode.Q)) {
 			rotate = 1;
-			this.transform.RotateAround (rotationTarget, Vector3.up, 20 * Time.deltaTime);
+			this.transform.RotateAround (rotationTarget, Vector3.up, rotateSpeed * Time.deltaTime);
 		} else if (Input.GetKey (KeyCode.E)) {
 			rotate = -1;
-			this.transform.RotateAround (rotationTarget, Vector3.down, 20 * Time.deltaTime);
+			this.transform.RotateAround (rotationTarget, Vector3.down, rotateSpeed * Time.deltaTime);
 		} else {
 			rotate = 0;
 		}
@@ -161,20 +161,22 @@ public class CameraController : MonoBehaviour {
 	}
 
 	private void MouseInput() {
-		if (Input.mousePosition.x > 0 && Input.mousePosition.x < 20) {
+		if (Input.mousePosition.x > 0 && Input.mousePosition.x < Screen.width/8) {
 			playerMoveInput = playerMoveInput + Vector3.left;
 		}
-		if (Input.mousePosition.x < Screen.width && Input.mousePosition.x > Screen.width - 20) {
+		if (Input.mousePosition.x < Screen.width && Input.mousePosition.x > Screen.width - Screen.width / 8) {
 			playerMoveInput = playerMoveInput + Vector3.right;
 		}
 
-		if (Input.mousePosition.y > 0 && Input.mousePosition.y < 20) {
+		if (Input.mousePosition.y > 0 && Input.mousePosition.y < Screen.height / 8) {
 			playerMoveInput = playerMoveInput + Vector3.back;
 		}
-		if (Input.mousePosition.y < Screen.height && Input.mousePosition.y > Screen.height - 20) {
+		if (Input.mousePosition.y < Screen.height && Input.mousePosition.y > Screen.height - Screen.height / 8) {
 			playerMoveInput = playerMoveInput + Vector3.forward;
 		}
-	}
+
+        playerMoveInput = Vector3.ClampMagnitude(playerMoveInput, 1f);
+    }
 
 	private void CameraTarget() {
 		if (following) {
