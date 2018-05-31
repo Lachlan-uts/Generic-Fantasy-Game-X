@@ -90,10 +90,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public Text staticHealthText;
 	public Text currentLevelText;
 
-	void Awake () {
-		inventory.GridCellsX = 0;
-		inventory.GridCellsY = 0;
-	}
+	// Should be no longer necessary to "reset" inventory
+//	void Awake () {
+//		inventory.GridCellsX = 0;
+//		inventory.GridCellsY = 0;
+//	}
 
 	// Use this for initialization
 	void Start () {
@@ -210,29 +211,22 @@ public class EntityStatisticsScript : MonoBehaviour {
 	}*/
 
 	public void Equip(PGISlotItem item, PGIModel model, PGISlot slot) {
-		Debug.Log ("Slot: " + slot.gameObject.name);
-		if (!slot.Equals (inventory.Equipment [0]) && !slot.Equals (inventory.Equipment [1])) {
-
-			switch (item.GetComponent<ItemTypeScript> ().itemType) {
-			case entitySlots.Potion:
-				item.gameObject.transform.position = leftHand.transform.position;
-				item.gameObject.transform.rotation = leftHand.transform.rotation;
-				item.gameObject.transform.SetParent (leftHand.transform);
-				break;
-			case entitySlots.RightHand:
-				item.gameObject.transform.position = rightHand.transform.position;
-				item.gameObject.transform.rotation = rightHand.transform.rotation;
-				item.gameObject.transform.SetParent (rightHand.transform);
-//			equippedItems.Add (entitySlots.RightHand, item.gameObject);
-			//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
-			//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
-				break;
-			default:
-				break;
-			}
-		} else {
-			item.gameObject.transform.position = inventory.gameObject.transform.position;
-			item.gameObject.transform.rotation = inventory.gameObject.transform.rotation;
+		switch (item.GetComponent<ItemTypeScript> ().itemType) {
+		case entitySlots.Potion:
+			item.gameObject.transform.position = leftHand.transform.position;
+			item.gameObject.transform.rotation = leftHand.transform.rotation;
+			item.gameObject.transform.SetParent (leftHand.transform);
+			break;
+		case entitySlots.RightHand:
+			item.gameObject.transform.position = rightHand.transform.position;
+			item.gameObject.transform.rotation = rightHand.transform.rotation;
+			item.gameObject.transform.SetParent (rightHand.transform);
+//		equippedItems.Add (entitySlots.RightHand, item.gameObject);
+		//item.gameObject.transform.Rotate (0.0f, 90.0f, 90.0f);
+		//item.gameObject.transform.Translate (0.052f, -0.011f, -0.086f);
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -268,7 +262,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 //		if (equippedItems.TryGetValue (entitySlots.Potion, out equippedPotion)) {
 //
 //		}
-		int healAmount = inventory.Equipment[0].Item.GetComponent<PotionUsageScript>().Quaff(maxHealth - curHealth);
+		int healAmount = inventory.EquipmentSlots[0].Item.GetComponent<PotionUsageScript>().Quaff(maxHealth - curHealth);
 		Heal (healAmount);
 	}
 
@@ -363,8 +357,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 			GetComponentInChildren<Canvas> ().enabled = false;
 
 		} else if (curHealth <= Mathf.RoundToInt(0.3f * maxHealth)) {
-			if (inventory.Equipment [0].Item != null) {
-				if (inventory.Equipment [0].Item.GetComponent<PotionUsageScript> ().fluidAmount > 0) {
+			if (inventory.EquipmentSlots [0].Item != null) {
+				if (inventory.EquipmentSlots [0].Item.GetComponent<PotionUsageScript> ().fluidAmount > 0) {
 					Quaff ();
 				}
 			}
