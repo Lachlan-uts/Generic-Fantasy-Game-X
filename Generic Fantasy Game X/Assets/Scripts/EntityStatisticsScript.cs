@@ -41,6 +41,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 		private set {
 			curHealth_ = value;
 			healthUI.value = value;
+			if (staticHealthUI != null) {
+				staticHealthUI.value = value;
+			}
 			//healthUI.GetComponent<Text> ().text = "" + curHealth + "/" + maxHealth; // UI update everytime the current health is affected
 		} }
 	[SerializeField]
@@ -50,6 +53,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 		private set {
 			maxHealth_ = value;
 			healthUI.maxValue = value;
+			if (staticHealthUI != null) {
+				staticHealthUI.maxValue = value;
+			}
 		} }
 	[SerializeField]
 	public int level { get; private set; }
@@ -59,6 +65,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 		}
 		private set {
 			experience_ = value;
+			if (staticXPUI != null) {
+				staticXPUI.value = value;
+			}
 		} }
 
 	[SerializeField]
@@ -88,6 +97,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 	//UI Stuff
 	public Slider staticHealthUI;
 	public Text staticHealthText;
+	public Slider staticXPUI;
+	public Text staticXPText;
 	public Text currentLevelText;
 
 	// Use this for initialization
@@ -107,6 +118,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 		level = 1;
 		statVitality = 5;
 		statStrength = 3;
+
+		// UI updating as a result of "magic numbers"
+		if (staticXPUI != null) {
+			staticXPUI.maxValue = ExperienceNeeded ();
+		}
 
 		//set health
 		maxHealth = 0;
@@ -166,10 +182,24 @@ public class EntityStatisticsScript : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.M)) {
 			TakeDamage (20);
 		}
-		if (staticHealthText != null && currentLevelText != null) {
+//		if (staticHealthText != null && currentLevelText != null && staticXPText != null) {
+//			staticHealthText.text = "HP: " + curHealth + "/" + maxHealth;
+//			staticXPText.text = "Exp: " + experience + "/" + ExperienceNeeded ();
+//			currentLevelText.text = "Level: " + level;
+//		}
+
+		if (staticHealthText != null) {
 			staticHealthText.text = "HP: " + curHealth + "/" + maxHealth;
+		}
+
+		if (staticXPText != null) {
+			staticXPText.text = "Exp: " + experience + "/" + ExperienceNeeded ();
+		}
+
+		if (currentLevelText != null) {
 			currentLevelText.text = "Level: " + level;
 		}
+
 	}
 
 	public void InstigateCommand (entityTargetContexts context, GameObject other) {
@@ -258,9 +288,13 @@ public class EntityStatisticsScript : MonoBehaviour {
 	}
 
 	private void LevelUp () {
+		level++;
 		statStrength++;
 		statVitality++;
 		UpdateMaxHealth ();
+		if (staticXPUI != null) {
+			staticXPUI.maxValue = ExperienceNeeded ();
+		}
 	}
 
 	public void Heal (int amount) {
@@ -321,6 +355,19 @@ public class EntityStatisticsScript : MonoBehaviour {
 			expNeeded = ((level + 2) * 40) + 40;
 		} else {
 			expNeeded = ((level + 3) * 50) + 30;
+		}
+
+		return expNeeded;
+	}
+
+	public int ExperienceNeeded(int theoreticalLevel) { // Determines how much experience is needed in order to level up
+		int expNeeded = 0;
+		if (theoreticalLevel < 5) {
+			expNeeded = ((theoreticalLevel - 1) * 20) + 80;
+		} else if (theoreticalLevel < 15) {
+			expNeeded = ((theoreticalLevel + 2) * 40) + 40;
+		} else {
+			expNeeded = ((theoreticalLevel + 3) * 50) + 30;
 		}
 
 		return expNeeded;

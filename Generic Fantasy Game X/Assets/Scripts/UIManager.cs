@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PowerGridInventory;
 
 public class UIManager : MonoBehaviour {
 
     //Health UI
-	private Slider healthBar;
-	private Text HPText;
-	private GameObject slot1;
-    private int MaxHP;
-    private int CurrentHP;
+//	private Slider healthBar;
+//	private Text HPText;
+//	private GameObject slot1;
+//    private int MaxHP;
+//    private int CurrentHP;
+
+	//UI Slots
+	[SerializeField]
+	private GameObject[] slots;
 
     //PauseMenu
     private Canvas canvas;
@@ -52,6 +57,26 @@ public class UIManager : MonoBehaviour {
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
 
+		// Establish UI Slot assignage for each hero
+
+		heroes = GameObject.FindGameObjectsWithTag ("Hero");
+
+		int slotCount = 0;
+		int heroCount = 0;
+		while (heroCount < heroes.Length && slotCount < slots.Length) {
+			heroes [heroCount].GetComponent<EntityStatisticsScript> ().staticHealthText = slots [slotCount].GetComponent<UISlotScript> ().HPText;
+			heroes [heroCount].GetComponent<EntityStatisticsScript> ().staticHealthUI = slots [slotCount].GetComponent<UISlotScript> ().HPBar;
+			heroes [heroCount].GetComponent<EntityStatisticsScript> ().staticXPText = slots [slotCount].GetComponent<UISlotScript> ().XPText;
+			heroes [heroCount].GetComponent<EntityStatisticsScript> ().staticXPUI = slots [slotCount].GetComponent<UISlotScript> ().XPBar;
+			heroes [heroCount].GetComponent<EntityStatisticsScript> ().currentLevelText = slots [slotCount].GetComponent<UISlotScript> ().LevelText;
+			slots [slotCount].GetComponent<UISlotScript> ().inventoryView.GetComponent<PGIView> ().Model = heroes [heroCount].GetComponent<EntityStatisticsScript> ().inventory;
+
+			slots [slotCount].SetActive (true);
+
+			heroCount++;
+			slotCount++;
+		}
+
         //LoadCanvas
         pauseMenu.SetActive(false);
         pauseMenuStatus = false;
@@ -66,9 +91,7 @@ public class UIManager : MonoBehaviour {
         canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
 
         //Calling the variables from Player Stats
-        slot1 = GameObject.FindGameObjectWithTag("Slot1");
-
-        heroes = GameObject.FindGameObjectsWithTag("Hero");
+        
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 	}
 
