@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DataCollector : MonoBehaviour {
-	[SerializeField]
-	private GameObject scoreScreen;
-	private Text timerText;
-	private Text killText;
-	private Text collectableText;
+	//[SerializeField]
+	public GameObject scoreScreen;
+	public Text timerText;
+	public Text killText;
+	public Text collectableText;
+	public Text onScreenTimeText;
+	public AudioSource timerAudio;
 
 	public int scoreValue;
 	public int levelTimer;
@@ -23,9 +25,11 @@ public class DataCollector : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scoreScreen = GameObject.FindGameObjectWithTag ("ScoreScreen");
-		timerText = GameObject.FindGameObjectWithTag("TimerScore").GetComponent<Text> ();
-		killText =  GameObject.FindGameObjectWithTag("KillScore").GetComponent<Text> ();
-		collectableText = GameObject.FindGameObjectWithTag("CollectableScore").GetComponent<Text> ();
+//		timerText = GameObject.FindGameObjectWithTag("TimerScore").GetComponent<Text> ();
+//		killText =  GameObject.FindGameObjectWithTag("KillScore").GetComponent<Text> ();
+//		collectableText = GameObject.FindGameObjectWithTag("CollectableScore").GetComponent<Text> ();
+//		onScreenTimeText = GameObject.FindGameObjectWithTag ("OnScreen").GetComponent<Text> ();  //Timer display for Players
+		//timerAudio = GameObject.FindGameObjectWithTag("OnScreen").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -36,15 +40,29 @@ public class DataCollector : MonoBehaviour {
 
 	}
 
+	void FixedUpdate(){
+		//InvokeRepeating ("playTimeAudio", 1f, 100f); 
+	}
+
+	public void playTimeAudio()
+	{
+		timerAudio.Play ();
+	}
 	public void TimerScore()
 	{
 		Debug.Log (hourCount + "h:" + minuteCount + "m:" + (int)secondsCount + "s");
 		//levelTimer += Time.deltaTime;
 		secondsCount += Time.deltaTime;
+
+
+
 		timerText.text = "Level Completed in: " + hourCount + ":" + minuteCount + ":" + (int)secondsCount + "s";
+		onScreenTimeText.text = hourCount + ":" + minuteCount + ":" + (int)secondsCount + "s";
+
 		if (secondsCount >= 60) {
 			minuteCount++;
 			secondsCount = 0;
+
 		} else if (minuteCount >= 60) {
 			hourCount++;
 			minuteCount = 0;
