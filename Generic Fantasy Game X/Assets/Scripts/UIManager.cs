@@ -6,11 +6,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
     //Health UI
-	private Slider healthBar;
-	private Text HPText;
+
 	private GameObject slot1;
-    private int MaxHP;
-    private int CurrentHP;
 
     //PauseMenu
     private Canvas canvas;
@@ -76,6 +73,7 @@ public class UIManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
+			audio.Play ();
             PauseMenu();
         }
 
@@ -89,7 +87,8 @@ public class UIManager : MonoBehaviour {
 
 
     public void PauseMenu()
-    {
+	{
+		audio.Play ();
         if (!pauseMenuStatus)
         {
             pauseMenu.SetActive(true);

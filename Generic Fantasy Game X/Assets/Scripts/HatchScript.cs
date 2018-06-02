@@ -14,11 +14,17 @@ public class HatchScript : MonoBehaviour {
 
     private int enemyKills;
 
+	//Get ScreenScore from UIManager
+	//private UIManager uiManager;
+
 	// Data Collection Setup
 	private static string filePath = "Assets/AcquiredData/SessionData.txt";
 
 	// Use this for initialization
 	void Start () {
+
+		//uiManager = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ();
+
         missionObjective = Random.Range(0, 2);
 
         //For the moment, we'll just make the objective to kill a certain number of enemies
