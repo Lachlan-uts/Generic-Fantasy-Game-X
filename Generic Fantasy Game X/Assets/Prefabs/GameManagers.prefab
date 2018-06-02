@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114956237955502734}
   - component: {fileID: 114782944450482848}
   - component: {fileID: 114315075635544190}
+  - component: {fileID: 114218215627664666}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: GameManagers
@@ -42,6 +43,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114218215627664666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1319806677692778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b4d1c6200b1ab46949ca7f22e86b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreScreen: {fileID: 0}
+  timerText: {fileID: 0}
+  killText: {fileID: 0}
+  collectableText: {fileID: 0}
+  onScreenTimeText: {fileID: 0}
+  timerAudio: {fileID: 0}
+  scoreValue: 0
+  levelTimer: 0
+  killCount: 0
+  collectCount: 0
+  collectMax: 0
 --- !u!114 &114315075635544190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,16 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf8ac3c7182934448f152fbd7522208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
-  currentLevel: 1
-  currentExp: 5
-  toLevelUp: 050000000a0000000f000000
-  HPUp: 050000000a0000000f000000
-  attackUp: 050000000a0000000f000000
-  currentHP: 0
-  maxHP: 0
-  currentAttack: 0
-  currentPlayer: {fileID: 0}
 --- !u!114 &114956237955502734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,3 +102,4 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   scoreScreen: {fileID: 0}
   audio: {fileID: 0}
+  BGM: {fileID: 0}

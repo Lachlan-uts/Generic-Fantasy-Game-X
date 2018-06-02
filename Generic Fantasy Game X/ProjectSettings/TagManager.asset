@@ -25,6 +25,7 @@ TagManager:
   - CollectableScore
   - MainMenu
   - Items
+  - OnScreen
   layers:
   - Default
   - TransparentFX

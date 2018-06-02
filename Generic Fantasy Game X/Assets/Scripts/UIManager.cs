@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour {
 	[SerializeField]
 	private GameObject scoreScreen;
 
-    
+
 	private bool pauseMenuStatus;
 	public bool scoreScreenStatus { get; private set; }
 
@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour {
 
     //Audio for buttons
     public AudioSource audio;
+	public AudioSource BGM;
 
     void Awake()
     {
@@ -83,6 +84,8 @@ public class UIManager : MonoBehaviour {
 
 		scoreScreen.SetActive (false);
 		scoreScreenStatus = false;
+
+		BGM.Play ();
     }
 
     //TO DO: Replace Slot1 with "Current Player"
@@ -91,7 +94,7 @@ public class UIManager : MonoBehaviour {
         canvas = GameObject.FindGameObjectWithTag("GameUI").GetComponent<Canvas>();
 
         //Calling the variables from Player Stats
-        
+
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 	}
 
@@ -99,6 +102,7 @@ public class UIManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
+			audio.Play ();
             PauseMenu();
         }
 
@@ -112,7 +116,8 @@ public class UIManager : MonoBehaviour {
 
 
     public void PauseMenu()
-    {
+	{
+		audio.Play ();
         if (!pauseMenuStatus)
         {
             pauseMenu.SetActive(true);
@@ -125,10 +130,10 @@ public class UIManager : MonoBehaviour {
         }
 
         pauseMenuStatus = !pauseMenuStatus;
-        
+
         foreach (GameObject hero in heroes)
         {
-            hero.GetComponent<EntityNavigationScript>().enabled = 
+            hero.GetComponent<EntityNavigationScript>().enabled =
                 !hero.GetComponent<EntityNavigationScript>().enabled;
         }
         foreach (GameObject enemy in enemies)
