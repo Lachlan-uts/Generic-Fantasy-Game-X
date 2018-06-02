@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour {
 
     //Audio for buttons
     public AudioSource audio;
+	public AudioSource BGM;
 
     void Awake()
     {
@@ -55,6 +56,8 @@ public class UIManager : MonoBehaviour {
 
 		scoreScreen.SetActive (false);
 		scoreScreenStatus = false;
+
+		BGM.Play ();
     }
 
     //TO DO: Replace Slot1 with "Current Player"
