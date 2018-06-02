@@ -952,7 +952,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 146, y: -147.00009}
+  m_AnchoredPosition: {x: 53, y: -53}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &185527206
@@ -2136,7 +2136,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 150
+    m_FontSize: 135
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -2149,15 +2149,23 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Controls:
 
-    A or E - Rotate Camera
+    Q or E - Rotate Camera
 
     WASD - Move Camera
 
-    Z or C - Cancel Command
+    Z - Cancel Movement Command
 
-    Right Click - Command Hero to move here
+    X - Cancel all Movement
 
-    Left Click - Select Hero to control'
+    G - Get selected Heroes to pick up loot
+
+    Right Click - Command Hero to move,
+
+    attack enemy or to pick up a specific item.
+
+    Left Click - Select Hero to control
+
+    Left Click + Drag - Select multiple Heroes'
 --- !u!222 &480372556
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3868,6 +3876,7 @@ RectTransform:
   - {fileID: 1939223752}
   - {fileID: 1383859936}
   - {fileID: 102288041}
+  - {fileID: 1896319613}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4122,7 +4131,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 146, y: -147}
+  m_AnchoredPosition: {x: 52.999992, y: -52.999916}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1215205718
@@ -4908,7 +4917,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 150
+    m_FontSize: 135
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -4921,15 +4930,23 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Controls:
 
-    A or E - Rotate Camera
+    Q or E - Rotate Camera
 
     WASD - Move Camera
 
-    Z or C - Cancel Command
+    Z - Cancel Movement Command
 
-    Right Click - Command Hero to move here
+    X - Cancel all Movement
 
-    Left Click - Select Hero to control'
+    G - Get selected Heroes to pick up loot
+
+    Right Click - Command Hero to move,
+
+    attack enemy or to pick up a specific item.
+
+    Left Click - Select Hero to control
+
+    Left Click + Drag - Select multiple Heroes'
 --- !u!222 &1382154002
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6758,6 +6775,74 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1861643497}
+--- !u!1 &1896319612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1896319613}
+  - component: {fileID: 1896319615}
+  - component: {fileID: 1896319614}
+  m_Layer: 5
+  m_Name: ObjectivePanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1896319613
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1896319612}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1079280713}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -89, y: -54}
+  m_SizeDelta: {x: 120, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1896319614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1896319612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1896319615
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1896319612}
 --- !u!1 &1939223751
 GameObject:
   m_ObjectHideFlags: 0
