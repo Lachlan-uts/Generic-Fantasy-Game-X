@@ -23,12 +23,12 @@ public class EntityNavigationScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Time.timeScale = 1;
-		line = GetComponent<LineRenderer> ();
+//		line = GetComponent<LineRenderer> ();
 		agent = GetComponent<NavMeshAgent> ();
 		anim = GetComponent<Animator> ();
 //		agent.updatePosition = false;
 		//agent.destination = goal.position;
-		line.enabled = false;
+//		line.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -66,11 +66,11 @@ public class EntityNavigationScript : MonoBehaviour {
 			return;
 //		line.SetPositions (path.corners);
 
-		line.positionCount = path.corners.Length;
+//		line.positionCount = path.corners.Length;
 
 		line.SetPosition (0, transform.position);
 		for (int i = 1; i < path.corners.Length; i++) {
-			line.SetPosition (i, path.corners [i]);
+//			line.SetPosition (i, path.corners [i]);
 		}
 //		Debug.Log("set of corners start");
 //		foreach (Vector3 corner in path.corners) {
@@ -106,7 +106,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	public void SetDestination(Vector3 goal, GameObject invoker) {
 
 		if (invoker.CompareTag (Camera.main.tag) || invoker.CompareTag(this.gameObject.tag)) {
-			line.SetPosition (0, transform.position);
+//			line.SetPosition (0, transform.position);
 			agent.destination = goal;
 		}
 		//Debug.Log (invoker.CompareTag(Camera.main.tag));
@@ -114,7 +114,7 @@ public class EntityNavigationScript : MonoBehaviour {
 			//Debug.Log ("I already have an order");
 			return;
 		}
-		line.SetPosition (0, transform.position);
+//		line.SetPosition (0, transform.position);
 		agent.destination = goal;
 		agent.stoppingDistance = 0.5f;
 //		DrawPath (agent.path); // <- use this draw path to see a single set path
