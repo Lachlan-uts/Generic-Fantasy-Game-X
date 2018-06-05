@@ -12,6 +12,15 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	public enum entityTargetContexts { None, Item, Furniture, Enemy };
 
+	//enums to check current order state and entity default behaviour
+	public enum entityOrderState { None, Script, Human };
+	public enum entityResponseState { Neutral, Defensive, Aggressive };
+
+	//Entity states for orders and auto response.
+	public entityOrderState orderState { get; private set; }
+	[SerializeField]
+	public entityResponseState responseState { get; private set; }
+
 	//Starting Weapon
 	[SerializeField]
 	private GameObject startingWeapon;
@@ -89,6 +98,12 @@ public class EntityStatisticsScript : MonoBehaviour {
 	public Slider staticHealthUI;
 	public Text staticHealthText;
 	public Text currentLevelText;
+
+	//use awake for certain variables
+	void Awake() {
+		orderState = entityOrderState.None;
+		responseState = entityResponseState.Defensive;
+	}
 
 	// Use this for initialization
 	void Start () {

@@ -41,11 +41,6 @@ public class EntityTargetScript : MonoBehaviour {
 	//to trigger the attack
 	private Animator anim;
 
-	//list of targets
-	//Dictionary<GameObject,float> TargetProximities = new Dictionary<GameObject, float> ();
-
-	private List<Transform> enemies = new List<Transform>();
-
 	// Use this for initialization
 	void Start () {
         Time.timeScale = 1;
@@ -59,14 +54,6 @@ public class EntityTargetScript : MonoBehaviour {
 		targetedEntity = null;
 		StartCoroutine ("WatchForTarget");
 
-	}
-
-	private IEnumerator PopulateEnemyList () {
-		foreach (var enemy in GameObject.FindGameObjectsWithTag(targetableTags [0])) {
-			enemies.Add (enemy.transform);
-			//TargetProximities.Add (enemy, Vector3.Distance (enemy.transform.position, this.transform.position));
-		}
-		yield return StartCoroutine ("WatchForTarget");
 	}
 
 	private IEnumerator FindNearbyEnemy() {
@@ -118,9 +105,14 @@ public class EntityTargetScript : MonoBehaviour {
 	private bool CheckSight() {
 		RaycastHit hit;
 		Ray entityRay = new Ray(transform.position, targetedEntity.transform.position - transform.position);
-		//Debug.DrawRay (transform.position, targetedEntity.transform.position - transform.position, Color.black, 1.0f, true);
+		Debug.DrawRay (transform.position, targetedEntity.transform.position - transform.position, Color.black, 1.0f, true);
 		if (Physics.Raycast (entityRay, out hit, 20f)) {
-			if (hit.collider.CompareTag ("Hero") || hit.collider.CompareTag ("Enemy") && !hit.collider.CompareTag(this.gameObject.tag)) {
+			if (hit.collider.gameObject == targetedEntity_) {
+				return true;
+			}
+			if (hit.collider.CompareTag (targetableTags[0])) {
+				//will need to add further checks here for the order and response systems.
+				targetedEntity_ = hit.collider.gameObject;
 				return true;
 			}
 		}
@@ -186,7 +178,7 @@ public class EntityTargetScript : MonoBehaviour {
 				entityNavigationScript.SetDestination (targetedEntity.transform.position, this.gameObject);
 				entityNavigationScript.StoppedMovementCheck ();
 			}
-			yield return null;
+			yield return new WaitForEndOfFrame ();
 		}
 		yield return StartCoroutine (WatchForTarget ());
 	}
