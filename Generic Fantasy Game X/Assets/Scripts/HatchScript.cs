@@ -15,7 +15,8 @@ public class HatchScript : MonoBehaviour {
     private int enemyKills;
 
 	//Get ScreenScore from UIManager
-	//private UIManager uiManager;
+	private UIManager uiManager;
+    public GameObject scoreScreen;
 
 	// Data Collection Setup
 	private static string filePath = "Assets/AcquiredData/SessionData.txt";
@@ -23,7 +24,7 @@ public class HatchScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		//uiManager = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ();
+		uiManager = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ();
 
         missionObjective = Random.Range(0, 2);
 
@@ -135,11 +136,22 @@ public class HatchScript : MonoBehaviour {
 			+ " Total Enemies: " + GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().GetEnemyCount());
 		writer.Close ();
 
-		// All done on Data Collection
+        // All done on Data Collection
 
         //Load Next Level
         GameObject gameManager = GameObject.Find("GameManagers");
-		SceneController sceneLoader = gameManager.GetComponent<SceneController>();
+        SceneController sceneLoader = gameManager.GetComponent<SceneController>();
+        Debug.Log(sceneLoader);
+        sceneLoader.LoadNextLevel();
+        //Create End Screen
+
+    }
+
+    void loadNextScene()
+    {
+        //Load Next Level
+        GameObject gameManager = GameObject.Find("GameManagers");
+        SceneController sceneLoader = gameManager.GetComponent<SceneController>();
         Debug.Log(sceneLoader);
         sceneLoader.LoadNextLevel();
         //Create End Screen

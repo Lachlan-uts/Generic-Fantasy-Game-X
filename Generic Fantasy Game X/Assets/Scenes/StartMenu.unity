@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1093786689}
-        m_MethodName: ExitGame
+        m_MethodName: CloseApp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -821,6 +821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e924d83e66a51047af0bd080a8b367b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameScene: UI - Inventory
 --- !u!4 &1093786690
 Transform:
   m_ObjectHideFlags: 0
@@ -1132,10 +1133,10 @@ RectTransform:
   m_Father: {fileID: 1314754971}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.6, y: -0.9}
-  m_SizeDelta: {x: 809.8, y: 645.6}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -2.600006, y: -0.8999939}
+  m_SizeDelta: {x: 9.799988, y: 5.5999756}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2030671587
 MonoBehaviour:

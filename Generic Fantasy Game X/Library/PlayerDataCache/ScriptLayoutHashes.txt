@@ -17,7 +17,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 df374c01140c2d578bf70cbd60073d1d UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-293736470f039c6eff9e6816e2f738da Assembly-CSharp.dll:.EntityStatisticsScript
+d71054d541de0dfc2dcd9c1d9bdf368c Assembly-CSharp.dll:.EntityStatisticsScript
 62f4e803247774277263cc3434718a62 Assembly-CSharp.dll:UnityEngine.AI.NavMeshModifier
 a71e89494a00540356e3247bc0ed0342 Assembly-CSharp.dll:UnityEngine.AI.NavMeshLink
 d3acf6e7443cd39ecd10c9ee7e062ccc Assembly-CSharp.dll:PowerGridInventory.DragIcon
@@ -126,7 +126,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 d63ecaa471e8f091be4e5ad16b4a24e0 Assembly-CSharp.dll:.GUIManager
 dfd53c9aeda61f51aeb619923efa9fd2 Assembly-CSharp.dll:.DropManagerScript
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-f22a09c9e6a98f6f439da30d6e6487c2 Assembly-CSharp.dll:.UIManager
+59498bd991b37de1ffc6c4bb043b4def Assembly-CSharp.dll:.UIManager
 a9aa4c090bad4e6ebcbe0dadb05a78b7 Assembly-CSharp.dll:.DummyWeaponSpawn
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EntitySelectedScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.FloatingUIScript
@@ -144,9 +144,10 @@ f80bb52f7d91f21ed1bbf8aa7dac6bcd Assembly-CSharp.dll:.ItemTypeScript
 0fe0ddfc43374c6d36e141b806236aae Assembly-CSharp.dll:.InventoryManagerScript
 d78da10fc6fe2ebb0bfa7bfae15012c5 Assembly-CSharp.dll:UnityEngine.AI.NavMeshModifierVolume
 b245ca91bc900b58c60be38be963b65c Assembly-CSharp.dll:PowerGridInventory.Extensions.ItemFilter.LinkedEquipSlot
+e680c25c458ee4182fcd72cbef78b35f Assembly-CSharp.dll:.UISlotScript
 1e86f5edc1d5fe315a389f73bc1c28b1 Assembly-CSharp.dll:Toolbox.Lazarus
 8878bb958b0b8c163783f3de2e212e06 Assembly-CSharp.dll:Toolbox.Common.TransformPool
-b22abe01d4cad2206480440c8273ad6a Assembly-CSharp.dll:.DataCollector
+fd0cccf6fc9f57bb5bff04f9401313f3 Assembly-CSharp.dll:.DataCollector
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:PowerGridInventory.Utility.IgnoreUIRaycasts
 6074fec48082e39c05ac680353b34b95 Assembly-CSharp.dll:.LevelGenerationScript
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
@@ -155,7 +156,7 @@ b22abe01d4cad2206480440c8273ad6a Assembly-CSharp.dll:.DataCollector
 3797c9cef854942842433b154088195c Assembly-CSharp.dll:PowerGridInventory.Demo.SimplePickup
 a65212cc2f845c4180536b1592950e56 Assembly-CSharp.dll:PowerGridInventory.Demo.BindMoneyToUI
 c435bd06b74bbebac563a6d81dae369c Assembly-CSharp.dll:PowerGridInventory.Utility.PGICanvasMouseFollower
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.HatchScript
+34fcf7ab4e7092fc09995733b04904f3 Assembly-CSharp.dll:.HatchScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PartyManager
 b6cc1b052fbc639e675cf104b1ce8728 Assembly-CSharp.dll:PowerGridInventory.Demo.SlotHoverEffect
 48d0794061dcca3033ceb3f1804ae6a3 Assembly-CSharp.dll:.RoomValueStore

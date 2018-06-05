@@ -176,3 +176,19 @@ Date/Time of Play session: 4/6/2018 15:46:26.
 Date/Time of Play session: 4/6/2018 15:52:34.
 Date/Time of Play session: 4/6/2018 16:16:16.
 Date/Time of Play session: 4/6/2018 16:26:28.
+Date/Time of Play session: 5/6/2018 14:57:46.
+Date/Time of Play session: 5/6/2018 14:59:9.
+Date/Time of Play session: 5/6/2018 15:23:33.
+Date/Time of Play session: 5/6/2018 15:26:54.
+Date/Time of Play session: 5/6/2018 15:27:17.
+Date/Time of Play session: 5/6/2018 15:28:53.
+Date/Time of Play session: 5/6/2018 15:30:31.
+Date/Time of Play session: 5/6/2018 15:30:50.
+Floor: 0 Objective: Kill Enemies Enemy Kills: 0 Total Enemies: 5
+Floor: 0 Objective: Kill Enemies Enemy Kills: 0 Total Enemies: 5
+Date/Time of Play session: 5/6/2018 15:39:37.
+Date/Time of Play session: 5/6/2018 15:49:55.
+Date/Time of Play session: 5/6/2018 15:52:46.
+Date/Time of Play session: 5/6/2018 15:53:41.
+Date/Time of Play session: 5/6/2018 15:55:46.
+Date/Time of Play session: 5/6/2018 16:3:20.
