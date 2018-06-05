@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114904387224053490}
   - component: {fileID: 114745570227831608}
   m_Layer: 8
-  m_Name: Enemy (xbot)
+  m_Name: EnemyKnife (xbot)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2976,6 +2976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 0}
+  weaponModifier: 0
 --- !u!114 &114117333964417716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3560,7 +3561,10 @@ MonoBehaviour:
   shieldPos: {fileID: 1257797166483404}
   chest: {fileID: 1724616394424810}
   targetThing: {fileID: 0}
-  targetContext: 
+  targetContext: 0
+  staticHealthUI: {fileID: 0}
+  staticHealthText: {fileID: 0}
+  currentLevelText: {fileID: 0}
 --- !u!114 &114745760357920758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4245,7 +4249,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100002, guid: 2ec9d7d5aecc48645a186c19ee98041f, type: 3}
+  - {fileID: 2100000, guid: db813712712fd764b9a5ef77769bfd67, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
