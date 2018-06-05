@@ -70,17 +70,18 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 	private IEnumerator FindNearbyEnemy() {
-		GameObject enemy = enemies [0].gameObject;
-		float enemyDistance = Vector3.Distance (this.transform.position, enemies [0].position);
+		GameObject enemy = LevelGenerationScript.entityLists [targetableTags [0]] [0].gameObject;
+//		GameObject enemy = enemies [0].gameObject;
+		float enemyDistance = Vector3.Distance (this.transform.position, enemy.transform.position);
 
 		targetedEntity = enemy;
 		yield return new WaitForEndOfFrame ();
 
 		for (int i = 1; i < enemies.Count; i++) {
-			float testDist = Vector3.Distance (this.transform.position, enemies [i].position);
+			float testDist = Vector3.Distance (this.transform.position, LevelGenerationScript.entityLists [targetableTags [0]] [i].position);
 			if (testDist < enemyDistance) {
 				enemyDistance = testDist;
-				enemy = enemies [i].gameObject;
+				enemy = LevelGenerationScript.entityLists [targetableTags [0]] [i].gameObject;
 			}
 			targetedEntity = enemy;
 			yield return new WaitForEndOfFrame ();
@@ -105,8 +106,9 @@ public class EntityTargetScript : MonoBehaviour {
 		if (targetedEntity_ != null) {
 			yield return new WaitUntil (() => targetedEntity_ == null);
 		}
-		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
-		yield return null;
+		yield return StartCoroutine (FindNearbyEnemy ());
+//		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
+//		yield return null;
 	}
 		
 	private bool CheckSight() {
