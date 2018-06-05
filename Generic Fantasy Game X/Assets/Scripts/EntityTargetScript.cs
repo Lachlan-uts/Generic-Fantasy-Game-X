@@ -41,6 +41,11 @@ public class EntityTargetScript : MonoBehaviour {
 	//to trigger the attack
 	private Animator anim;
 
+	//list of targets
+	//Dictionary<GameObject,float> TargetProximities = new Dictionary<GameObject, float> ();
+
+	private List<Transform> enemies = new List<Transform>();
+
 	// Use this for initialization
 	void Start () {
         Time.timeScale = 1;
@@ -54,6 +59,33 @@ public class EntityTargetScript : MonoBehaviour {
 		targetedEntity = null;
 		StartCoroutine ("WatchForTarget");
 
+	}
+
+	private IEnumerator PopulateEnemyList () {
+		foreach (var enemy in GameObject.FindGameObjectsWithTag(targetableTags [0])) {
+			enemies.Add (enemy.transform);
+			//TargetProximities.Add (enemy, Vector3.Distance (enemy.transform.position, this.transform.position));
+		}
+		yield return StartCoroutine ("WatchForTarget");
+	}
+
+	private IEnumerator FindNearbyEnemy() {
+		GameObject enemy = enemies [0].gameObject;
+		float enemyDistance = Vector3.Distance (this.transform.position, enemies [0].position);
+
+		targetedEntity = enemy;
+		yield return new WaitForEndOfFrame ();
+
+		for (int i = 1; i < enemies.Count; i++) {
+			float testDist = Vector3.Distance (this.transform.position, enemies [i].position);
+			if (testDist < enemyDistance) {
+				enemyDistance = testDist;
+				enemy = enemies [i].gameObject;
+			}
+			targetedEntity = enemy;
+			yield return new WaitForEndOfFrame ();
+		}
+		yield return null;
 	}
 
 	private IEnumerator CheckTargetEntity() {

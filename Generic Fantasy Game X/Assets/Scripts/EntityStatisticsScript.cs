@@ -122,6 +122,10 @@ public class EntityStatisticsScript : MonoBehaviour {
 		Pickup (initialWeapon);
 //		inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
 
+		// Add this entity to a relevent list.
+//		GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().entityLists[this.gameObject.tag].Add(this.gameObject.transform);
+		LevelGenerationScript.entityLists [this.gameObject.tag].Add (this.gameObject.transform);
+
 		//the below is all garbage!
 
 //		isSelected
@@ -345,6 +349,8 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 			// Invoke "death" here
 			this.gameObject.GetComponent<EntityTargetScript>().Die();
+			//GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().entityLists[this.gameObject.tag].Remove(this.gameObject.transform);
+			LevelGenerationScript.entityLists [this.gameObject.tag].Remove (this.gameObject.transform);
 			GetComponentInChildren<Canvas> ().enabled = false;
 
 		} else if (curHealth <= Mathf.RoundToInt(0.3f * maxHealth)) {

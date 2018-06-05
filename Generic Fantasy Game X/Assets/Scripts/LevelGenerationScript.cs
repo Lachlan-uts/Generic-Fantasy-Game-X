@@ -5,6 +5,16 @@ using UnityEngine.AI;
 
 public class LevelGenerationScript : MonoBehaviour {
 
+	//manage all active entities in a given level.
+	public static List<Transform> heros;
+	public static List<Transform> enemies;
+
+	public static Dictionary<string,List<Transform>> entityLists = new Dictionary<string, List<Transform>> ()
+	{
+		{ "Hero", new List<Transform>() },
+		{ "Enemy", new List<Transform>() }
+	};
+
 	// Public Variables
 	public int floorNumber = 0;
 
@@ -448,6 +458,7 @@ public class LevelGenerationScript : MonoBehaviour {
 			    new Vector3 (enemyToSpawn.transform.localScale.x/2, 0.05f, enemyToSpawn.transform.localScale.z/2), 
 			    Quaternion.Euler (spawnRot)).Length == 0) {
 			GameObject newEnemy = Instantiate (enemyToSpawn, spawnPos, Quaternion.Euler (spawnRot)) as GameObject;
+			//enemies.Add (newEnemy.transform);
 			// Note: Here is where code would go to properly initialize enemy resources
 			//newEnemy.GetComponent<EntityStatisticsScript>().GenerateStats(floorNumber, enemyCategory);
 			// Remove SpawnPoint from the list
