@@ -149,14 +149,6 @@ public class EntityTargetScript : MonoBehaviour {
 		yield return null;
 	}
 
-	private IEnumerator EntityChecker() {
-		Debug.Log ("In the ent checker");
-		if (targetedEntity_ != null) {
-			Debug.Log ("null no longer");
-			yield return WatchForTarget ();
-		} yield return null;
-	}
-
 	private IEnumerator WatchForTarget() {
 		Debug.Log ("attempting to watch for target");
 		if (targetedEntity_ == null) {
@@ -223,11 +215,14 @@ public class EntityTargetScript : MonoBehaviour {
 			Invoke ("PlayerDeath", 3.0f);
 
 		this.enabled = false;
-
-
     }
-
-	private void PlayerDeath() {
-		SceneManager.LoadScene(2); //Temp
+		
+	/// <summary>
+	/// Cleans up and disables this component, getting it ready to be enabled again if needbe.
+	/// </summary>
+	public void CleanUp() {
+		StopAllCoroutines ();
+		targetedEntity_ = null;
+		this.enabled = false;
 	}
 }

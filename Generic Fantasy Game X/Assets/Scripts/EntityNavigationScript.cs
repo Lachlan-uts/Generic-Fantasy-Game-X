@@ -152,4 +152,12 @@ public class EntityNavigationScript : MonoBehaviour {
 		}
 		return true;
 	}
+
+	/// <summary>
+	/// Cleans up and disables this component, getting it ready to be enabled again if needbe.
+	/// </summary>
+	public void CleanUp() {
+		agent.enabled = false;
+		this.enabled = false;
+	}
 }

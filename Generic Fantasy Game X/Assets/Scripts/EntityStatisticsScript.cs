@@ -27,9 +27,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	//All the different components that the entity statisics script controls
 	[SerializeField]
-	private EntityTargetScript target;
+	private EntityTargetScript targeting;
 	private EntityNavigationScript navigation;
-	private EntitySelectedScript selected;
+	private EntitySelectedScript selection;
 
 	// public variables
 	public GameObject nameUI; // placeholder
@@ -103,6 +103,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 	void Awake() {
 		orderState = entityOrderState.None;
 		responseState = entityResponseState.Defensive;
+
+		// Add this entity to a relevent list.
+		LevelGenerationScript.entityLists [this.gameObject.tag].Add (this.gameObject.transform);
 	}
 
 	// Use this for initialization
@@ -128,18 +131,14 @@ public class EntityStatisticsScript : MonoBehaviour {
 		UpdateMaxHealth ();
 
 		//get the selection
-		target = GetComponent<EntityTargetScript> ();
+		targeting = GetComponent<EntityTargetScript> ();
 		navigation = GetComponent<EntityNavigationScript> ();
-		selected = GetComponentInChildren<EntitySelectedScript> ();
+		selection = GetComponentInChildren<EntitySelectedScript> ();
 
 		// Equipping the starting weapon
 		GameObject initialWeapon = Instantiate(startingWeapon, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
 		Pickup (initialWeapon);
 //		inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
-
-		// Add this entity to a relevent list.
-//		GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().entityLists[this.gameObject.tag].Add(this.gameObject.transform);
-		LevelGenerationScript.entityLists [this.gameObject.tag].Add (this.gameObject.transform);
 
 		//the below is all garbage!
 
@@ -206,7 +205,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	public void Pickup (GameObject other) {
 		other.GetComponent<DropScript> ().Pickup (inventory.transform);
-		target = null;
+		targeting = null;
 		targetContext = entityTargetContexts.None;
 		this.gameObject.GetComponent<EntityNavigationScript> ().CancelMovement ();
 	}
@@ -378,7 +377,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 	}
 
 	public void SelectionToggle() {
-		selected.enabled = !selected.enabled;
+		selection.enabled = !selection.enabled;
 	}
 
 //	private IEnumerator IsSelected() {
@@ -399,5 +398,34 @@ public class EntityStatisticsScript : MonoBehaviour {
 				weaponScript.ToggleCollider (false);
 			}
 		}
+	}
+
+	private void Die() {
+
+		if (this.gameObject.CompareTag ("Hero")) {
+			//			Invoke ("PlayerDeath", 3.0f);
+		} else {
+			GameObject.Find ("SampleExit(Clone)").GetComponent<HatchScript> ().IncrementEnemyKills ();
+		}
+		targeting.CleanUp ();
+		navigation.CleanUp ();
+		GetComponent<Animator> ().enabled = false;
+
+		GetComponentInChildren<WeaponScript> ().enabled = false;
+
+		//all heros are dead
+		bool allDead = true;
+
+		foreach (var hero in GameObject.FindGameObjectsWithTag("Hero")) {
+			if (hero != this.gameObject && !hero.GetComponent<EntityTargetScript>().enabled) {
+
+			} else
+				allDead = false;
+		}
+
+		if (allDead)
+			Invoke ("PlayerDeath", 3.0f);
+
+		this.enabled = false;
 	}
 }
