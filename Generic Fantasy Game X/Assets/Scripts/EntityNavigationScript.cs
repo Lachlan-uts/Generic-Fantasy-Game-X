@@ -123,7 +123,7 @@ public class EntityNavigationScript : MonoBehaviour {
 	}
 
 	public void CancelMovement() {
-		if (agent.isOnNavMesh) {
+		if (agent != null && agent.isOnNavMesh) {
 			agent.ResetPath ();
 			anim.SetBool ("Moving", false);
 		}
