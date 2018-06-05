@@ -70,6 +70,8 @@ public class EntityTargetScript : MonoBehaviour {
 	}
 
 	private IEnumerator FindNearbyEnemy() {
+		if (LevelGenerationScript.entityLists [targetableTags [0]].Count <= 0)
+			yield break;
 		GameObject enemy = LevelGenerationScript.entityLists [targetableTags [0]] [0].gameObject;
 //		GameObject enemy = enemies [0].gameObject;
 		float enemyDistance = Vector3.Distance (this.transform.position, enemy.transform.position);
@@ -77,7 +79,7 @@ public class EntityTargetScript : MonoBehaviour {
 		targetedEntity = enemy;
 		yield return new WaitForEndOfFrame ();
 
-		for (int i = 1; i < enemies.Count; i++) {
+		for (int i = 1; i < LevelGenerationScript.entityLists [targetableTags [0]].Count; i++) {
 			float testDist = Vector3.Distance (this.transform.position, LevelGenerationScript.entityLists [targetableTags [0]] [i].position);
 			if (testDist < enemyDistance) {
 				enemyDistance = testDist;
@@ -91,8 +93,10 @@ public class EntityTargetScript : MonoBehaviour {
 
 	private IEnumerator CheckTargetEntity() {
 		//check if it's not a null
-		if (targetedEntity_ == null)
+		if (targetedEntity_ == null) {
 			yield break;
+//			yield return StartCoroutine (FindNearbyEnemy ());
+		}
 		
 		yield return new WaitUntil (() => !targetedEntity_.GetComponent<EntityTargetScript>().enabled);
 		targetedEntity = null;
@@ -106,7 +110,7 @@ public class EntityTargetScript : MonoBehaviour {
 		if (targetedEntity_ != null) {
 			yield return new WaitUntil (() => targetedEntity_ == null);
 		}
-		yield return StartCoroutine (FindNearbyEnemy ());
+		yield return StartCoroutine (FindNearbyEnemy ());	
 //		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
 //		yield return null;
 	}
