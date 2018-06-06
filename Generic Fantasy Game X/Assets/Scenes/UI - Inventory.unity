@@ -4616,6 +4616,42 @@ Prefab:
       propertyPath: numRooms
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: validRooms.Array.data[0]
+      value: 
+      objectReference: {fileID: 1715663956536276, guid: e57948eba361bf64f9f288e9329ca9cc,
+        type: 2}
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: validRooms.Array.data[1]
+      value: 
+      objectReference: {fileID: 1092673791111224, guid: a4ab380dd9854744dbb3269e5d707c2b,
+        type: 2}
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: validRooms.Array.data[2]
+      value: 
+      objectReference: {fileID: 1228913028677386, guid: cdf5da4fe90ae8e41aec41f8fba85606,
+        type: 2}
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: validRooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 1286862292745190, guid: a869234963263134383781f976498e79,
+        type: 2}
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: validRooms.Array.data[4]
+      value: 
+      objectReference: {fileID: 1641199527653146, guid: 3b6f4d58e802af543a64aa051a96045e,
+        type: 2}
+    - target: {fileID: 114789509331959048, guid: 376dc87281407b645a3a74fafd0ee1a0,
+        type: 2}
+      propertyPath: validEntrances.Array.data[0]
+      value: 
+      objectReference: {fileID: 1720576300068292, guid: 48142d98b80cc314da62f874023a2b48,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 376dc87281407b645a3a74fafd0ee1a0, type: 2}
   m_IsPrefabParent: 0
