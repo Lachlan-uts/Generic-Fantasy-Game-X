@@ -19,6 +19,9 @@ public class CameraController : MonoBehaviour {
 	}
 
 	[SerializeField]
+	private int screenEdgePixelSize = 20;
+
+	[SerializeField]
 	GameObject cameraTarget;
 	public float rotateSpeed;
 	float rotate;
@@ -161,17 +164,17 @@ public class CameraController : MonoBehaviour {
 	}
 
 	private void MouseInput() {
-		if (Input.mousePosition.x > 0 && Input.mousePosition.x < 20) {
+		if ((Screen.fullScreen || Input.mousePosition.x > 0) && Input.mousePosition.x < screenEdgePixelSize) {
 			playerMoveInput = playerMoveInput + Vector3.left;
 		}
-		if (Input.mousePosition.x < Screen.width && Input.mousePosition.x > Screen.width - 20) {
+		if ((Screen.fullScreen || Input.mousePosition.x < Screen.width) && Input.mousePosition.x > Screen.width - screenEdgePixelSize) {
 			playerMoveInput = playerMoveInput + Vector3.right;
 		}
 
-		if (Input.mousePosition.y > 0 && Input.mousePosition.y < 20) {
+		if ((Screen.fullScreen || Input.mousePosition.y > 0) && Input.mousePosition.y < screenEdgePixelSize) {
 			playerMoveInput = playerMoveInput + Vector3.back;
 		}
-		if (Input.mousePosition.y < Screen.height && Input.mousePosition.y > Screen.height - 20) {
+		if ((Screen.fullScreen || Input.mousePosition.y < Screen.height) && Input.mousePosition.y > Screen.height - screenEdgePixelSize) {
 			playerMoveInput = playerMoveInput + Vector3.forward;
 		}
 	}

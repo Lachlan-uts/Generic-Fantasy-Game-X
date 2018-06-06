@@ -56,10 +56,34 @@ public class EntityTargetScript : MonoBehaviour {
 
 	}
 
+	private IEnumerator FindNearbyEnemy() {
+		if (LevelGenerationScript.entityLists [targetableTags [0]].Count <= 0)
+			yield break;
+		GameObject enemy = LevelGenerationScript.entityLists [targetableTags [0]] [0].gameObject;
+//		GameObject enemy = enemies [0].gameObject;
+		float enemyDistance = Vector3.Distance (this.transform.position, enemy.transform.position);
+
+		targetedEntity = enemy;
+		yield return new WaitForEndOfFrame ();
+
+		for (int i = 1; i < LevelGenerationScript.entityLists [targetableTags [0]].Count; i++) {
+			float testDist = Vector3.Distance (this.transform.position, LevelGenerationScript.entityLists [targetableTags [0]] [i].position);
+			if (testDist < enemyDistance) {
+				enemyDistance = testDist;
+				enemy = LevelGenerationScript.entityLists [targetableTags [0]] [i].gameObject;
+			}
+			targetedEntity = enemy;
+			yield return new WaitForEndOfFrame ();
+		}
+		yield return null;
+	}
+
 	private IEnumerator CheckTargetEntity() {
 		//check if it's not a null
-		if (targetedEntity_ == null)
+		if (targetedEntity_ == null) {
 			yield break;
+//			yield return StartCoroutine (FindNearbyEnemy ());
+		}
 		
 		yield return new WaitUntil (() => !targetedEntity_.GetComponent<EntityTargetScript>().enabled);
 		targetedEntity = null;
@@ -73,16 +97,22 @@ public class EntityTargetScript : MonoBehaviour {
 		if (targetedEntity_ != null) {
 			yield return new WaitUntil (() => targetedEntity_ == null);
 		}
-		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
-		yield return null;
+		yield return StartCoroutine (FindNearbyEnemy ());	
+//		targetedEntity = GameObject.FindWithTag (targetableTags [0]);
+//		yield return null;
 	}
 		
 	private bool CheckSight() {
 		RaycastHit hit;
 		Ray entityRay = new Ray(transform.position, targetedEntity.transform.position - transform.position);
-		//Debug.DrawRay (transform.position, targetedEntity.transform.position - transform.position, Color.black, 1.0f, true);
+		Debug.DrawRay (transform.position, targetedEntity.transform.position - transform.position, Color.black, 1.0f, true);
 		if (Physics.Raycast (entityRay, out hit, 20f)) {
-			if (hit.collider.CompareTag ("Hero") || hit.collider.CompareTag ("Enemy") && !hit.collider.CompareTag(this.gameObject.tag)) {
+			if (hit.collider.gameObject == targetedEntity_) {
+				return true;
+			}
+			if (hit.collider.CompareTag (targetableTags[0])) {
+				//will need to add further checks here for the order and response systems.
+				targetedEntity_ = hit.collider.gameObject;
 				return true;
 			}
 		}
@@ -119,14 +149,6 @@ public class EntityTargetScript : MonoBehaviour {
 		yield return null;
 	}
 
-	private IEnumerator EntityChecker() {
-		Debug.Log ("In the ent checker");
-		if (targetedEntity_ != null) {
-			Debug.Log ("null no longer");
-			yield return WatchForTarget ();
-		} yield return null;
-	}
-
 	private IEnumerator WatchForTarget() {
 		Debug.Log ("attempting to watch for target");
 		if (targetedEntity_ == null) {
@@ -148,7 +170,7 @@ public class EntityTargetScript : MonoBehaviour {
 				entityNavigationScript.SetDestination (targetedEntity.transform.position, this.gameObject);
 				entityNavigationScript.StoppedMovementCheck ();
 			}
-			yield return null;
+			yield return new WaitForEndOfFrame ();
 		}
 		yield return StartCoroutine (WatchForTarget ());
 	}
@@ -193,11 +215,14 @@ public class EntityTargetScript : MonoBehaviour {
 			Invoke ("PlayerDeath", 3.0f);
 
 		this.enabled = false;
-
-
     }
-
-	private void PlayerDeath() {
-		SceneManager.LoadScene(2); //Temp
+		
+	/// <summary>
+	/// Cleans up and disables this component, getting it ready to be enabled again if needbe.
+	/// </summary>
+	public void CleanUp() {
+		StopAllCoroutines ();
+		targetedEntity_ = null;
+		this.enabled = false;
 	}
 }
