@@ -36,7 +36,7 @@ public class UIEquipSlotScript : MonoBehaviour {
 	public void UpdateText(PGISlotItem item, PGIModel model, PGISlot slot) {
 		switch (item.GetComponent<ItemTypeScript> ().itemType) {
 		case EntityStatisticsScript.entitySlots.Potion:
-			itemDescription.text = item.GetComponent<PotionUsageScript> ().fluidAmount + "/" + item.GetComponent<PotionUsageScript> ().fluidLimit;
+			itemDescription.text = item.GetComponent<PotionUsageScript> ().fluidAmount + "/" + (int) item.GetComponent<PotionUsageScript> ().size;
 			itemDescription.color = Color.green;
 			break;
 		case EntityStatisticsScript.entitySlots.RightHand:

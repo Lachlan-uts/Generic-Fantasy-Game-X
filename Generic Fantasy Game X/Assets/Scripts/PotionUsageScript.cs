@@ -1,4 +1,4 @@
-﻿﻿using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class PotionUsageScript : MonoBehaviour {
 	public enum potionSize { Empty, Tiny = 25, Small = 120, Medium = 500, Large = 1400 };
 
 	[SerializeField]
-	private potionSize size;
+	public potionSize size;
 
 	public int fluidAmount { get; private set; }
 
