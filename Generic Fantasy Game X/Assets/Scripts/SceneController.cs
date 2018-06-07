@@ -19,8 +19,6 @@ public class SceneController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        currentScene = SceneManager.GetActiveScene();
-
 		// Record date and time of the test session
 		if (!hasWritten) {
 			hasWritten = true;
@@ -35,6 +33,13 @@ public class SceneController : MonoBehaviour {
 				+ System.DateTime.Now.TimeOfDay.Seconds + ".");
 			writer.Close ();
 		}
+
+		currentScene = SceneManager.GetActiveScene();
+		if (currentScene.name == gameScene) {
+			restart = GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>();
+			StartCoroutine (HeroCheck ());
+		}
+
 		// All done with setup
     }
 	
@@ -45,6 +50,17 @@ public class SceneController : MonoBehaviour {
         {
             restart = GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>();
         }
+	}
+
+	private IEnumerator HeroCheck() {
+		yield return new WaitUntil (() => LevelGenerationScript.entityLists ["Hero"].Count <= 0);
+		Invoke ("GameOver", 3.0f);
+		yield return null;
+
+	}
+
+	private void GameOver() {
+		SceneManager.LoadScene("GameOver");
 	}
 
     public void StartGame()
