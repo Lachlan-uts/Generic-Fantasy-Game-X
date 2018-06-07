@@ -12,11 +12,6 @@ public class DataCollector : MonoBehaviour {
 	public Text onScreenTimeText;
 	public AudioSource timerAudio;
 
-    //StatusScreen
-    public Text killStatus;
-    public Text keyStatus;
-    public Text objectiveText;
-
 	public int scoreValue;
 	public int levelTimer;
 	private float secondsCount;
@@ -29,7 +24,12 @@ public class DataCollector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		scoreScreen = GameObject.FindGameObjectWithTag ("ScoreScreen");
+//		timerText = GameObject.FindGameObjectWithTag("TimerScore").GetComponent<Text> ();
+//		killText =  GameObject.FindGameObjectWithTag("KillScore").GetComponent<Text> ();
+//		collectableText = GameObject.FindGameObjectWithTag("CollectableScore").GetComponent<Text> ();
+//		onScreenTimeText = GameObject.FindGameObjectWithTag ("OnScreen").GetComponent<Text> ();  //Timer display for Players
+		//timerAudio = GameObject.FindGameObjectWithTag("OnScreen").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -73,15 +73,12 @@ public class DataCollector : MonoBehaviour {
 	public void KillScore()
 	{
 		killText.text = "Enemies Defeated: " + killCount;
-        killStatus.text = killText.text;
 
 	}
 
 	public void CollectableScore()
 	{
-		collectableText.text = "Keys: " + collectCount + "/" + collectMax;
-        keyStatus.text = collectableText.text;
-
+		collectableText.text = "Collected: " + collectCount + "/" + collectMax;
 	}
 
 	public void AddPoints()

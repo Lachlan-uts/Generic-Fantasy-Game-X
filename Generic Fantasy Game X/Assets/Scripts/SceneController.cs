@@ -9,43 +9,43 @@ public class SceneController : MonoBehaviour {
     private LevelGenerationScript restart;
     private Scene currentScene;
 
-    // Session Data Collection Setup
-    private static bool hasWritten = false;
-    private static string filePath = "Assets/AcquiredData/SessionData.txt";
+	// Session Data Collection Setup
+	private static bool hasWritten = false;
+	private static string filePath = "Assets/AcquiredData/SessionData.txt";
 
-    [SerializeField]
-    private string gameScene = "UI - Inventory"; //This is where we set the game scene from
-                                                 //	private string mainScene = "UI - Test Scene"; //old value
+	[SerializeField]
+	private string gameScene = "UI - Inventory"; //This is where we set the game scene from
+//	private string mainScene = "UI - Test Scene"; //old value
 
-    // Use this for initialization
-    void Start() {
+	// Use this for initialization
+	void Start () {
         currentScene = SceneManager.GetActiveScene();
 
-        // Record date and time of the test session
-        if (!hasWritten) {
-            hasWritten = true;
+		// Record date and time of the test session
+		if (!hasWritten) {
+			hasWritten = true;
 
-            StreamWriter writer = new StreamWriter(filePath, true);
-            writer.WriteLine("Date/Time of Play session: "
-                + System.DateTime.Now.Date.Day + "/"
-                + System.DateTime.Now.Date.Month + "/"
-                + System.DateTime.Now.Date.Year + " "
-                + System.DateTime.Now.TimeOfDay.Hours + ":"
-                + System.DateTime.Now.TimeOfDay.Minutes + ":"
-                + System.DateTime.Now.TimeOfDay.Seconds + ".");
-            writer.Close();
-        }
-        // All done with setup
+			StreamWriter writer = new StreamWriter (filePath, true);
+			writer.WriteLine("Date/Time of Play session: " 
+				+ System.DateTime.Now.Date.Day + "/" 
+				+ System.DateTime.Now.Date.Month + "/" 
+				+ System.DateTime.Now.Date.Year + " "
+				+ System.DateTime.Now.TimeOfDay.Hours + ":" 
+				+ System.DateTime.Now.TimeOfDay.Minutes + ":"
+				+ System.DateTime.Now.TimeOfDay.Seconds + ".");
+			writer.Close ();
+		}
+		// All done with setup
     }
-
-    // Update is called once per frame
-    void Update() {
+	
+	// Update is called once per frame
+	void Update () {
         currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == gameScene)
+		if (currentScene.name == gameScene)
         {
             restart = GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>();
         }
-    }
+	}
 
     public void StartGame()
     {
@@ -57,7 +57,7 @@ public class SceneController : MonoBehaviour {
         {
             restart.Restart();
         }
-        SceneManager.LoadScene(gameScene);
+		SceneManager.LoadScene(gameScene);
     }
 
     public void ExitGame()
@@ -75,19 +75,14 @@ public class SceneController : MonoBehaviour {
 
     public void GameOverTrigger()
     {
-        if (gameObject.name == "Hero")
-            SceneManager.LoadScene("GameOver");
+        if(gameObject.name == "Hero")
+        SceneManager.LoadScene("GameOver");
     }
 
-    public void LoadNextLevel()
-    {
-        SceneManager.LoadScene(gameScene);
-        //When Combining
-        //SceneManager.LoadScene("Main Scene");
-    }
-
-    public void LoadInstructions()
-    {
-        SceneManager.LoadScene("Instructions");
-    }
+	public void LoadNextLevel()
+	{
+		SceneManager.LoadScene(gameScene);
+		//When Combining
+		//SceneManager.LoadScene("Main Scene");
+	}
 }
