@@ -14,6 +14,8 @@ public class HatchScript : MonoBehaviour {
 
     private int enemyKills;
 
+    public static int keysFound = 0;
+
 	//Get ScreenScore from UIManager
 	//private UIManager uiManager;
 
@@ -54,6 +56,7 @@ public class HatchScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+
 	}
 
     private void OnTriggerStay(Collider other)
@@ -81,24 +84,31 @@ public class HatchScript : MonoBehaviour {
 
     private bool CanLeave()
     {
-        //Check Objective Completion
-        bool canLeave = true;
-        if (CompleteKeyObjective() || CompleteEnemyObjective())
-        {
-            GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
-            foreach (GameObject hero in heroes)
-            {
-                if (Vector3.Distance(hero.transform.position, gameObject.transform.position) > hatchRange)
-                {
-                    canLeave = false;
-                }
-            }
+        bool canLeave = false;
+
+        if(keysFound > 1){
+            canLeave = true;
         }
-        else
-        {
-            canLeave = false;
-        }
+
         return canLeave;
+        //Check Objective Completion
+        // bool canLeave = true;
+        // if (CompleteKeyObjective() || CompleteEnemyObjective())
+        // {
+        //     GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
+        //     foreach (GameObject hero in heroes)
+        //     {
+        //         if (Vector3.Distance(hero.transform.position, gameObject.transform.position) < hatchRange)
+        //         {
+        //             canLeave = true;
+        //         }
+        //     }
+        // }
+        // else
+        // {
+        //     canLeave = false;
+        // }
+        // return canLeave;
     }
 
 	public void IncrementEnemyKills() {
@@ -168,6 +178,11 @@ public class HatchScript : MonoBehaviour {
 
     private bool CompleteKeyObjective()
     {
-        return true;
+        // if(keysFound > 1){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return false;
     }
 }

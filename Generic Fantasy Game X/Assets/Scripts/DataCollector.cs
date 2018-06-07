@@ -50,7 +50,7 @@ public class DataCollector : MonoBehaviour {
 	}
 	public void TimerScore()
 	{
-		Debug.Log (hourCount + "h:" + minuteCount + "m:" + (int)secondsCount + "s");
+		//Debug.Log (hourCount + "h:" + minuteCount + "m:" + (int)secondsCount + "s");
 		//levelTimer += Time.deltaTime;
 		secondsCount += Time.deltaTime;
 

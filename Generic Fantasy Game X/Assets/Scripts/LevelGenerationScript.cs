@@ -31,6 +31,8 @@ public class LevelGenerationScript : MonoBehaviour {
 	private int numRooms = 3;
 	[SerializeField]
 	private int numEnemies = 5;
+	[SerializeField]
+	private GameObject key;
 
 	// Private Variables
 	private GameObject entranceRoom; // Used later for comparison such that the starting room cannot contain enemies
@@ -44,6 +46,7 @@ public class LevelGenerationScript : MonoBehaviour {
 	private List<GameObject> enemySpawnPoints; // List of enemy spawn points
 	private GameObject[] enemyList; // Used to disable enemies prior to 'spawning' in heroes and back again
 	private List<GameObject> heroSpawnList; // List of hero spawn locations, dependant on spawn locations within the starting room
+	//private bool spawnKey = false;
 
 	// Use this for initialization
 	void Start () {
@@ -198,6 +201,8 @@ public class LevelGenerationScript : MonoBehaviour {
 	}
 
 	void generateAdditionalRoom() {
+
+
 		// Select an existing room and node within said room
 		GameObject room = rooms [Random.Range (0, rooms.Count)];
 		GameObject selectedNodeA = room.GetComponent<RoomValueStore> ().roomInternodes [Random.Range (0, room.GetComponent<RoomValueStore> ().roomInternodes.Count)];
@@ -350,6 +355,12 @@ public class LevelGenerationScript : MonoBehaviour {
 				completedRooms.Add (instantRoom);
 				rooms.Remove (instantRoom);
 			}
+		}
+
+
+		if(curRooms > numRooms-3){
+			Debug.Log("Room Number: "+ curRooms);
+			GameObject Key = Instantiate(key, gameObject.transform.position, gameObject.transform.rotation);
 		}
 	}
 
