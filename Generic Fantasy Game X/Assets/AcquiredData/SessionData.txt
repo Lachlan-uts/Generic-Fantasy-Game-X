@@ -193,3 +193,12 @@ Date/Time of Play session: 5/6/2018 22:0:44.
 Date/Time of Play session: 5/6/2018 22:1:35.
 Date/Time of Play session: 5/6/2018 22:4:36.
 Date/Time of Play session: 5/6/2018 22:6:13.
+Date/Time of Play session: 7/6/2018 13:0:2.
+Date/Time of Play session: 7/6/2018 13:0:32.
+Date/Time of Play session: 7/6/2018 13:1:10.
+Date/Time of Play session: 7/6/2018 13:5:19.
+Date/Time of Play session: 7/6/2018 13:23:48.
+Date/Time of Play session: 7/6/2018 13:24:10.
+Date/Time of Play session: 7/6/2018 13:27:54.
+Date/Time of Play session: 7/6/2018 13:28:7.
+Date/Time of Play session: 7/6/2018 13:34:23.

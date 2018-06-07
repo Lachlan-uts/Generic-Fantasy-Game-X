@@ -53,20 +53,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorNumber: 0
   validEntrances:
-  - {fileID: 1720576300068292, guid: fd2e3bb5106515f48be76d39c1024085, type: 2}
+  - {fileID: 1720576300068292, guid: 2dcab6d1cd4b66e48a5b843b0d37c090, type: 2}
   validRooms:
-  - {fileID: 1715663956536276, guid: 6614aee90cdfb9a43b89db391c37232f, type: 2}
-  - {fileID: 1092673791111224, guid: a747feb827bc422429905bd43b800147, type: 2}
-  - {fileID: 1228913028677386, guid: f020d425bcb826e48a9c9cef0d5ff733, type: 2}
-  - {fileID: 1286862292745190, guid: 776370f753bef7448b66061342804b38, type: 2}
-  - {fileID: 1641199527653146, guid: 285bb0e89cb4914448e4f8754f06a075, type: 2}
+  - {fileID: 1715663956536276, guid: 756d7ae653357af44b2f44877ac89091, type: 2}
+  - {fileID: 1092673791111224, guid: f4176575ebc9699428d714a313709fda, type: 2}
+  - {fileID: 1228913028677386, guid: 25e13d7d9edfc57489a77fb90d0b2152, type: 2}
+  - {fileID: 1286862292745190, guid: 425e2d93cade09c47b06efa183852571, type: 2}
+  - {fileID: 1641199527653146, guid: 3f6285fe4ac855e46ae7aade4e944f50, type: 2}
+  - {fileID: 1848706199580792, guid: 5b8cfa7602eb0eb498488265a24db593, type: 2}
   validLoot: []
   validEnemiesLight:
-  - {fileID: 1976247666902914, guid: ba530ec3360012546a268c6cf7fb7b5c, type: 2}
+  - {fileID: 1031370533829100, guid: 35f931d634ecd434b93f11da57ceebfe, type: 2}
   validEnemiesModerate: []
   validEnemiesBrute: []
-  exitStairs: {fileID: 1328713949811690, guid: 47100e3d8141e9943aa044b0dac9a9b3, type: 2}
+  exitStairs: {fileID: 1034956674318524, guid: 9dbe54f33a8a12f44b395ac68c7133d2, type: 2}
   roomDoor: {fileID: 1963067347466498, guid: 9841c73026760084185bdf70a754aef6, type: 2}
   roomRubble: {fileID: 1595390086829828, guid: 021927b5294750341af797b8ec7e6261, type: 2}
-  numRooms: 50
-  numEnemies: 45
+  numRooms: 30
+  numEnemies: 15
