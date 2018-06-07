@@ -14,6 +14,7 @@ public class EntityTargetScript : MonoBehaviour {
 	[SerializeField]
 	private List<string> targetableTags = new List<string> () {"Hero", "Enemy"}; //<--- Make sure this always has atleast 2 elements or bad times will occour
 
+    public DataCollector dataCollector;
 
 
 //	private string[] targetableTags = new string[] {"Hero", "Enemy"};
@@ -172,6 +173,13 @@ public class EntityTargetScript : MonoBehaviour {
 		} else {
 			GameObject.Find ("SampleExit(Clone)").GetComponent<HatchScript> ().IncrementEnemyKills ();
 		}
+
+        if(this.gameObject.CompareTag("Enemy"))
+        {
+            dataCollector = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<DataCollector>();
+            dataCollector.AddPoints();
+
+        }
         targetedEntity_ = null;
 		StopAllCoroutines ();
 		anim.enabled = false;
@@ -190,7 +198,7 @@ public class EntityTargetScript : MonoBehaviour {
 		}
 
 		if (allDead)
-			Invoke ("PlayerDeath", 3.0f);
+			Invoke ("PlayerDeath", 2.0f);
 
 		this.enabled = false;
 
@@ -198,6 +206,6 @@ public class EntityTargetScript : MonoBehaviour {
     }
 
 	private void PlayerDeath() {
-		SceneManager.LoadScene(2); //Temp
+		SceneManager.LoadScene("GameOver"); //Temp
 	}
 }

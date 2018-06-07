@@ -6,12 +6,6 @@ using PowerGridInventory;
 
 public class UIManager : MonoBehaviour {
 
-    //Health UI
-//	private Slider healthBar;
-//	private Text HPText;
-//	private GameObject slot1;
-//    private int MaxHP;
-//    private int CurrentHP;
 
 	//UI Slots
 	[SerializeField]
@@ -27,9 +21,17 @@ public class UIManager : MonoBehaviour {
 	[SerializeField]
 	private GameObject scoreScreen;
 
+    public GameObject statusScreen;
+
+    //Switch Buttons Off
+    public GameObject pauseBtn;
+    public GameObject statusBtn;
+
 
 	private bool pauseMenuStatus;
 	public bool scoreScreenStatus { get; private set; }
+    private bool statusScreenStatus;
+
 
     private int level = 1;
     //public Text gameOverText;
@@ -85,7 +87,10 @@ public class UIManager : MonoBehaviour {
 		scoreScreen.SetActive (false);
 		scoreScreenStatus = false;
 
-		BGM.Play ();
+        statusScreen.SetActive(false);
+        statusScreenStatus = false;
+
+        BGM.Play ();
     }
 
     //TO DO: Replace Slot1 with "Current Player"
@@ -120,12 +125,17 @@ public class UIManager : MonoBehaviour {
 		audio.Play ();
         if (!pauseMenuStatus)
         {
+            pauseBtn.SetActive(false);
+            statusBtn.SetActive(false);
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
         }
         else
         {
+            pauseBtn.SetActive(true);
+            statusBtn.SetActive(true);
             pauseMenu.SetActive(false);
+            
             Time.timeScale = 1;
         }
 
@@ -158,5 +168,39 @@ public class UIManager : MonoBehaviour {
 
 		scoreScreenStatus = !scoreScreenStatus;
 	}
+
+    public void StatusScreen()
+    {
+        
+        audio.Play();
+        if (!statusScreenStatus)
+        {
+            pauseBtn.SetActive(false);
+            statusBtn.SetActive(false);
+            statusScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pauseBtn.SetActive(true);
+            statusBtn.SetActive(true);
+            statusScreen.SetActive(false);
+
+            Time.timeScale = 1;
+        }
+
+        statusScreenStatus = !statusScreenStatus;
+
+        foreach (GameObject hero in heroes)
+        {
+            hero.GetComponent<EntityNavigationScript>().enabled =
+                !hero.GetComponent<EntityNavigationScript>().enabled;
+        }
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EntityNavigationScript>().enabled =
+                !enemy.GetComponent<EntityNavigationScript>().enabled;
+        }
+    }
 
 }
