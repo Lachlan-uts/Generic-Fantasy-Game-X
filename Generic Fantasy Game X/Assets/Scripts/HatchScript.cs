@@ -6,7 +6,7 @@ using System.IO;
 public class HatchScript : MonoBehaviour {
 
     // private variables
-	private float hatchRange = 6.0f;
+    private float hatchRange = 6.0f;
 
     private float missionObjective;
     private bool enemyCondition = false;
@@ -14,17 +14,18 @@ public class HatchScript : MonoBehaviour {
 
     private int enemyKills;
 
-	//Get ScreenScore from UIManager
-	private UIManager uiManager;
-    public GameObject scoreScreen;
+    public static int keysFound = 0;
 
-	// Data Collection Setup
-	private static string filePath = "Assets/AcquiredData/SessionData.txt";
+    //Get ScreenScore from UIManager
+    //private UIManager uiManager;
 
-	// Use this for initialization
-	void Start () {
+    // Data Collection Setup
+    private static string filePath = "Assets/AcquiredData/SessionData.txt";
 
-		uiManager = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ();
+    // Use this for initialization
+    void Start () {
+
+        //uiManager = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ();
 
         missionObjective = Random.Range(0, 2);
 
@@ -50,12 +51,13 @@ public class HatchScript : MonoBehaviour {
         {
             SetKeyObjective();
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+    
+    // Update is called once per frame
+    void Update () {
+        
+
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -66,9 +68,9 @@ public class HatchScript : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
-					GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ().ScoreScreen ();
+                    GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ().ScoreScreen ();
                     Debug.Log("Level Complete");
-					StartCoroutine (ScoreScreenExit ());
+                    StartCoroutine (ScoreScreenExit ());
 //                    ExitLevel();
                 }
             }
@@ -82,36 +84,43 @@ public class HatchScript : MonoBehaviour {
 
     private bool CanLeave()
     {
-        //Check Objective Completion
-        bool canLeave = true;
-        if (CompleteKeyObjective() || CompleteEnemyObjective())
-        {
-            GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
-            foreach (GameObject hero in heroes)
-            {
-                if (Vector3.Distance(hero.transform.position, gameObject.transform.position) > hatchRange)
-                {
-                    canLeave = false;
-                }
-            }
+        bool canLeave = false;
+
+        if(keysFound > 1){
+            canLeave = true;
         }
-        else
-        {
-            canLeave = false;
-        }
+
         return canLeave;
+        //Check Objective Completion
+        // bool canLeave = true;
+        // if (CompleteKeyObjective() || CompleteEnemyObjective())
+        // {
+        //     GameObject[] heroes = GameObject.FindGameObjectsWithTag("Hero");
+        //     foreach (GameObject hero in heroes)
+        //     {
+        //         if (Vector3.Distance(hero.transform.position, gameObject.transform.position) < hatchRange)
+        //         {
+        //             canLeave = true;
+        //         }
+        //     }
+        // }
+        // else
+        // {
+        //     canLeave = false;
+        // }
+        // return canLeave;
     }
 
-	public void IncrementEnemyKills() {
-		enemyKills++;
-	}
+    public void IncrementEnemyKills() {
+        enemyKills++;
+    }
 
-	private IEnumerator ScoreScreenExit() {
-		yield return new WaitForSeconds (2.0f);
-		yield return new WaitUntil (() => !GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ().scoreScreenStatus);
-		ExitLevel();
-		yield return null;
-	}
+    private IEnumerator ScoreScreenExit() {
+        yield return new WaitForSeconds (2.0f);
+        yield return new WaitUntil (() => !GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ().scoreScreenStatus);
+        ExitLevel();
+        yield return null;
+    }
 
     public void ExitLevel()
     {
@@ -122,33 +131,22 @@ public class HatchScript : MonoBehaviour {
             //DontDestroyOnLoad(hero);
         }
 
-		// Data Collection
-		StreamWriter writer = new StreamWriter(filePath, true);
-		string objectiveString = "";
-		if (enemyCondition) {
-			objectiveString += "Kill Enemies";
-		} else {
-			objectiveString += "Find Key";
-		}
-		writer.WriteLine ("Floor: " + GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().floorNumber 
-			+ " Objective: " + objectiveString 
-			+ " Enemy Kills: " + enemyKills
-			+ " Total Enemies: " + GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().GetEnemyCount());
-		writer.Close ();
+        // Data Collection
+        StreamWriter writer = new StreamWriter(filePath, true);
+        string objectiveString = "";
+        if (enemyCondition) {
+            objectiveString += "Kill Enemies";
+        } else {
+            objectiveString += "Find Key";
+        }
+        writer.WriteLine ("Floor: " + GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().floorNumber 
+            + " Objective: " + objectiveString 
+            + " Enemy Kills: " + enemyKills
+            + " Total Enemies: " + GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().GetEnemyCount());
+        writer.Close ();
 
         // All done on Data Collection
 
-        //Load Next Level
-        GameObject gameManager = GameObject.Find("GameManagers");
-        SceneController sceneLoader = gameManager.GetComponent<SceneController>();
-        Debug.Log(sceneLoader);
-        sceneLoader.LoadNextLevel();
-        //Create End Screen
-
-    }
-
-    void loadNextScene()
-    {
         //Load Next Level
         GameObject gameManager = GameObject.Find("GameManagers");
         SceneController sceneLoader = gameManager.GetComponent<SceneController>();
@@ -180,6 +178,11 @@ public class HatchScript : MonoBehaviour {
 
     private bool CompleteKeyObjective()
     {
-        return true;
+        // if(keysFound > 1){
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return false;
     }
 }

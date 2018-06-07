@@ -41,6 +41,8 @@ public class LevelGenerationScript : MonoBehaviour {
 	private int numRooms = 3;
 	[SerializeField]
 	private int numEnemies = 5;
+	[SerializeField]
+	private GameObject key;
 
 	// Private Variables
 	private GameObject entranceRoom; // Used later for comparison such that the starting room cannot contain enemies
@@ -360,6 +362,11 @@ public class LevelGenerationScript : MonoBehaviour {
 				completedRooms.Add (instantRoom);
 				rooms.Remove (instantRoom);
 			}
+		}
+
+		if(curRooms > numRooms-3){
+			Debug.Log("Room Number: "+ curRooms);
+			GameObject Key = Instantiate(key, gameObject.transform.position, gameObject.transform.rotation);
 		}
 	}
 
