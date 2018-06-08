@@ -395,9 +395,7 @@ public class EntityStatisticsScript : MonoBehaviour {
 		curHealth -= damage;
 		if (curHealth <= 0) {
 			curHealth = 0;
-            
-
-            if (this.gameObject.tag.Equals ("Enemy")) {
+			if (this.gameObject.tag.Equals ("Enemy")) {
 				foreach (GameObject hero in GameObject.FindGameObjectsWithTag("Hero")) {
 					hero.GetComponent<EntityStatisticsScript> ().GainExperience (10 * level);
 					Debug.Log ("Gain experience...?");
@@ -409,11 +407,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 				}
 
 			}
-            // Invoke "death" here
-            this.gameObject.GetComponent<EntityTargetScript>().Die();
 
-            //GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().entityLists[this.gameObject.tag].Remove(this.gameObject.transform);
-            LevelGenerationScript.entityLists [this.gameObject.tag].Remove (this.gameObject.transform);
+			// Invoke "death" here
+			this.gameObject.GetComponent<EntityTargetScript>().Die();
+			//GameObject.Find("LevelGenerator").GetComponent<LevelGenerationScript>().entityLists[this.gameObject.tag].Remove(this.gameObject.transform);
+			LevelGenerationScript.entityLists [this.gameObject.tag].Remove (this.gameObject.transform);
 			GetComponentInChildren<Canvas> ().enabled = false;
 
 		} else if (curHealth <= Mathf.RoundToInt(0.3f * maxHealth)) {

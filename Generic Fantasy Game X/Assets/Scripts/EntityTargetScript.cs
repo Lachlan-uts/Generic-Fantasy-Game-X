@@ -14,7 +14,7 @@ public class EntityTargetScript : MonoBehaviour {
 	[SerializeField]
 	private List<string> targetableTags = new List<string> () {"Hero", "Enemy"}; //<--- Make sure this always has atleast 2 elements or bad times will occour
 
-    SceneController sceneController;
+
 
 //	private string[] targetableTags = new string[] {"Hero", "Enemy"};
 
@@ -43,8 +43,6 @@ public class EntityTargetScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-        sceneController = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<SceneController>();
         Time.timeScale = 1;
         weaponScript = GetComponentInChildren<WeaponScript> ();
 
@@ -188,12 +186,11 @@ public class EntityTargetScript : MonoBehaviour {
 		}
 	}
 
-    int deathCount = 0;
+
 	public void Die() {
         
 		if (this.gameObject.CompareTag ("Hero")) {
-            //			
-            deathCount++;
+//			Invoke ("PlayerDeath", 3.0f);
 		} else {
 			GameObject.Find ("SampleExit(Clone)").GetComponent<HatchScript> ().IncrementEnemyKills ();
 		}
@@ -214,18 +211,10 @@ public class EntityTargetScript : MonoBehaviour {
 				allDead = false;
 		}
 
-        if (allDead)
-        {
-            Invoke("PlayerDeath", 3.0f);
+		if (allDead)
+			Invoke ("PlayerDeath", 3.0f);
 
-            this.enabled = false;
-        }
-
-        if(deathCount >= 2)
-        {
-            Invoke("PlayerDeath", 3.0f);
-        }
-        Debug.Log("allDead: " + allDead + ", DeathCount: " + deathCount);
+		this.enabled = false;
     }
 		
 	/// <summary>
@@ -236,10 +225,4 @@ public class EntityTargetScript : MonoBehaviour {
 		targetedEntity_ = null;
 		this.enabled = false;
 	}
-
-    public void PlayerDeath()
-    {
-
-        sceneController.GameOver();
-    }
 }
