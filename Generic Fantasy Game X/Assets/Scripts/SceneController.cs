@@ -59,7 +59,7 @@ public class SceneController : MonoBehaviour {
 
 	}
 
-	private void GameOver() {
+	public void GameOver() {
 		SceneManager.LoadScene("GameOver");
 	}
 
@@ -101,4 +101,6 @@ public class SceneController : MonoBehaviour {
 		//When Combining
 		//SceneManager.LoadScene("Main Scene");
 	}
+
+    
 }
