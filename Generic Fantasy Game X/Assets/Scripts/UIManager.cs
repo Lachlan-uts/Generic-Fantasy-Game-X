@@ -75,6 +75,12 @@ public class UIManager : MonoBehaviour
             heroes[heroCount].GetComponent<EntityStatisticsScript>().staticXPUI = slots[slotCount].GetComponent<UISlotScript>().XPBar;
             heroes[heroCount].GetComponent<EntityStatisticsScript>().currentLevelText = slots[slotCount].GetComponent<UISlotScript>().LevelText;
             slots[slotCount].GetComponent<UISlotScript>().inventoryView.GetComponent<PGIView>().Model = heroes[heroCount].GetComponent<EntityStatisticsScript>().inventory;
+			if (slots [slotCount].GetComponent<UISlotScript> ().potionSlot) {
+				heroes [heroCount].GetComponent<EntityStatisticsScript> ().inventory.Equipment = new PGISlot[2] {
+					slots [slotCount].GetComponent<UISlotScript> ().potionSlot.GetComponent<PGISlot> (),
+					slots [slotCount].GetComponent<UISlotScript> ().rightHandSlot.GetComponent<PGISlot> ()
+				};
+			}
 
             slots[slotCount].SetActive(true);
 

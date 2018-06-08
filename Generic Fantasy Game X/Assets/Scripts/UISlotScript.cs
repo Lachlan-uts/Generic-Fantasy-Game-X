@@ -12,6 +12,8 @@ public class UISlotScript : MonoBehaviour {
 	public Text XPText;
 	public Text LevelText;
 	public GameObject inventoryView;
+	public GameObject potionSlot;
+	public GameObject rightHandSlot;
 
 
 //	// Use this for initialization

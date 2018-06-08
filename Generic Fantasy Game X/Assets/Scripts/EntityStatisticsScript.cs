@@ -153,8 +153,9 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 		// Equipping the starting weapon
 		GameObject initialWeapon = Instantiate(startingWeapon, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+		//InstigateCommand (entityTargetContexts.Item, initialWeapon);
 		Pickup (initialWeapon);
-//		inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
+		//inventory.Equip (initialWeapon.GetComponent<PGISlotItem> (), 1, true);
 
 		//the below is all garbage!
 
@@ -221,9 +222,13 @@ public class EntityStatisticsScript : MonoBehaviour {
 	}
 
 	public void InstigateCommand (entityTargetContexts context, GameObject other) {
-		targetContext = context;
-		targetThing = other;
-		this.gameObject.GetComponent<EntityNavigationScript> ().SetDestination (targetThing.transform.position, this.gameObject);
+		if (Vector3.Distance (other.transform.position, this.transform.position) > 1.0f) {
+			targetContext = context;
+			targetThing = other;
+			this.gameObject.GetComponent<EntityNavigationScript> ().SetDestination (targetThing.transform.position, this.gameObject);
+		} else {
+			Pickup (other);
+		}
 	}
 
 	public void Interact (GameObject other) {
@@ -325,7 +330,11 @@ public class EntityStatisticsScript : MonoBehaviour {
 
 	private void UpdateMaxHealth () {
 		int prevMaxHealth = maxHealth;
-		maxHealth = (level * 15) + (statVitality * 20);
+		if (this.gameObject.CompareTag ("Hero")) {
+			maxHealth = 5 + (level * 15) + (statVitality * 20);
+		} else {
+			maxHealth = (level * 15) + (statVitality * 20);
+		}
 		int healthDiff = maxHealth - prevMaxHealth;
 		curHealth += healthDiff;
 	}
@@ -358,10 +367,12 @@ public class EntityStatisticsScript : MonoBehaviour {
 	}
 
 	public void GainExperience(int gainedExp) {
-		experience += gainedExp;
-		if (experience > ExperienceNeeded ()) {
-			experience -= ExperienceNeeded ();
-			LevelUp ();
+		if (curHealth != 0) {
+			experience += gainedExp;
+			if (experience >= ExperienceNeeded ()) {
+				experience -= ExperienceNeeded ();
+				LevelUp ();
+			}
 		}
 	}
 
@@ -392,12 +403,22 @@ public class EntityStatisticsScript : MonoBehaviour {
 	}
 
 	public void TakeDamage(int damage) { // Determines how much damage is to be taken
-		curHealth -= damage;
+		if (curHealth == 0) {
+			this.gameObject.GetComponent<EntityTargetScript> ().Die ();
+			return;
+		}
+
+		int actualDamage = damage - statStrength;
+		if (actualDamage < 1) {
+			actualDamage = 1;
+		}
+		curHealth -= actualDamage;
+
 		if (curHealth <= 0) {
 			curHealth = 0;
 			if (this.gameObject.tag.Equals ("Enemy")) {
 				foreach (GameObject hero in GameObject.FindGameObjectsWithTag("Hero")) {
-					hero.GetComponent<EntityStatisticsScript> ().GainExperience (10 * level);
+					hero.GetComponent<EntityStatisticsScript> ().GainExperience (3 + 12 * level);
 					Debug.Log ("Gain experience...?");
 				}
 

@@ -37,9 +37,9 @@ public class LevelGenerationScript : MonoBehaviour {
 	private GameObject roomDoor;
 	[SerializeField]
 	private GameObject roomRubble;
-	[SerializeField]
+	//[SerializeField]
 	private int numRooms = 3;
-	[SerializeField]
+	//[SerializeField]
 	private int numEnemies = 5;
 	[SerializeField]
 	private GameObject key;
@@ -63,6 +63,11 @@ public class LevelGenerationScript : MonoBehaviour {
 		completedRooms = new List<GameObject> ();
 		doorNodes = new List<GameObject> ();
 		genStage = -2;
+
+		int roomVariance = Random.Range (0, 3 * (floorNumber + 1));
+		numRooms = 14 + floorNumber * 5 + roomVariance;
+		numEnemies = 8 + ((numRooms - (4 + roomVariance)) / 5) * 3 + Random.Range (1, (floorNumber + 1) * 2);
+
 	}
 	
 	// Update is called once per frame

@@ -26,7 +26,8 @@ public class WeaponScript : MonoBehaviour {
 		}
 		equiper = null;
 		//SetState (this.transform.parent);
-		damage = 10 * weaponModifier;
+		SetStatistics();
+		//damage = 10 * weaponModifier;
 		//workaround for enabling the weapon collider until the setstate is updated.
 		weaponCollider.enabled = false;
 	}
@@ -69,7 +70,20 @@ public class WeaponScript : MonoBehaviour {
 	}
 
 	public void SetStatistics(int floorNumber) {
-		damage = floorNumber * 4 + Random.Range (1, (int)(5 * (floorNumber / 2)));
+		damage = 8 * weaponModifier + floorNumber * 4 + Random.Range (1, (int)(5 * (floorNumber / 2))) * weaponModifier;
+		Debug.Log ("this weapon has damage of: " + damage);
+	}
+
+	public void SetStatistics() {
+		if (GameObject.Find ("LevelGenerator")) {
+			int floorNumber = GameObject.Find ("LevelGenerator").GetComponent<LevelGenerationScript> ().floorNumber;
+			damage = 8 * weaponModifier + floorNumber * 4 + Random.Range (1, (int)(5 * (floorNumber / 2))) * weaponModifier;
+			Debug.Log ("this weapon has damage of: " + damage);
+		} else {
+			int floorNumber = 1;
+			damage = 8 * weaponModifier + floorNumber * 4 + Random.Range (1, (int)(5 * (floorNumber / 2))) * weaponModifier;
+			Debug.Log ("this weapon has damage of: " + damage);
+		}
 	}
 
 	private void SetState(Transform owner = null) {

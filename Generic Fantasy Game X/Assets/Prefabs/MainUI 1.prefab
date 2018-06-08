@@ -10090,6 +10090,8 @@ MonoBehaviour:
   XPText: {fileID: 114101841573898874}
   LevelText: {fileID: 114586882056629260}
   inventoryView: {fileID: 1453382156511944}
+  potionSlot: {fileID: 1010410226126560}
+  rightHandSlot: {fileID: 1769879821859896}
 --- !u!114 &114104032846880800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -17902,10 +17904,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 224003558919533776}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 40
   m_MaxValue: 80
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 40
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -25366,6 +25368,8 @@ MonoBehaviour:
   XPText: {fileID: 114814449707439758}
   LevelText: {fileID: 114819538828009794}
   inventoryView: {fileID: 1166406820757402}
+  potionSlot: {fileID: 1364700852034262}
+  rightHandSlot: {fileID: 1570548737263276}
 --- !u!114 &114643227816961814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38500,7 +38504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1190, y: 45}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224004369884476020
@@ -44560,7 +44564,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 100.6001, y: 59.000008}
+  m_AnchoredPosition: {x: 100.59961, y: 59}
   m_SizeDelta: {x: 143.1, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224773826572233856
@@ -46174,7 +46178,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 86.523926, y: -219}
+  m_AnchoredPosition: {x: 86.52344, y: -219}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224997318401689700
