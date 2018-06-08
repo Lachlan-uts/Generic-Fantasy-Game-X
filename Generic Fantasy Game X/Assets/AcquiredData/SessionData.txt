@@ -253,3 +253,9 @@ Date/Time of Play session: 8/6/2018 19:38:37.
 Date/Time of Play session: 8/6/2018 19:44:10.
 Floor: 0 Objective: Kill Enemies Enemy Kills: 52 Total Enemies: 15
 Floor: 0 Objective: Kill Enemies Enemy Kills: 52 Total Enemies: 15
+Date/Time of Play session: 8/6/2018 20:21:58.
+Date/Time of Play session: 8/6/2018 20:22:8.
+Date/Time of Play session: 8/6/2018 20:22:17.
+Date/Time of Play session: 8/6/2018 20:27:19.
+Floor: 0 Objective: Kill Enemies Enemy Kills: 31 Total Enemies: 15
+Floor: 0 Objective: Kill Enemies Enemy Kills: 31 Total Enemies: 15

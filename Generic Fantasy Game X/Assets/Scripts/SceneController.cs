@@ -76,6 +76,10 @@ public class SceneController : MonoBehaviour {
 		SceneManager.LoadScene(gameScene);
     }
 
+	public void ViewInstructions() {
+		SceneManager.LoadScene ("Instructions");
+	}
+
     public void ExitGame()
     {
         SceneManager.LoadScene("StartMenu");
