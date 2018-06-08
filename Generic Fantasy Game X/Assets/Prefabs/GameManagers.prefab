@@ -20,9 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4301134972690900}
   - component: {fileID: 114956237955502734}
-  - component: {fileID: 114782944450482848}
   - component: {fileID: 114315075635544190}
-  - component: {fileID: 114218215627664666}
+  - component: {fileID: 114250681568237970}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: GameManagers
@@ -43,7 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114218215627664666
+--- !u!114 &114250681568237970
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -60,6 +59,10 @@ MonoBehaviour:
   collectableText: {fileID: 0}
   onScreenTimeText: {fileID: 0}
   timerAudio: {fileID: 0}
+  keysFound: 0
+  killStatus: {fileID: 0}
+  keyStatus: {fileID: 0}
+  objectiveText: {fileID: 0}
   scoreValue: 0
   levelTimer: 0
   killCount: 0
@@ -77,17 +80,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameScene: UI - Inventory
---- !u!114 &114782944450482848
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1319806677692778}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf8ac3c7182934448f152fbd7522208, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114956237955502734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,7 +91,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b3d614feb761a408077d1ddb6b5b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
   pauseMenu: {fileID: 0}
   scoreScreen: {fileID: 0}
+  statusScreen: {fileID: 0}
+  pauseBtn: {fileID: 0}
+  statusBtn: {fileID: 0}
   audio: {fileID: 0}
   BGM: {fileID: 0}

@@ -12,7 +12,16 @@ public class DataCollector : MonoBehaviour {
 	public Text onScreenTimeText;
 	public AudioSource timerAudio;
 
-	public int scoreValue;
+
+    public int keysFound = 0;
+
+    //StatusScreen
+    public Text killStatus;
+    public Text keyStatus;
+    public Text objectiveText;
+
+
+    public int scoreValue;
 	public int levelTimer;
 	private float secondsCount;
 	private float minuteCount;
@@ -20,23 +29,19 @@ public class DataCollector : MonoBehaviour {
 	public int killCount;
 
 	public int collectCount;
-	public int collectMax;
+    public int collectMax;
 
 	// Use this for initialization
 	void Start () {
-		scoreScreen = GameObject.FindGameObjectWithTag ("ScoreScreen");
-//		timerText = GameObject.FindGameObjectWithTag("TimerScore").GetComponent<Text> ();
-//		killText =  GameObject.FindGameObjectWithTag("KillScore").GetComponent<Text> ();
-//		collectableText = GameObject.FindGameObjectWithTag("CollectableScore").GetComponent<Text> ();
-//		onScreenTimeText = GameObject.FindGameObjectWithTag ("OnScreen").GetComponent<Text> ();  //Timer display for Players
-		//timerAudio = GameObject.FindGameObjectWithTag("OnScreen").GetComponent<AudioSource>();
-	}
+		collectMax = 3;
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		TimerScore ();
 		KillScore ();
 		CollectableScore ();
+        addQuest();
 
 	}
 
@@ -70,21 +75,32 @@ public class DataCollector : MonoBehaviour {
 		}
 	}
 
+    public void addQuest()
+    {
+        objectiveText.text = "Collect at least 2 keys to enter the next level";
+    }
 	public void KillScore()
 	{
 		killText.text = "Enemies Defeated: " + killCount;
-
-	}
+        killStatus.text = killText.text;
+    }
 
 	public void CollectableScore()
 	{
-		collectableText.text = "Collected: " + collectCount + "/" + collectMax;
-	}
+
+		collectableText.text = "Keys: " + keysFound + "/" + collectMax;
+        keyStatus.text = collectableText.text;
+    }
 
 	public void AddPoints()
 	{
 		killCount += 1;
 	}
+
+    public void AddKey()
+    {
+        keysFound += 1;
+    }
 
 	public void resetScore()
 	{

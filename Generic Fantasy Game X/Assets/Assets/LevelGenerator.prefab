@@ -69,5 +69,6 @@ MonoBehaviour:
   exitStairs: {fileID: 1034956674318524, guid: 9dbe54f33a8a12f44b395ac68c7133d2, type: 2}
   roomDoor: {fileID: 1963067347466498, guid: 9841c73026760084185bdf70a754aef6, type: 2}
   roomRubble: {fileID: 1595390086829828, guid: 021927b5294750341af797b8ec7e6261, type: 2}
-  numRooms: 30
-  numEnemies: 15
+  numRooms: 35
+  numEnemies: 20
+  key: {fileID: 1849307884554900, guid: f7f280db834a4f34992da40add380499, type: 2}

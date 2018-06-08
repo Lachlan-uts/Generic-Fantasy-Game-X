@@ -14,8 +14,8 @@ public class HatchScript : MonoBehaviour {
 
     private int enemyKills;
 
-    public static int keysFound = 0;
-
+    public int keysFound;
+    public DataCollector dataCollector;
     //Get ScreenScore from UIManager
     //private UIManager uiManager;
 
@@ -26,6 +26,7 @@ public class HatchScript : MonoBehaviour {
     void Start () {
 
         //uiManager = GameObject.FindGameObjectWithTag ("GameManagers").GetComponent<UIManager> ();
+        dataCollector = GameObject.FindGameObjectWithTag("GameManagers").GetComponent<DataCollector>();
 
         missionObjective = Random.Range(0, 2);
 
@@ -55,7 +56,8 @@ public class HatchScript : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
-        
+        keysFound = dataCollector.keysFound;
+
 
     }
 
